@@ -182,8 +182,27 @@
             android:theme="@style/AppTheme"
             android:screenOrientation="portrait" />
 
+        <activity
+            android:name=".mvp.activity.WebViewWitesActivity"
+            android:theme="@style/AppTheme"
+            android:screenOrientation="portrait" />
 
-
+        <activity
+            android:name=".mvp.activity.home.MessageActivity"
+            android:theme="@style/AppTheme"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".mvp.activity.home.DoctorDetailActivity"
+            android:theme="@style/AppTheme"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".mvp.activity.health.TimeXRecordActivity"
+            android:theme="@style/AppTheme"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".mvp.activity.health.BloodChartRecordActivity"
+            android:theme="@style/AppTheme"
+            android:screenOrientation="portrait" />
 
 
 

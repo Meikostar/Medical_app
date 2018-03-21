@@ -49,10 +49,5 @@
         android:text="3颗"
         android:layout_marginRight="14dp"/>
 </LinearLayout>
-    <View
-        android:id="@+id/line"
-        android:layout_marginLeft="15dp"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@drawable/store_line"/>
+
 </LinearLayout>

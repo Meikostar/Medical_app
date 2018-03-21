@@ -8,6 +8,7 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/header_height">
         <ImageView
+            android:src="@drawable/login_selector"
             android:id="@+id/iv_scan"
             android:layout_marginLeft="14dp"
             android:layout_centerVertical="true"
@@ -15,9 +16,9 @@
             android:layout_height="21dp"
             android:layout_gravity="center_horizontal"
             android:layout_marginRight="7dp"
-
             />
         <ImageView
+            android:src="@drawable/login_selector"
             android:id="@+id/iv_alarm"
             android:layout_centerVertical="true"
             android:layout_alignParentRight="true"

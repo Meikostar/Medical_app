@@ -4,6 +4,8 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.widget.Toast;
 
+import com.canplay.medical.permission.PermissionGen;
+
 /**
  * Created by peter on 2016/9/12.
  */
@@ -81,5 +83,10 @@ public abstract class BaseFragment extends Fragment{
             toast = null;
         }
         super.onDestroy();
+    }
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions,
+                                           int[] grantResults) {
+        PermissionGen.onRequestPermissionsResult(this, requestCode, permissions, grantResults);
     }
 }

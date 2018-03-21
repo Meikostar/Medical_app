@@ -2,7 +2,7 @@ package com.canplay.medical.mvp.component;
 
 
 import com.canplay.medical.base.AppComponent;
-import com.canplay.medical.fragment.MenutFragment;
+import com.canplay.medical.fragment.HealthDataFragment;
 import com.canplay.medical.fragment.HomeDoctorFragment;
 import com.canplay.medical.fragment.SetFragment;
 import com.canplay.medical.mvp.ActivityScope;
@@ -20,7 +20,7 @@ public interface BaseComponent{
 
     void inject(LoginActivity binderActivity);
     void inject(MainActivity binderActivity);
-    void inject(MenutFragment binderActivity);
+    void inject(HealthDataFragment binderActivity);
     void inject(SetFragment binderActivity);
 
     void inject(HomeDoctorFragment binderActivity);

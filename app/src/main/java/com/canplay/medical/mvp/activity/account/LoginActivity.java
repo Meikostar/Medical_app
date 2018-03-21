@@ -2,7 +2,6 @@ package com.canplay.medical.mvp.activity.account;
 
 import android.Manifest;
 import android.content.Intent;
-import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -18,19 +17,15 @@ import com.canplay.medical.permission.PermissionConst;
 import com.canplay.medical.permission.PermissionFail;
 import com.canplay.medical.permission.PermissionGen;
 import com.canplay.medical.permission.PermissionSuccess;
-import com.canplay.medical.util.SpUtil;
-import com.canplay.medical.util.StringUtil;
-import com.canplay.medical.util.TextUtil;
+
 import com.canplay.medical.view.ClearEditText;
-import com.yzq.zxinglibrary.android.CaptureActivity;
 import com.yzq.zxinglibrary.common.Constant;
 
 import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import io.valuesfeng.picker.Picker;
-import io.valuesfeng.picker.widget.ImageLoaderEngine;
+
 
 public class LoginActivity extends BaseActivity implements LoginContract.View {
     @Inject

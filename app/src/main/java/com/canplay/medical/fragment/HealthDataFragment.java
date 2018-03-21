@@ -1,18 +1,25 @@
 package com.canplay.medical.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
+import android.widget.ListView;
 
 import com.canplay.medical.R;
 import com.canplay.medical.base.BaseFragment;
 import com.canplay.medical.base.RxBus;
 import com.canplay.medical.base.SubscriptionBean;
-
+import com.canplay.medical.bean.Message;
+import com.canplay.medical.mvp.activity.health.BloodChartRecordActivity;
+import com.canplay.medical.mvp.activity.health.TimeXRecordActivity;
+import com.canplay.medical.mvp.adapter.HealthDataAdapter;
 import com.canplay.medical.view.NavigationBar;
-import com.canplay.medical.view.RegularListView;
+
+import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -22,18 +29,21 @@ import rx.functions.Action1;
 
 
 /**
- * Created by mykar on 17/4/10.
+ * 健康数据
  */
-public class MenutFragment extends BaseFragment implements View.OnClickListener {
+public class HealthDataFragment extends BaseFragment implements View.OnClickListener {
 
 
-    @BindView(R.id.navigationBar)
-    NavigationBar navigationBar;
-    @BindView(R.id.rl_menu)
-    RegularListView rlMenu;
+    Unbinder unbinder;
     @BindView(R.id.line)
     View line;
-    Unbinder unbinder;
+    @BindView(R.id.navigationBar)
+    NavigationBar navigationBar;
+    @BindView(R.id.rl_list)
+    ListView rlList;
+    @BindView(R.id.ll_bg)
+    LinearLayout llbg;
+    private HealthDataAdapter adapter;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -56,14 +66,16 @@ public class MenutFragment extends BaseFragment implements View.OnClickListener 
         super.onResume();
 
     }
+
     private Subscription mSubscription;
+
     private void initListener() {
         mSubscription = RxBus.getInstance().toObserverable(SubscriptionBean.RxBusSendBean.class).subscribe(new Action1<SubscriptionBean.RxBusSendBean>() {
             @Override
             public void call(SubscriptionBean.RxBusSendBean bean) {
                 if (bean == null) return;
 
-                if(bean.type==SubscriptionBean.MENU_REFASHS){
+                if (bean.type == SubscriptionBean.MENU_REFASHS) {
                 }
 
             }
@@ -74,22 +86,25 @@ public class MenutFragment extends BaseFragment implements View.OnClickListener 
             }
         });
         RxBus.getInstance().addSubscription(mSubscription);
-     navigationBar.setNavigationBarListener(new NavigationBar.NavigationBarListener() {
-         @Override
-         public void navigationLeft() {}
-         @Override
-         public void navigationRight() {
-
-         }
-         @Override
-         public void navigationimg() {}
-     });
-
+        llbg.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                 startActivity(new Intent(getActivity(),TimeXRecordActivity.class));
+            }
+        });
 
     }
 
     private void initView() {
+        adapter = new HealthDataAdapter(getActivity());
+        rlList.setAdapter(adapter);
+        adapter.setClickListener(new HealthDataAdapter.ItemCliks() {
+            @Override
+            public void getItem(Message menu, int type) {
+                startActivity(new Intent(getActivity(),BloodChartRecordActivity.class));
 
+            }
+        });
 
     }
 
@@ -108,8 +123,6 @@ public class MenutFragment extends BaseFragment implements View.OnClickListener 
 
         }
     }
-
-
 
 
     @Override

@@ -45,6 +45,10 @@
 
 
     </FrameLayout>
+    <ImageView
+        android:id="@+id/img"
+        android:layout_width="80dp"
+        android:layout_height="80dp" />
     <ListView
         android:id="@+id/list"
         android:layout_width="match_parent"

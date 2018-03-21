@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:background="@color/content_bg"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.01dp"
+        android:id="@+id/line"/>
+    <com.canplay.medical.view.NavigationBar
+        android:id="@+id/navigationBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:navigationRight_type="txt"
+        app:navigationRight_txt="删除"
+        app:navigationTitle="医生详情" />
+
+    <ImageView
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="95dp"
+        android:id="@+id/iv_img"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_marginRight="10dp"/>
+    <LinearLayout
+        android:id="@+id/ll_bg"
+        android:background="@color/white"
+        android:layout_marginTop="135dp"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="46dp"
+            android:text="晨晨"
+            android:id="@+id/tv_name"
+            android:textSize="15sp"
+            android:textColor="@color/slow_black"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <LinearLayout
+            android:layout_marginTop="12dp"
+            android:background="@color/white"
+            android:gravity="center_vertical"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:text="姓别"
+                android:layout_weight="1"
+                android:layout_marginLeft="13dp"
+                android:textColor="@color/slow_black"
+                android:textSize="15sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:id="@+id/tv_sex"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="13dp"
+                android:text="男"
+                android:textColor="@color/slow_black"
+                android:textSize="15sp" />
+
+        </LinearLayout>
+        <View
+            android:layout_marginLeft="16dp"
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="@color/linecolor"/>
+        <LinearLayout
+            android:background="@color/white"
+            android:gravity="center_vertical"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:text="职称"
+                android:layout_weight="1"
+                android:layout_marginLeft="16dp"
+                android:textColor="@color/slow_black"
+                android:textSize="15sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/tv_job"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="13dp"
+                android:text="主治医生"
+                android:textColor="@color/slow_black"
+                android:textSize="15sp" />
+        </LinearLayout>
+        <View
+            android:layout_marginLeft="16dp"
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="@color/linecolor"/>
+
+        <LinearLayout
+            android:layout_marginRight="13dp"
+            android:background="@color/white"
+            android:gravity="center_vertical"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:text="科室"
+                android:layout_weight="1"
+                android:layout_marginLeft="16dp"
+                android:textColor="@color/slow_black"
+                android:textSize="15sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:id="@+id/tv_department"
+                android:text="皮肤科"
+                android:layout_marginRight="13dp"
+                android:textColor="@color/slow_black"
+                android:textSize="15sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+        <View
+            android:layout_marginLeft="16dp"
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="@color/linecolor"/>
+
+        <LinearLayout
+            android:background="@color/white"
+            android:gravity="center_vertical"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:text="电话"
+                android:layout_weight="1"
+                android:layout_marginLeft="16dp"
+                android:textColor="@color/slow_black"
+                android:textSize="15sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:id="@+id/tv_phone"
+                android:text="18166365897"
+                android:layout_marginRight="13dp"
+                android:textColor="@color/slow_black"
+                android:textSize="15sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+        <View
+            android:layout_marginLeft="16dp"
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="@color/linecolor"/>
+
+        <LinearLayout
+            android:background="@color/white"
+            android:gravity="center_vertical"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:text="医院"
+                android:layout_weight="1"
+                android:layout_marginLeft="16dp"
+                android:textColor="@color/slow_black"
+                android:textSize="15sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:id="@+id/tv_hospital"
+                android:text="深圳南山科技社区医院"
+                android:layout_marginRight="13dp"
+                android:textColor="@color/slow_black"
+                android:textSize="15sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+    </LinearLayout>
+    <com.canplay.medical.view.scrollView.StickyScrollView
+        android:layout_marginBottom="6dp"
+        android:layout_below="@+id/ll_bg"
+        android:layout_marginTop="8dp"
+        android:layout_marginLeft="3dp"
+        android:layout_marginRight="3dp"
+        android:background="@drawable/line_regle"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+
+             android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <TextView
+
+                android:layout_marginTop="6dp"
+                android:text="擅长"
+                android:layout_weight="1"
+                android:layout_marginLeft="16dp"
+                android:textColor="@color/slow_black"
+                android:textSize="15sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:id="@+id/tv_detail"
+                android:layout_marginBottom="12dp"
+                android:layout_marginTop="12dp"
+                android:text="dsfdsfdsfdfdfdsfdsfdsfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfddfdsfdsfsdfsdfdfdfdfdfdffffsfdfdsssssssssssssssssssssssssdsfdsfdsfdfdfsdfsdfdsdfdsfdsfdsfdsfdsf"
+                android:layout_weight="1"
+                android:layout_marginLeft="16dp"
+                android:textColor="@color/color6"
+                android:textSize="12.5sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+    </com.canplay.medical.view.scrollView.StickyScrollView>
+
+
+
+</RelativeLayout>

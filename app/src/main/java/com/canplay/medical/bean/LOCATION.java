@@ -11,8 +11,26 @@ public class LOCATION implements Serializable {
 
     public String name;
     public String  address ;
+    public String  uid ;
+    public String  time ;
     public double latui;
     public double weidu;
+
+    public String getUid() {
+        return uid;
+    }
+
+    public void setUid(String uid) {
+        this.uid = uid;
+    }
+
+    public String getTime() {
+        return time;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
+    }
 
     public double getLatui() {
         return latui;

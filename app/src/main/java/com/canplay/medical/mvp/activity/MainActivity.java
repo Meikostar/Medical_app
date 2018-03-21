@@ -1,6 +1,8 @@
 package com.canplay.medical.mvp.activity;
 
 
+import android.Manifest;
+import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 
@@ -11,12 +13,17 @@ import com.canplay.medical.base.RxBus;
 import com.canplay.medical.base.SubscriptionBean;
 import com.canplay.medical.fragment.HomeDoctorFragment;
 import com.canplay.medical.fragment.HomeFragment;
-import com.canplay.medical.fragment.MenutFragment;
+import com.canplay.medical.fragment.HealthDataFragment;
 import com.canplay.medical.fragment.SetFragment;
 import com.canplay.medical.mvp.adapter.FragmentViewPagerAdapter;
 import com.canplay.medical.mvp.component.OnChangeListener;
+import com.canplay.medical.permission.PermissionConst;
+import com.canplay.medical.permission.PermissionGen;
+import com.canplay.medical.permission.PermissionSuccess;
 import com.canplay.medical.view.BottonNevgBar;
 import com.canplay.medical.view.NoScrollViewPager;
+import com.yzq.zxinglibrary.android.CaptureActivity;
+import com.yzq.zxinglibrary.common.Constant;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,7 +32,7 @@ import java.util.List;
 import rx.Subscription;
 import rx.functions.Action1;
 
-public class MainActivity extends BaseActivity {
+public class MainActivity extends BaseActivity implements HomeFragment.ScanListener {
 
 
     NoScrollViewPager viewpagerMain;
@@ -38,7 +45,7 @@ public class MainActivity extends BaseActivity {
     private HomeDoctorFragment homeDoctorFragment;
     private HomeFragment homeFragment;
 
-    private MenutFragment menutFragment;
+    private HealthDataFragment menutFragment;
     private SetFragment setFragment;
 
 
@@ -61,6 +68,9 @@ public class MainActivity extends BaseActivity {
             @Override
             public void call(SubscriptionBean.RxBusSendBean bean) {
                 if (bean == null) return;
+                if(SubscriptionBean.MENU_SCAN==bean.type){
+
+                }
 
 
             }
@@ -116,7 +126,7 @@ public class MainActivity extends BaseActivity {
         mFragments = new ArrayList<>();
         homeDoctorFragment=new HomeDoctorFragment();
 
-        menutFragment=new MenutFragment();
+        menutFragment=new HealthDataFragment();
         homeFragment=new HomeFragment();
         setFragment=new SetFragment();
         mFragments.add(homeFragment);
@@ -132,6 +142,50 @@ public class MainActivity extends BaseActivity {
         if (mSubscription != null) {
             RxBus.getInstance().unSub(mSubscription);
         }
+    }
+
+    @PermissionSuccess(requestCode = PermissionConst.REQUECT_CODE_CAMERA)
+    public void requestSdcardSuccess() {
+        Intent intent = new Intent(MainActivity.this, CaptureActivity.class);
+         /*ZxingConfig是配置类  可以设置是否显示底部布局，闪光灯，相册，是否播放提示音  震动等动能
+         * 也可以不传这个参数
+         * 不传的话  默认都为默认不震动  其他都为true
+         * */
+
+        //ZxingConfig config = new ZxingConfig();
+        //config.setShowbottomLayout(true);//底部布局（包括闪光灯和相册）
+        //config.setPlayBeep(true);//是否播放提示音
+        //config.setShake(true);//是否震动
+        //config.setShowAlbum(true);//是否显示相册
+        //config.setShowFlashLight(true);//是否显示闪光灯
+        //intent.putExtra(Constant.INTENT_ZXING_CONFIG, config);
+        startActivityForResult(intent, REQUEST_CODE_SCAN);
+    }
+
+    private int REQUEST_CODE_SCAN=6;
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        // 扫描二维码/条码回传
+        if (requestCode == REQUEST_CODE_SCAN && resultCode == RESULT_OK) {
+            if (data != null) {
+
+                String content = data.getStringExtra(Constant.CODED_CONTENT);
+                showToasts("扫描结果为：" +content);
+//                result.setText("扫描结果为：" + content);
+            }
+        }
+    }
+
+    @Override
+    public void scanListener() {
+        PermissionGen.with(MainActivity.this)//动态权限
+                .addRequestCode(PermissionConst.REQUECT_CODE_CAMERA)
+                .permissions(Manifest.permission.CAMERA,
+                        Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                        Manifest.permission.READ_EXTERNAL_STORAGE)
+                .request();
     }
 //
 //    //屏蔽返回键的代码:

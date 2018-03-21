@@ -1,7 +1,9 @@
 package com.canplay.medical.mvp.activity;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageView;
@@ -28,15 +30,21 @@ import com.baidu.mapapi.search.geocode.ReverseGeoCodeResult;
 import com.baidu.mapapi.search.poi.OnGetPoiSearchResultListener;
 import com.baidu.mapapi.search.poi.PoiCitySearchOption;
 import com.baidu.mapapi.search.poi.PoiDetailResult;
+import com.baidu.mapapi.search.poi.PoiDetailSearchOption;
+import com.baidu.mapapi.search.poi.PoiIndoorInfo;
 import com.baidu.mapapi.search.poi.PoiIndoorResult;
+import com.baidu.mapapi.search.poi.PoiNearbySearchOption;
 import com.baidu.mapapi.search.poi.PoiResult;
 import com.baidu.mapapi.search.poi.PoiSearch;
+import com.baidu.mapapi.search.poi.PoiSortType;
+import com.bumptech.glide.Glide;
 import com.canplay.medical.R;
 import com.canplay.medical.base.BaseActivity;
 import com.canplay.medical.bean.LOCATION;
 import com.canplay.medical.location.LocationUtil;
 import com.canplay.medical.mvp.adapter.LocationListAdapter;
 import com.canplay.medical.util.TextUtil;
+import com.canplay.medical.util.webContent;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -44,6 +52,8 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+
+import static android.R.attr.radius;
 
 
 public class LocationBdActivity extends BaseActivity {
@@ -57,6 +67,8 @@ public class LocationBdActivity extends BaseActivity {
     MapView mapView;
     @BindView(R.id.list)
     ListView listview;
+    @BindView(R.id.img)
+    ImageView img;
     private int count = 3;
     private BaiduMap mapViewMap;
     private boolean ifFrist = true;
@@ -168,15 +180,24 @@ public class LocationBdActivity extends BaseActivity {
                         LOCATION location = new LOCATION();
                         location.setAddress(info.address);
                         location.setName(info.name);
+                        location.setUid(info.uid);
                         location.setLatui(info.location.longitude);
                         location.setWeidu(info.location.latitude);
                         list.add(location);
                     }
+                    mPoiSearch.searchPoiDetail((new PoiDetailSearchOption()).poiUid(list.get(1).getUid()));
                 } else {
-                    mPoiSearch.searchInCity((new PoiCitySearchOption())
-                            .city(citys != null ? citys : LocationUtil.city)
-                            .keyword(LocationUtil.city)
-                            .pageNum(10).pageCapacity(0));
+//                    mPoiSearch.searchInCity((new PoiCitySearchOption())
+//                            .city(citys != null ? citys : LocationUtil.city)
+//                            .keyword(LocationUtil.city)
+//
+//                            .pageNum(10).pageCapacity(0));
+                    mPoiSearch.searchNearby(new PoiNearbySearchOption()
+                            .keyword("药店")
+                            .sortType(PoiSortType.distance_from_near_to_far)
+                            .location(new LatLng(Double.valueOf(w),Double.valueOf(j)))
+                            .radius(radius)
+                            .pageNum(10));
                 }
                 adapter.setData(list);
 
@@ -184,18 +205,29 @@ public class LocationBdActivity extends BaseActivity {
 
             @Override
             public void onGetPoiDetailResult(PoiDetailResult poiDetailResult) {
+                String detailUrl = poiDetailResult.getDetailUrl();
+
+                try {
+                    getUrlTask getUrlTask = new getUrlTask();
+                    getUrlTask.execute(detailUrl);
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
 
             }
 
             @Override
             public void onGetPoiIndoorResult(PoiIndoorResult poiIndoorResult) {
-
+                List<PoiIndoorInfo> poiIndoorInfos = poiIndoorResult.getmArrayPoiInfo();
             }
         };
-        mPoiSearch.searchInCity((new PoiCitySearchOption())
-                .city(citys != null ? citys : LocationUtil.city)
-                .keyword(address_detial)
-                .pageNum(10).pageCapacity(0));
+        mPoiSearch.searchNearby(new PoiNearbySearchOption()
+                .keyword("药店")
+                .sortType(PoiSortType.distance_from_near_to_far)
+                .location(new LatLng(Double.valueOf(w),Double.valueOf(j)))
+                .radius(radius)
+                .pageNum(10));
 
         mPoiSearch.setOnGetPoiSearchResultListener(poiListener);
 
@@ -205,9 +237,11 @@ public class LocationBdActivity extends BaseActivity {
 //                    geoCoder.geocode(new GeoCodeOption()
 //                            .city(TextUtil.isNotEmpty(citys)?citys:LocationUtil.city)
 //                            .address(TextUtil.isNotEmpty(citys)?citys:LocationUtil.city));
-                    mPoiSearch.searchInCity((new PoiCitySearchOption())
-                            .city(citys != null ? citys : LocationUtil.city)
-                            .keyword(citys != null ? citys : LocationUtil.city)
+                    mPoiSearch.searchNearby(new PoiNearbySearchOption()
+                            .keyword("药店")
+                            .sortType(PoiSortType.distance_from_near_to_far)
+                            .location(new LatLng(Double.valueOf(w),Double.valueOf(j)))
+                            .radius(radius)
                             .pageNum(10));
                     return;
                 }
@@ -365,10 +399,53 @@ public class LocationBdActivity extends BaseActivity {
         geoCoder.destroy();
     }
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
-        ButterKnife.bind(this);
+    //public abstract class AsyncTask<Params, Progress, Result>
+    //在此例中，Params泛型是String类型，Progress泛型是Object类型，Result泛型是Long类型
+
+    private class getUrlTask extends AsyncTask<String, Object, String> {
+        @Override
+        protected void onPreExecute() {
+            Log.i("iSpring", "DownloadTask -> onPreExecute, Thread name: " + Thread.currentThread().getName());
+            super.onPreExecute();
+
+        }
+
+        @Override
+        protected String doInBackground(String... params) {
+            Log.i("iSpring", "DownloadTask -> doInBackground, Thread name: " + Thread.currentThread().getName());
+
+            String param = params[0];
+            String url = "";
+            try {
+                url = webContent.getUrl(webContent.getHtml(param));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            //将总共下载的字节数作为结果返回
+            return url;
+        }
+
+
+
+        @Override
+        protected void onProgressUpdate(Object... values) {
+            Log.i("iSpring", "DownloadTask -> onProgressUpdate, Thread name: " + Thread.currentThread().getName());
+            super.onProgressUpdate(values);
+
+        }
+
+        @Override
+        protected void onPostExecute(String url) {
+            Glide.with(LocationBdActivity.this).load(url).asBitmap().into(img);
+        }
+
+        @Override
+        protected void onCancelled() {
+            Log.i("iSpring", "DownloadTask -> onCancelled, Thread name: " + Thread.currentThread().getName());
+            super.onCancelled();
+
+        }
     }
+
 }

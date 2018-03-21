@@ -1,5 +1,6 @@
 package com.canplay.medical.fragment;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -16,17 +17,27 @@ import com.canplay.medical.base.RxBus;
 import com.canplay.medical.base.SubscriptionBean;
 import com.canplay.medical.mvp.activity.LocationBdActivity;
 import com.canplay.medical.mvp.activity.home.MeasurePlanActivity;
+import com.canplay.medical.mvp.activity.home.MessageActivity;
 import com.canplay.medical.mvp.activity.home.UsePlanActivity;
+import com.canplay.medical.mvp.activity.mine.AddFriendActivity;
+import com.canplay.medical.mvp.activity.mine.MineEuipmentActivity;
+import com.canplay.medical.mvp.activity.mine.MineHealthCenterActivity;
 import com.canplay.medical.mvp.adapter.HomeAdapter;
+import com.canplay.medical.permission.PermissionConst;
+import com.canplay.medical.permission.PermissionSuccess;
 import com.canplay.medical.view.NavigationBar;
 import com.canplay.medical.view.RegularListView;
 import com.canplay.medical.view.banner.BannerView;
+import com.yzq.zxinglibrary.android.CaptureActivity;
+import com.yzq.zxinglibrary.common.Constant;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import rx.Subscription;
 import rx.functions.Action1;
+
+import static android.app.Activity.RESULT_OK;
 
 
 /**
@@ -57,7 +68,10 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
     @BindView(R.id.lv_info)
     RegularListView lvInfo;
 
-
+   public interface ScanListener{
+       void scanListener();
+   }
+   public ScanListener listener;
     private HomeAdapter adapter;
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -80,6 +94,17 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
         super.onResume();
 
     }
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        try {
+            listener = (ScanListener) activity;
+        } catch (ClassCastException e) {
+            throw new ClassCastException(activity.toString()
+                    + " must implement OnHeadlineSelectedListener");
+        }
+    }
+
 
     private Subscription mSubscription;
 
@@ -120,7 +145,35 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
                 startActivity(new Intent(getActivity(),LocationBdActivity.class));
             }
         });
+        llEquipment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), MineEuipmentActivity.class);
+                intent.putExtra("name","智能设备");
+                startActivity(intent);
+            }
+        });
+        ivScan.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                listener.scanListener();
+            }
+        });
+        ivAlarm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), MessageActivity.class);
+                startActivity(intent);
+            }
+        });
+        llHealth.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
+                Intent intent = new Intent(getActivity(), MineHealthCenterActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     private void initView() {
@@ -152,4 +205,6 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
         super.onDestroy();
         mSubscription.unsubscribe();
     }
+
+
 }

@@ -13,6 +13,7 @@ import com.canplay.medical.mvp.adapter.EuipmentAdapter;
 import com.canplay.medical.permission.PermissionConst;
 import com.canplay.medical.permission.PermissionGen;
 import com.canplay.medical.permission.PermissionSuccess;
+import com.canplay.medical.util.TextUtil;
 import com.canplay.medical.view.NavigationBar;
 import com.canplay.medical.view.PhotoPopupWindow;
 import com.canplay.medical.view.RegularListView;
@@ -36,10 +37,15 @@ public class MineEuipmentActivity extends BaseActivity {
     RegularListView rlMenu;
     private EuipmentAdapter adapter;
     private PhotoPopupWindow mWindowAddPhoto;
+    private String title;
     @Override
     public void initViews() {
         setContentView(R.layout.activity_mine_equipment);
         ButterKnife.bind(this);
+        title=getIntent().getStringExtra("name");
+        if(TextUtil.isNotEmpty(title)){
+            navigationBar.setNaviTitle(title);
+        }
         navigationBar.setNavigationBarListener(this);
         adapter=new EuipmentAdapter(this);
         rlMenu.setAdapter(adapter);

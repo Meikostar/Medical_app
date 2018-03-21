@@ -1,5 +1,6 @@
 package com.canplay.medical.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
@@ -15,6 +16,8 @@ import com.canplay.medical.R;
 import com.canplay.medical.base.BaseFragment;
 import com.canplay.medical.base.RxBus;
 import com.canplay.medical.base.SubscriptionBean;
+import com.canplay.medical.mvp.activity.home.DoctorDetailActivity;
+import com.canplay.medical.mvp.activity.mine.AddFriendActivity;
 import com.canplay.medical.mvp.adapter.recycle.HomeDoctorRecycleAdapter;
 import com.canplay.medical.view.DivItemDecoration;
 import com.malinskiy.superrecyclerview.SuperRecyclerView;
@@ -94,6 +97,12 @@ public class HomeDoctorFragment extends BaseFragment implements View.OnClickList
             }
         });
         RxBus.getInstance().addSubscription(mSubscription);
+        ivAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getActivity(),AddFriendActivity.class));
+            }
+        });
 
     }
 
@@ -105,10 +114,10 @@ public class HomeDoctorFragment extends BaseFragment implements View.OnClickList
                 public void run() {
                     mSuperRecyclerView.setRefreshing(true);//执行下拉刷新的动画
                     refreshListener.onRefresh();//执行数据加载操作
-                }
-            });
         }
-    }
+        });
+        }
+        }
 
     public int currpage = 1;
 
@@ -137,6 +146,13 @@ public class HomeDoctorFragment extends BaseFragment implements View.OnClickList
             }
         };
         mSuperRecyclerView.setRefreshListener(refreshListener);
+
+        adapter.setClickListener(new HomeDoctorRecycleAdapter.OnItemClickListener() {
+            @Override
+            public void clickListener(int poiston, String id) {
+              startActivity(new Intent(getActivity(),DoctorDetailActivity.class));
+            }
+        });
 
     }
 
