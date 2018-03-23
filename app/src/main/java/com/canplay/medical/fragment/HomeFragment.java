@@ -22,6 +22,7 @@ import com.canplay.medical.mvp.activity.home.UsePlanActivity;
 import com.canplay.medical.mvp.activity.mine.AddFriendActivity;
 import com.canplay.medical.mvp.activity.mine.MineEuipmentActivity;
 import com.canplay.medical.mvp.activity.mine.MineHealthCenterActivity;
+import com.canplay.medical.mvp.activity.mine.RemindHealthActivity;
 import com.canplay.medical.mvp.adapter.HomeAdapter;
 import com.canplay.medical.permission.PermissionConst;
 import com.canplay.medical.permission.PermissionSuccess;
@@ -166,12 +167,24 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
                 startActivity(intent);
             }
         });
+
+
+
         llHealth.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), RemindHealthActivity.class);
+                intent.putExtra("type",1);
+                startActivity(intent);
 
+            }
+        });
+        llCare.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), MineHealthCenterActivity.class);
                 startActivity(intent);
+
             }
         });
     }

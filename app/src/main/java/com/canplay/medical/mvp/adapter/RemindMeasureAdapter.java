@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.BaseAdapter;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -108,6 +109,7 @@ public class RemindMeasureAdapter extends BaseAdapter {
             holder.tv_delete = (TextView) convertView.findViewById(R.id.tv_delete);
             holder.tvContent = (TextView) convertView.findViewById(R.id.tv_content);
             holder.ivchoose = (MCheckBox) convertView.findViewById(R.id.iv_choose);
+            holder.llbg = (LinearLayout) convertView.findViewById(R.id.ll_bg);
 
             convertView.setTag(holder);
         } else {
@@ -132,7 +134,12 @@ public class RemindMeasureAdapter extends BaseAdapter {
 
                }
            });
-
+          holder.llbg.setOnClickListener(new View.OnClickListener() {
+              @Override
+              public void onClick(View v) {
+                  listener.delete(0,1,position);
+              }
+          });
 
 
         return convertView;
@@ -146,7 +153,7 @@ public class RemindMeasureAdapter extends BaseAdapter {
 
         TextView tv_delete;
 
-        RelativeLayout rl_bg;
+        LinearLayout llbg;
     }
     class MyOnSlipStatusListener implements SwipeListLayout.OnSwipeStatusListener {
 

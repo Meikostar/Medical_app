@@ -92,7 +92,7 @@ public class HealthDataAdapter extends BaseAdapter {
         holder.llbg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                listener.getItem(new Message(), 1);
+                listener.getItem(new Message(),position);
             }
         });
         return view;

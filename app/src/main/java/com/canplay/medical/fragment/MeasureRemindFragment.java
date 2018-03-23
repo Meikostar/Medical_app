@@ -1,5 +1,6 @@
 package com.canplay.medical.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -9,6 +10,7 @@ import android.widget.ListView;
 
 import com.canplay.medical.R;
 import com.canplay.medical.base.BaseFragment;
+import com.canplay.medical.mvp.activity.home.MeasureActivity;
 import com.canplay.medical.mvp.adapter.RemindMeasureAdapter;
 import com.canplay.medical.mvp.adapter.RemindMedicatAdapter;
 import com.canplay.medical.view.RegularListView;
@@ -56,6 +58,12 @@ public class MeasureRemindFragment extends BaseFragment {
     private void initView() {
         adapter=new RemindMeasureAdapter(getActivity(),null,rlMenu);
         rlMenu.setAdapter(adapter);
+        adapter.setListener(new RemindMeasureAdapter.selectItemListener() {
+            @Override
+            public void delete(int id, int type, int poistion) {
+                startActivity(new Intent(getActivity(), MeasureActivity.class));
+            }
+        });
 
     }
 

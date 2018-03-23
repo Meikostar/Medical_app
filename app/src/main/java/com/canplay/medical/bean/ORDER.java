@@ -11,5 +11,6 @@ public class ORDER {
 
     public String upToken;
     public String surcharge;
+    public boolean isCheck;
 
 }

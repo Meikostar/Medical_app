@@ -11,6 +11,7 @@ import com.canplay.medical.fragment.BloodRecordFragment;
 import com.canplay.medical.fragment.ChartFragment;
 import com.canplay.medical.fragment.MeasureRemindFragment;
 import com.canplay.medical.fragment.RemindMedicatFragment;
+import com.canplay.medical.mvp.activity.home.AddBloodDataActivity;
 import com.canplay.medical.mvp.activity.mine.RemindSettingActivity;
 import com.canplay.medical.mvp.adapter.FragmentViewPagerAdapter;
 import com.canplay.medical.view.NavigationBar;
@@ -25,7 +26,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
- * 健康提醒
+ * 血压测量记录
  */
 public class BloodChartRecordActivity extends BaseActivity {
 
@@ -67,12 +68,12 @@ public class BloodChartRecordActivity extends BaseActivity {
 
             @Override
             public void navigationRight() {
-                startActivity(new Intent(BloodChartRecordActivity.this, RemindSettingActivity.class));
+                startActivity(new Intent(BloodChartRecordActivity.this, AddBloodDataActivity.class));
             }
 
             @Override
             public void navigationimg() {
-                startActivity(new Intent(BloodChartRecordActivity.this, RemindSettingActivity.class));
+
             }
         });
 

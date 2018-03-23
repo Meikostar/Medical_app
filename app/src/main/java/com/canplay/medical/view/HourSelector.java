@@ -109,6 +109,12 @@ public class HourSelector extends LinearLayout {
         String minute=mCycleWheelViewMinute.getSelectLabel();
         return (hour+":"+minute);
     }
+    public String getHour(){
+        return mCycleWheelViewHour.getSelectLabel();
+    }
+    public String getMinute(){
+        return mCycleWheelViewMinute.getSelectLabel();
+    }
     /**
      * 分钟
      */

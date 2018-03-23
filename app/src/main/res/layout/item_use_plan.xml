@@ -55,8 +55,8 @@
             android:layout_centerHorizontal="true"
             android:layout_width="2dp"
             app:lineHeight="1dp"
-            app:lineWidth="2dp"
-            app:dashWidth="2dp"
+            app:lineWidth="4dp"
+            app:dashWidth="4dp"
             app:dashOrientation="1"
             app:lineColor="@color/linecolor"
             android:layout_height="160dp"
@@ -69,15 +69,34 @@
             android:layout_width="6dp"
             android:layout_height="6dp" />
     </RelativeLayout>
-    <com.canplay.medical.view.RegularListView
-        android:layout_marginTop="15dp"
-        android:divider="#00000000"
-        android:dividerHeight="0dip"
-        android:listSelector="@android:color/transparent"
-        android:id="@+id/rl_menu"
-        android:background="@color/white"
+    <LinearLayout
+        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:visibility="visible"
-        style="@style/lv_content"/>
+        android:layout_height="wrap_content">
+        <com.canplay.medical.view.RegularListView
+            android:layout_marginTop="15dp"
+            android:divider="#00000000"
+            android:dividerHeight="0dip"
+            android:listSelector="@android:color/transparent"
+            android:id="@+id/rl_menu"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="visible"
+            style="@style/lv_content"/>
+
+        <com.canplay.medical.view.DashView
+            android:layout_marginLeft="12dp"
+            android:id="@+id/line3"
+            android:layout_marginTop="8dp"
+            android:layout_centerHorizontal="true"
+            android:layout_width="match_parent"
+            app:lineHeight="1dp"
+            app:lineWidth="4dp"
+            app:dashWidth="4dp"
+            app:dashOrientation="0"
+            app:lineColor="@color/linecolor"
+            android:layout_height="1dp"
+            />
+
+    </LinearLayout>
 </LinearLayout>

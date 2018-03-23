@@ -15,7 +15,7 @@
         android:layout_height="wrap_content"
         app:navigationRight_type="img"
         app:navigationRight_img="@drawable/login_selector"
-        app:navigationTitle="健康提醒" />
+        app:navigationTitle="血压测量记录" />
 
  <com.canplay.medical.view.TwoNevgBar
      android:id="@+id/ne_bar"

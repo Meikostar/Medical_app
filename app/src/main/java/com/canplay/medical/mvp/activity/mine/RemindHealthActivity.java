@@ -10,6 +10,7 @@ import com.canplay.medical.R;
 import com.canplay.medical.base.BaseActivity;
 import com.canplay.medical.fragment.MeasureRemindFragment;
 import com.canplay.medical.fragment.RemindMedicatFragment;
+import com.canplay.medical.mvp.activity.health.TakeMedicineActivity;
 import com.canplay.medical.mvp.adapter.FragmentViewPagerAdapter;
 import com.canplay.medical.view.NavigationBar;
 import com.canplay.medical.view.NoScrollViewPager;
@@ -35,6 +36,9 @@ public class RemindHealthActivity extends BaseActivity {
     TextView tvUse;
     @BindView(R.id.tv_merure)
     TextView tvMerure;
+    @BindView(R.id.tv_add)
+    TextView tvAdd;
+    private int type;
     private FragmentViewPagerAdapter mainViewPagerAdapter;
     private List<Fragment> mFragments;
 
@@ -43,7 +47,10 @@ public class RemindHealthActivity extends BaseActivity {
         setContentView(R.layout.activity_remind_health);
         ButterKnife.bind(this);
         navigationBar.setNavigationBarListener(this);
-
+        type=getIntent().getIntExtra("type",0);
+        if(type!=0){
+            tvAdd.setVisibility(View.VISIBLE);
+        }
 
     }
 
@@ -75,19 +82,30 @@ public class RemindHealthActivity extends BaseActivity {
         navigationBar.setNavigationBarListener(new NavigationBar.NavigationBarListener() {
             @Override
             public void navigationLeft() {
+                finish();
             }
 
             @Override
             public void navigationRight() {
-                startActivity(new Intent(RemindHealthActivity.this, RemindSettingActivity.class));
+                if(type==0){
+                    startActivity(new Intent(RemindHealthActivity.this, RemindSettingActivity.class));
+                }else {
+                    startActivity(new Intent(RemindHealthActivity.this, TakeMedicineActivity.class));
+                }
+
             }
 
             @Override
             public void navigationimg() {
+
+            }
+        });
+        tvAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
                 startActivity(new Intent(RemindHealthActivity.this, RemindSettingActivity.class));
             }
         });
-
 
     }
 

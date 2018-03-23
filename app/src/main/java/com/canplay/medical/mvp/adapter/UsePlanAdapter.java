@@ -40,7 +40,6 @@ public class UsePlanAdapter extends BaseAdapter {
 
     private Map<Integer, Integer> map = new HashMap<>();
     private int type;
-    private int state = -1;
 
     public void setData(List<ORDER> list, int type) {
         this.list = list;
@@ -48,14 +47,11 @@ public class UsePlanAdapter extends BaseAdapter {
         notifyDataSetChanged();
     }
 
-    public void setState(int state) {
-        this.state = state;
-        notifyDataSetChanged();
-    }
+
 
     public void setType(int type) {
         this.type = type;
-        notifyDataSetChanged();
+
     }
 
     private double totalMoney;
@@ -85,6 +81,11 @@ public class UsePlanAdapter extends BaseAdapter {
             view.setTag(holder);
         } else {
             holder = (ViewHolder) view.getTag();
+        }
+        if(type!=0){
+            holder.tvCout.setVisibility(View.INVISIBLE);
+        }else {
+            holder.tvCout.setVisibility(View.VISIBLE);
         }
         RemindItemAdapter adapter = new RemindItemAdapter(mContext);
         holder.rlMenu.setAdapter(adapter);

@@ -15,6 +15,8 @@ import com.canplay.medical.base.RxBus;
 import com.canplay.medical.base.SubscriptionBean;
 import com.canplay.medical.bean.Message;
 import com.canplay.medical.mvp.activity.health.BloodChartRecordActivity;
+import com.canplay.medical.mvp.activity.health.SugarChartRecordActivity;
+import com.canplay.medical.mvp.activity.health.TakeMedicineActivity;
 import com.canplay.medical.mvp.activity.health.TimeXRecordActivity;
 import com.canplay.medical.mvp.adapter.HealthDataAdapter;
 import com.canplay.medical.view.NavigationBar;
@@ -101,7 +103,15 @@ public class HealthDataFragment extends BaseFragment implements View.OnClickList
         adapter.setClickListener(new HealthDataAdapter.ItemCliks() {
             @Override
             public void getItem(Message menu, int type) {
-                startActivity(new Intent(getActivity(),BloodChartRecordActivity.class));
+                if(type==0){
+                    startActivity(new Intent(getActivity(),BloodChartRecordActivity.class));
+                }else if(type==1){
+                    startActivity(new Intent(getActivity(),SugarChartRecordActivity.class));
+                }else if(type==2){
+
+                    startActivity(new Intent(getActivity(),TakeMedicineActivity.class));
+                }
+
 
             }
         });

@@ -203,6 +203,30 @@
             android:name=".mvp.activity.health.BloodChartRecordActivity"
             android:theme="@style/AppTheme"
             android:screenOrientation="portrait" />
+        <activity
+            android:name=".mvp.activity.health.SugarChartRecordActivity"
+            android:theme="@style/AppTheme"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".mvp.activity.health.TakeMedicineActivity"
+            android:theme="@style/AppTheme"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".mvp.activity.home.SmartKitActivity"
+            android:theme="@style/AppTheme"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".mvp.activity.home.ChooseMedicalActivity"
+            android:theme="@style/AppTheme"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".mvp.activity.home.SearchMedicalActivity"
+            android:theme="@style/AppTheme"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".mvp.activity.home.MeasureActivity"
+            android:theme="@style/AppTheme"
+            android:screenOrientation="portrait" />
 
 
 
