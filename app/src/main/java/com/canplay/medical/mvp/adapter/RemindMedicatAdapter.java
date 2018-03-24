@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -107,6 +108,7 @@ public class RemindMedicatAdapter extends BaseAdapter {
             holder.tvTime = (TextView) convertView.findViewById(R.id.tv_time);
             holder.tv_delete = (TextView) convertView.findViewById(R.id.tv_delete);
             holder.tvContent = (TextView) convertView.findViewById(R.id.tv_content);
+            holder.rl_bg = (LinearLayout) convertView.findViewById(R.id.rl_bg);
             holder.rllist = (RegularListView) convertView.findViewById(R.id.rl_list);
 
 
@@ -136,7 +138,12 @@ public class RemindMedicatAdapter extends BaseAdapter {
                }
            });
 
-
+          holder.rl_bg.setOnClickListener(new View.OnClickListener() {
+              @Override
+              public void onClick(View v) {
+                  listener.delete(0,0,position);
+              }
+          });
 
         return convertView;
     }
@@ -145,6 +152,7 @@ public class RemindMedicatAdapter extends BaseAdapter {
 
         TextView tvTime;
         TextView tvContent;
+        LinearLayout rl_bg;
         RegularListView rllist;
 
         TextView tv_delete;

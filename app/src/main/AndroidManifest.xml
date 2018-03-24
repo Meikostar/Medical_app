@@ -227,8 +227,14 @@
             android:name=".mvp.activity.home.MeasureActivity"
             android:theme="@style/AppTheme"
             android:screenOrientation="portrait" />
-
-
+        <activity
+            android:name=".mvp.activity.home.ChooseProjectActivity"
+            android:theme="@style/AppTheme"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".mvp.activity.home.SmartEquitActivity"
+            android:theme="@style/AppTheme"
+            android:screenOrientation="portrait" />
 
 
 

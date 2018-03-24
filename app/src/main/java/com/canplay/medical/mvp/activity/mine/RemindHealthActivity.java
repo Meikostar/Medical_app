@@ -11,6 +11,7 @@ import com.canplay.medical.base.BaseActivity;
 import com.canplay.medical.fragment.MeasureRemindFragment;
 import com.canplay.medical.fragment.RemindMedicatFragment;
 import com.canplay.medical.mvp.activity.health.TakeMedicineActivity;
+import com.canplay.medical.mvp.activity.home.MeasureActivity;
 import com.canplay.medical.mvp.adapter.FragmentViewPagerAdapter;
 import com.canplay.medical.view.NavigationBar;
 import com.canplay.medical.view.NoScrollViewPager;
@@ -55,6 +56,7 @@ public class RemindHealthActivity extends BaseActivity {
     }
 
 
+    private int status;
     @Override
     public void bindEvents() {
 
@@ -66,6 +68,8 @@ public class RemindHealthActivity extends BaseActivity {
                 tvMerure.setTextColor(getResources().getColor(R.color.slow_black));
                 tvMerure.setBackground(null);
                 viewpagerMain.setCurrentItem(0);
+                tvAdd.setText("添加用药提醒");
+                status=0;
             }
         });
 
@@ -77,6 +81,8 @@ public class RemindHealthActivity extends BaseActivity {
                 tvUse.setTextColor(getResources().getColor(R.color.slow_black));
                 tvMerure.setTextColor(getResources().getColor(R.color.white));
                 tvMerure.setBackground(getResources().getDrawable(R.drawable.choose_huis_rectangle));
+                tvAdd.setText("添加测量提醒");
+                status=1;
             }
         });
         navigationBar.setNavigationBarListener(new NavigationBar.NavigationBarListener() {
@@ -103,7 +109,12 @@ public class RemindHealthActivity extends BaseActivity {
         tvAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(RemindHealthActivity.this, RemindSettingActivity.class));
+                if(status==0){
+                    startActivity(new Intent(RemindHealthActivity.this, RemindSettingActivity.class));
+                }else {
+                    startActivity(new Intent(RemindHealthActivity.this, MeasureActivity.class));
+                }
+
             }
         });
 

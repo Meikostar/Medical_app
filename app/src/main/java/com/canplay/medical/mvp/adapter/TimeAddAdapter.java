@@ -62,7 +62,7 @@ public class TimeAddAdapter extends BaseAdapter {
         if (view == null){
             holder = new ResultViewHolder();
             view = LayoutInflater.from(mContext).inflate(R.layout.item_time_add, parent, false);
-            holder.data= (TextView) view.findViewById(R.id.tv_data);
+            holder.data= (TextView) view.findViewById(R.id.tv_time);
             holder.close= (ImageView) view.findViewById(R.id.iv_close);
 
 
@@ -78,7 +78,7 @@ public class TimeAddAdapter extends BaseAdapter {
             public void onClick(View v) {
                 list.remove(position);
                 notifyDataSetChanged();
-                listener.getItem(list.get(position),position);
+//                listener.getItem(list.get(position),position);
             }
         });
         return view;

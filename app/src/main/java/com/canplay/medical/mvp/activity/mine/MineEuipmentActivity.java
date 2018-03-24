@@ -9,6 +9,7 @@ import com.canplay.medical.R;
 import com.canplay.medical.base.BaseActivity;
 import com.canplay.medical.bean.Euip;
 import com.canplay.medical.mvp.activity.account.LoginActivity;
+import com.canplay.medical.mvp.activity.home.SmartEquitActivity;
 import com.canplay.medical.mvp.adapter.EuipmentAdapter;
 import com.canplay.medical.permission.PermissionConst;
 import com.canplay.medical.permission.PermissionGen;
@@ -80,7 +81,7 @@ public class MineEuipmentActivity extends BaseActivity {
             @Override
             public void getItem(Euip menu,int type) {
               if(type==1){//点击事件
-
+                startActivity(new Intent(MineEuipmentActivity.this,SmartEquitActivity.class));
               }else {//长按事件
                   mWindowAddPhoto.showAsDropDown(line);
               }
