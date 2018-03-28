@@ -11,17 +11,22 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.canplay.medical.R;
 import com.canplay.medical.base.BaseActivity;
+import com.canplay.medical.bean.Province;
 import com.canplay.medical.mvp.activity.account.LoginActivity;
 import com.canplay.medical.permission.PermissionConst;
 import com.canplay.medical.permission.PermissionGen;
 import com.canplay.medical.permission.PermissionSuccess;
 import com.canplay.medical.util.SpUtil;
 import com.canplay.medical.util.TextUtil;
+import com.canplay.medical.view.AddressSelectBindDialog;
 import com.canplay.medical.view.EditorNameDialog;
 import com.canplay.medical.view.NavigationBar;
 import com.canplay.medical.view.PhotoPopupWindow;
 import com.canplay.medical.view.TimeSelectorDialog;
+import com.google.gson.Gson;
 import com.yzq.zxinglibrary.android.CaptureActivity;
+
+import org.json.JSONObject;
 
 import java.util.Date;
 import java.util.List;
@@ -31,6 +36,11 @@ import butterknife.ButterKnife;
 import io.valuesfeng.picker.ImageSelectActivity;
 import io.valuesfeng.picker.Picker;
 import io.valuesfeng.picker.widget.ImageLoaderEngine;
+import rx.Observable;
+import rx.Subscriber;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.functions.Action1;
+import rx.schedulers.Schedulers;
 
 /**
  * 个人信息
@@ -56,12 +66,17 @@ public class MineInfoActivity extends BaseActivity implements View.OnClickListen
     LinearLayout llBirth;
     @BindView(R.id.ll_area)
     LinearLayout llArea;
+    @BindView(R.id.ll_code)
+    LinearLayout ll_code;
     @BindView(R.id.navigationBar)
     NavigationBar navigationBar;
     @BindView(R.id.tv_birth)
     TextView tvBirth;
-   private EditorNameDialog dialog;
-   private PhotoPopupWindow mWindowAddPhoto;
+    @BindView(R.id.tv_area)
+    TextView tv_area;
+
+    private EditorNameDialog dialog;
+    private PhotoPopupWindow mWindowAddPhoto;
     private int sex=0;
     private String name="";
     @Override
@@ -78,9 +93,11 @@ public class MineInfoActivity extends BaseActivity implements View.OnClickListen
     public void bindEvents() {
         ivPhone.setOnClickListener(this);
         llName.setOnClickListener(this);
+        ll_code.setOnClickListener(this);
         llSex.setOnClickListener(this);
         llBirth.setOnClickListener(this);
         llArea.setOnClickListener(this);
+        llCenter.setOnClickListener(this);
         llBirth.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -128,7 +145,7 @@ public class MineInfoActivity extends BaseActivity implements View.OnClickListen
 
     }
 
-
+    private Province prov;
     @Override
     public void initData() {
 
@@ -160,7 +177,7 @@ public class MineInfoActivity extends BaseActivity implements View.OnClickListen
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.iv_phone://
+            case R.id.ll_center://
                                 PermissionGen.with(MineInfoActivity.this)
                         .addRequestCode(PermissionConst.REQUECT_CODE_CAMERA)
                         .permissions(Manifest.permission.CAMERA,
@@ -177,8 +194,28 @@ public class MineInfoActivity extends BaseActivity implements View.OnClickListen
             case R.id.ll_birth://
                 break;
             case R.id.ll_area://
+                showAddressSelector();
+                break;
+            case R.id.ll_code://
+                startActivity(new Intent(MineInfoActivity.this, MineCodeActivity.class));
                 break;
 
         }
+    }
+    private String proName="";
+    private String cityName="";
+   private AddressSelectBindDialog mSelectBindDialog;
+    public void showAddressSelector() {
+        if (mSelectBindDialog==null){
+            mSelectBindDialog = new AddressSelectBindDialog(this,proName,cityName);
+            mSelectBindDialog.setBindClickListener(new AddressSelectBindDialog.BindClickListener() {
+                @Override
+                public void site(String proName, String cityName) {
+                    tv_area.setText(proName.substring(0,(proName.length()-1))+","+cityName.substring(0,(cityName.length()-1)));
+
+                }
+            });
+        }
+        mSelectBindDialog.show();
     }
 }

@@ -60,6 +60,7 @@ public class SugarChartRecordActivity extends BaseActivity {
         navigationBar.setNavigationBarListener(new NavigationBar.NavigationBarListener() {
             @Override
             public void navigationLeft() {
+                finish();
             }
 
             @Override

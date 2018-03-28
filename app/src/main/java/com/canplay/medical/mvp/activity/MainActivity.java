@@ -9,28 +9,39 @@ import android.support.v4.view.ViewPager;
 
 import com.canplay.medical.R;
 import com.canplay.medical.base.BaseActivity;
+import com.canplay.medical.base.BaseApplication;
 import com.canplay.medical.base.RxBus;
 import com.canplay.medical.base.SubscriptionBean;
+import com.canplay.medical.bean.Province;
 import com.canplay.medical.fragment.HomeDoctorFragment;
 import com.canplay.medical.fragment.HomeFragment;
 import com.canplay.medical.fragment.HealthDataFragment;
 import com.canplay.medical.fragment.SetFragment;
+import com.canplay.medical.mvp.activity.mine.MineInfoActivity;
 import com.canplay.medical.mvp.adapter.FragmentViewPagerAdapter;
 import com.canplay.medical.mvp.component.OnChangeListener;
 import com.canplay.medical.permission.PermissionConst;
 import com.canplay.medical.permission.PermissionGen;
 import com.canplay.medical.permission.PermissionSuccess;
+import com.canplay.medical.util.TextUtil;
 import com.canplay.medical.view.BottonNevgBar;
 import com.canplay.medical.view.NoScrollViewPager;
+import com.google.gson.Gson;
 import com.yzq.zxinglibrary.android.CaptureActivity;
 import com.yzq.zxinglibrary.common.Constant;
+
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
 
 
+import rx.Observable;
+import rx.Subscriber;
 import rx.Subscription;
+import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
+import rx.schedulers.Schedulers;
 
 public class MainActivity extends BaseActivity implements HomeFragment.ScanListener {
 
@@ -92,6 +103,27 @@ public class MainActivity extends BaseActivity implements HomeFragment.ScanListe
         viewpagerMain.setOffscreenPageLimit(3);//设置缓存view 的个数
         viewpagerMain.setCurrentItem(current);
         bnbHome.setSelect(current);
+        if(BaseApplication.province==null){
+            Observable.create(new Observable.OnSubscribe<JSONObject>() {
+
+                @Override
+                public void call(Subscriber<? super JSONObject> subscriber) {
+                    JSONObject json = TextUtil.getJson("city.json",MainActivity.this);
+                    subscriber.onNext(json);
+                    subscriber.onCompleted();//结束异步任务
+
+                }
+            }).subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(new Action1<JSONObject>() {
+                        @Override
+                        public void call(JSONObject json) {
+                            JSONObject dataJson = json.optJSONObject("data");
+                            BaseApplication.province = new Gson().fromJson(dataJson.toString(), Province.class);
+
+                        }
+                    });
+        }
     }
 
     private void setViewPagerListener() {

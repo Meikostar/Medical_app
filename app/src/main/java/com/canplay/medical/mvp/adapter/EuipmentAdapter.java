@@ -20,7 +20,7 @@ import java.util.List;
 public class EuipmentAdapter extends BaseAdapter {
     private Context mContext;
     private List<Euip> list;
-
+    private int type;
     public EuipmentAdapter(Context mContext) {
 
         this.mContext = mContext;
@@ -28,6 +28,9 @@ public class EuipmentAdapter extends BaseAdapter {
 
     public interface ItemCliks{
         void getItem(Euip menu,int type);//type 1表示点击事件2 表示长按事件
+    }
+    public void setType(int type){
+        this.type=type;
     }
     private ItemCliks listener;
     public void setClickListener(ItemCliks listener){
@@ -60,12 +63,21 @@ public class EuipmentAdapter extends BaseAdapter {
             holder = new ResultViewHolder();
             view = LayoutInflater.from(mContext).inflate(R.layout.equip_item, parent, false);
             holder.name= (TextView) view.findViewById(R.id.tv_name);
+            holder.tv_time= (TextView) view.findViewById(R.id.tv_time);
             holder.tv_count= (TextView) view.findViewById(R.id.tv_number);
             holder.img= (ImageView) view.findViewById(R.id.iv_img);
+            holder.iv_arrow= (ImageView) view.findViewById(R.id.iv_arrow);
             holder.ll_item= (LinearLayout) view.findViewById(R.id.ll_bg);
             view.setTag(holder);
         }else{
             holder = (ResultViewHolder) view.getTag();
+        }
+        if(type==0){
+            holder.iv_arrow.setVisibility(View.VISIBLE);
+            holder.tv_time.setVisibility(View.GONE);
+        }else {
+            holder.iv_arrow.setVisibility(View.GONE);
+            holder.tv_time.setVisibility(View.VISIBLE);
         }
 //        if(TextUtil.isNotEmpty(list.get(position).classifyName)){
 //            holder.name.setText(list.get(position).classifyName);
@@ -95,8 +107,10 @@ public class EuipmentAdapter extends BaseAdapter {
     public  class ResultViewHolder{
 
         TextView name;
+        TextView tv_time;
         TextView tv_count;
         ImageView img;
+        ImageView iv_arrow;
         LinearLayout ll_item;
 
     }

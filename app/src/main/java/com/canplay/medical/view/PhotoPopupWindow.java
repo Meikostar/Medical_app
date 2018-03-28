@@ -50,7 +50,17 @@ public class PhotoPopupWindow extends PopupWindow{
             }
         });
     }
-   public void setCont(String top,String bot){
+    public void setColor(int top,int bot)
+    {
+        if(top!=0){
+            tv_exit.setTextColor(mContext.getResources().getColor(top));
+        }
+        if(bot!=0){
+            tv_cancel.setTextColor(mContext.getResources().getColor(bot));
+        }
+
+    }
+    public void setCont(String top,String bot){
        if(TextUtil.isNotEmpty(top)){
            tv_exit.setText(top);
        }

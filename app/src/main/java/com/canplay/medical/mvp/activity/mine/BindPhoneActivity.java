@@ -2,6 +2,7 @@ package com.canplay.medical.mvp.activity.mine;
 
 
 import android.os.Bundle;
+import android.view.View;
 import android.widget.TextView;
 
 import com.canplay.medical.R;
@@ -35,7 +36,12 @@ public class BindPhoneActivity extends BaseActivity {
 
     @Override
     public void bindEvents() {
+        tvChange.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
+            }
+        });
 
     }
 
@@ -50,10 +56,5 @@ public class BindPhoneActivity extends BaseActivity {
 
     }
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
-        ButterKnife.bind(this);
-    }
+
 }

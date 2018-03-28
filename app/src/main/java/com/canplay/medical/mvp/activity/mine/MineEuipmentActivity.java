@@ -52,6 +52,7 @@ public class MineEuipmentActivity extends BaseActivity {
         rlMenu.setAdapter(adapter);
         mWindowAddPhoto = new PhotoPopupWindow(this);
         mWindowAddPhoto.setCont("解除绑定","取消");
+        mWindowAddPhoto.setColor(R.color.red_pop,0);
     }
 
     @Override

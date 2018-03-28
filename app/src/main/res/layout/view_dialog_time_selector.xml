@@ -19,21 +19,22 @@
 
             <Button
                 android:id="@+id/but_tsw_cancel"
-                android:layout_width="67.5dp"
-                android:layout_height="wrap_content"
+                android:layout_width="57.5dp"
+                android:layout_height="29dp"
                 android:layout_marginLeft="11.5dp"
                 android:text="@string/cancel"
-                android:textColor="@color/color9"
-
+                android:textColor="@color/color6"
+                android:background="@drawable/line_regle_blue"
                 android:layout_gravity="left|center_vertical"/>
 
             <Button
                 android:id="@+id/but_tsw_confirm"
-                android:layout_width="67.5dp"
-                android:layout_height="wrap_content"
+                android:layout_width="57.5dp"
+                android:layout_height="29dp"
                 android:layout_marginRight="11.5dp"
                 android:text="确定"
-
+                android:textColor="@color/white"
+                android:background="@drawable/shape_bg_lin_cancel"
                 android:layout_gravity="right|center_vertical"/>
 
         </FrameLayout>

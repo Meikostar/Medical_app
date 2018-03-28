@@ -64,6 +64,7 @@ public class BloodChartRecordActivity extends BaseActivity {
         navigationBar.setNavigationBarListener(new NavigationBar.NavigationBarListener() {
             @Override
             public void navigationLeft() {
+                finish();
             }
 
             @Override

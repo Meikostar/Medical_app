@@ -1,28 +1,19 @@
 package com.canplay.medical.mvp.activity.mine;
 
-import android.graphics.Bitmap;
-import android.os.Bundle;
+
 import android.os.Handler;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
+import android.view.ViewGroup;
+
 import com.canplay.medical.R;
 import com.canplay.medical.base.BaseActivity;
 import com.canplay.medical.mvp.adapter.recycle.PressRecordReCycleAdapter;
 import com.canplay.medical.util.LogUtils;
 import com.canplay.medical.view.DivItemDecoration;
 import com.canplay.medical.view.NavigationBar;
-import com.google.zxing.WriterException;
-import com.malinskiy.superrecyclerview.OnMoreListener;
 import com.malinskiy.superrecyclerview.SuperRecyclerView;
-import com.yzq.zxinglibrary.encode.CodeCreator;
-
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

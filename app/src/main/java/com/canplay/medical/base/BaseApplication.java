@@ -8,6 +8,7 @@ import android.os.Vibrator;
 import android.support.multidex.MultiDex;
 
 import com.canplay.medical.base.manager.AppManager;
+import com.canplay.medical.bean.Province;
 import com.canplay.medical.location.LocationUtil;
 import com.canplay.medical.util.ExceptionHandler;
 import com.canplay.medical.util.JPushUtils;
@@ -41,6 +42,7 @@ public class BaseApplication extends Application{
         }
         return  cplayApplication;
     }
+    public static Province province;
     public LocationUtil locationUtil;
     public  Vibrator mVibrator;
     @Override

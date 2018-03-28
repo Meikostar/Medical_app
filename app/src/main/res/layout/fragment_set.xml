@@ -18,24 +18,29 @@
         android:layout_width="match_parent"
         android:layout_height="55dp" />
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="0.2dp"
-        android:background="@color/linecolor"/>
+
     <LinearLayout
+        android:layout_marginTop="10dp"
         android:background="@color/white"
         android:id="@+id/ll_center"
         android:gravity="center_vertical"
         android:layout_width="match_parent"
-        android:layout_height="85dp"
+        android:layout_height="88dp"
         android:orientation="horizontal">
-        <ImageView
+        <FrameLayout
+            android:background="@drawable/photo_bg"
+            android:layout_marginLeft="15dp"
+            android:padding="1dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:layout_width="53.5dp"
+                android:layout_height="53.5dp"
+              />
+        </FrameLayout>
 
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_marginLeft="15dp"/>
         <LinearLayout
-            android:layout_marginLeft="8dp"
+            android:layout_marginLeft="12dp"
             android:gravity="center_vertical"
             android:orientation="vertical"
             android:layout_weight="1"
@@ -49,20 +54,20 @@
                 <TextView
                     android:text="张三"
                     android:textColor="@color/slow_black"
-                    android:textSize="15sp"
+                    android:textSize="17.5sp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
                 <ImageView
 
                     android:layout_width="10dp"
                     android:layout_height="10dp"
-                    android:layout_marginLeft="15dp"/>
+                    android:layout_marginLeft="10dp"/>
             </LinearLayout>
             <TextView
-                android:layout_marginTop="6dp"
+                android:layout_marginTop="14dp"
                 android:text="广东，深圳"
                 android:layout_marginRight="13dp"
-                android:textColor="@color/color9"
+                android:textColor="@color/color6"
                 android:textSize="13sp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
@@ -70,11 +75,10 @@
         <ImageView
             android:src="@drawable/wode_erweima"
             android:id="@+id/iv_code"
-            android:layout_width="33dp"
-            android:layout_height="33dp"
-            android:layout_marginRight="10dp"/>
+            android:layout_width="26dp"
+            android:layout_height="26dp"
+            android:layout_marginRight="14.5dp"/>
         <ImageView
-
             android:src="@drawable/arrow_left"
             android:layout_width="12dp"
             android:layout_height="16dp"
@@ -86,7 +90,7 @@
         android:id="@+id/ll_reminder"
         android:gravity="center_vertical"
         android:layout_width="match_parent"
-        android:layout_height="55dp"
+        android:layout_height="59dp"
         android:orientation="horizontal">
         <ImageView
 
@@ -98,7 +102,7 @@
             android:layout_weight="1"
             android:layout_marginLeft="13dp"
             android:textColor="@color/slow_black"
-            android:textSize="15sp"
+            android:textSize="15.5sp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
         <TextView
@@ -124,7 +128,7 @@
         android:id="@+id/ll_health"
         android:gravity="center_vertical"
         android:layout_width="match_parent"
-        android:layout_height="55dp"
+        android:layout_height="59dp"
         android:orientation="horizontal">
         <ImageView
 
@@ -136,7 +140,7 @@
             android:layout_weight="1"
             android:layout_marginLeft="13dp"
             android:textColor="@color/slow_black"
-            android:textSize="15sp"
+            android:textSize="15.5sp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
         <TextView
@@ -162,7 +166,7 @@
         android:id="@+id/ll_equipment"
         android:gravity="center_vertical"
         android:layout_width="match_parent"
-        android:layout_height="55dp"
+        android:layout_height="59dp"
         android:orientation="horizontal">
         <ImageView
 
@@ -174,7 +178,7 @@
             android:layout_weight="1"
             android:layout_marginLeft="13dp"
             android:textColor="@color/slow_black"
-            android:textSize="15sp"
+            android:textSize="15.5sp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
         <TextView
@@ -200,7 +204,7 @@
         android:id="@+id/ll_collection"
         android:gravity="center_vertical"
         android:layout_width="match_parent"
-        android:layout_height="55dp"
+        android:layout_height="59dp"
         android:orientation="horizontal">
         <ImageView
             android:layout_width="30dp"
@@ -211,7 +215,7 @@
             android:layout_weight="1"
             android:layout_marginLeft="13dp"
             android:textColor="@color/slow_black"
-            android:textSize="15sp"
+            android:textSize="15.5sp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
@@ -233,7 +237,7 @@
         android:id="@+id/ll_setting"
         android:gravity="center_vertical"
         android:layout_width="match_parent"
-        android:layout_height="55dp"
+        android:layout_height="59dp"
         android:orientation="horizontal">
         <ImageView
 
@@ -245,7 +249,7 @@
             android:layout_weight="1"
             android:layout_marginLeft="13dp"
             android:textColor="@color/slow_black"
-            android:textSize="15sp"
+            android:textSize="15.5sp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
         <TextView

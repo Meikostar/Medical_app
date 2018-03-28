@@ -25,7 +25,7 @@
         android:id="@+id/ll_change_psw"
         android:gravity="center_vertical"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="54dp"
         android:orientation="horizontal">
 
         <TextView
@@ -33,7 +33,7 @@
             android:layout_weight="1"
             android:layout_marginLeft="16dp"
             android:textColor="@color/slow_black"
-            android:textSize="15sp"
+            android:textSize="16.5sp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
         <TextView
@@ -60,7 +60,7 @@
         android:id="@+id/ll_phone"
         android:gravity="center_vertical"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="54dp"
         android:orientation="horizontal">
 
         <TextView
@@ -68,7 +68,7 @@
             android:layout_weight="1"
             android:layout_marginLeft="13dp"
             android:textColor="@color/slow_black"
-            android:textSize="15sp"
+            android:textSize="16.5sp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
         <TextView
@@ -96,7 +96,7 @@
         android:id="@+id/ll_version"
         android:gravity="center_vertical"
         android:layout_width="match_parent"
-        android:layout_height="55dp"
+        android:layout_height="54dp"
         android:orientation="horizontal">
 
         <TextView
@@ -104,7 +104,7 @@
             android:layout_weight="1"
             android:layout_marginLeft="16dp"
             android:textColor="@color/slow_black"
-            android:textSize="15sp"
+            android:textSize="16.5sp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
         <TextView
@@ -130,7 +130,7 @@
         android:gravity="center"
         android:text="退出"
 
-        android:textColor="@color/slow_black"
+        android:textColor="@color/red_pop"
         android:textSize="15sp"
         android:layout_width="match_parent"
         android:layout_height="50dp" />

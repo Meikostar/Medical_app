@@ -15,7 +15,6 @@
         app:navigationTitle="我的收藏" />
     <ListView
         android:layout_marginTop="10dp"
-
         android:layout_below="@+id/navigationBar"
         android:divider="@color/content_bg"
         android:id="@+id/listview"

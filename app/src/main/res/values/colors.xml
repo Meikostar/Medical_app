@@ -22,7 +22,7 @@
     <color name="dominant_hue_dark">#108313</color>
     <color name="white_dark">#b4ffffff</color>
     <color name="dialog_bg">#88666666</color>
-    <color name="linecolor">#cccccc</color>
+    <color name="linecolor">#e6e6e6</color>
     <color name="titles">#797979</color>
     <color name="menu_background">@color/dominant_hue</color>
     <color name="line_color">#f8f8f8</color>
@@ -40,6 +40,7 @@
     <color name="color_8290AF">#8290AF</color>
     <color name="black">#000000</color>
     <color name="red_cyc">#E51c23</color>
+    <color name="red_pop">#fe5a73</color>
     <color name="green_cyc">#27cd41</color>
     <color name="org_cyc">#ffa900</color>
     <color name="text_shad">#cccacc</color>
@@ -50,5 +51,6 @@
     <color name="round_half_balck">#41403e</color>
     <color name="cycle_shade">#4f4f4f</color>
     <color name="car_begin">#6d7473</color>
-    <color name="content_bg">#F3F3F3</color>
+    <color name="content_bg">#F8F8F8</color>
+    <color name="bg">#F8f8f8</color>
 </resources>

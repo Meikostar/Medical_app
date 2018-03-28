@@ -83,10 +83,10 @@ public class FriendDetailActivity extends BaseActivity implements View.OnClickLi
              startActivity(new Intent(FriendDetailActivity.this,BloodPressRecordActivity.class));
                 break;
             case R.id.ll_blood_sugar://血糖记录
-
+                startActivity(new Intent(FriendDetailActivity.this,BloodSugarRecordActivity.class));
                 break;
             case R.id.ll_Medical_plan://用药计划
-
+                startActivity(new Intent(FriendDetailActivity.this,UseMedicalRecordActivity.class));
                 break;
             case R.id.tv_bind://解除绑定
 
