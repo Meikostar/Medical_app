@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.canplay.medical.R;
@@ -39,6 +40,10 @@ public class RemindHealthActivity extends BaseActivity {
     TextView tvMerure;
     @BindView(R.id.tv_add)
     TextView tvAdd;
+    @BindView(R.id.ivline)
+    ImageView ivline;
+    @BindView(R.id.ivlines)
+    ImageView ivlines;
     private int type;
     private FragmentViewPagerAdapter mainViewPagerAdapter;
     private List<Fragment> mFragments;
@@ -48,8 +53,8 @@ public class RemindHealthActivity extends BaseActivity {
         setContentView(R.layout.activity_remind_health);
         ButterKnife.bind(this);
         navigationBar.setNavigationBarListener(this);
-        type=getIntent().getIntExtra("type",0);
-        if(type!=0){
+        type = getIntent().getIntExtra("type", 0);
+        if (type != 0) {
             tvAdd.setVisibility(View.VISIBLE);
         }
 
@@ -57,19 +62,21 @@ public class RemindHealthActivity extends BaseActivity {
 
 
     private int status;
+
     @Override
     public void bindEvents() {
 
         tvUse.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                tvUse.setBackground(getResources().getDrawable(R.drawable.choose_hui_rectangle));
-                tvUse.setTextColor(getResources().getColor(R.color.white));
+
+                tvUse.setTextColor(getResources().getColor(R.color.blue));
                 tvMerure.setTextColor(getResources().getColor(R.color.slow_black));
-                tvMerure.setBackground(null);
+                ivline.setVisibility(View.VISIBLE);
+                ivlines.setVisibility(View.INVISIBLE);
                 viewpagerMain.setCurrentItem(0);
                 tvAdd.setText("添加用药提醒");
-                status=0;
+                status = 0;
             }
         });
 
@@ -77,12 +84,12 @@ public class RemindHealthActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 viewpagerMain.setCurrentItem(1);
-                tvUse.setBackground(null);
+                ivlines.setVisibility(View.VISIBLE);
+                ivline.setVisibility(View.INVISIBLE);
                 tvUse.setTextColor(getResources().getColor(R.color.slow_black));
-                tvMerure.setTextColor(getResources().getColor(R.color.white));
-                tvMerure.setBackground(getResources().getDrawable(R.drawable.choose_huis_rectangle));
+                tvMerure.setTextColor(getResources().getColor(R.color.blue));
                 tvAdd.setText("添加测量提醒");
-                status=1;
+                status = 1;
             }
         });
         navigationBar.setNavigationBarListener(new NavigationBar.NavigationBarListener() {
@@ -93,9 +100,9 @@ public class RemindHealthActivity extends BaseActivity {
 
             @Override
             public void navigationRight() {
-                if(type==0){
+                if (type == 0) {
                     startActivity(new Intent(RemindHealthActivity.this, RemindSettingActivity.class));
-                }else {
+                } else {
                     startActivity(new Intent(RemindHealthActivity.this, TakeMedicineActivity.class));
                 }
 
@@ -109,9 +116,9 @@ public class RemindHealthActivity extends BaseActivity {
         tvAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(status==0){
+                if (status == 0) {
                     startActivity(new Intent(RemindHealthActivity.this, RemindSettingActivity.class));
-                }else {
+                } else {
                     startActivity(new Intent(RemindHealthActivity.this, MeasureActivity.class));
                 }
 
@@ -144,4 +151,10 @@ public class RemindHealthActivity extends BaseActivity {
     }
 
 
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // TODO: add setContentView(...) invocation
+        ButterKnife.bind(this);
+    }
 }

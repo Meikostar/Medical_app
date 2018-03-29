@@ -36,7 +36,12 @@ public class CollectionActivity extends BaseActivity  {
 
     @Override
     public void bindEvents() {
+        adapter.setListener(new CollectionAdapter.selectItemListener() {
+            @Override
+            public void delete(int id, int type, int poistion) {
 
+            }
+        });
 
     }
 
@@ -50,10 +55,5 @@ public class CollectionActivity extends BaseActivity  {
 
 
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
-        ButterKnife.bind(this);
-    }
+
 }

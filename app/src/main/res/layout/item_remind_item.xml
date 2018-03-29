@@ -8,7 +8,7 @@
     android:gravity="center_vertical"
     android:orientation="horizontal"
     android:layout_width="match_parent"
-    android:layout_height="55dp">
+    android:layout_height="59dp">
     <ImageView
         android:src="@drawable/moren"
         android:id="@+id/iv_img"
@@ -28,7 +28,7 @@
             android:layout_height="wrap_content"
             android:text="阿莫西林"
             android:textColor="@color/slow_black"
-            android:textSize="14.5sp"
+            android:textSize="15sp"
             />
         <TextView
             android:id="@+id/tv_number"
@@ -37,7 +37,7 @@
             android:layout_height="wrap_content"
             android:text="250mg"
             android:textColor="@color/color9"
-            android:textSize="12sp"
+            android:textSize="13sp"
             />
 
     </LinearLayout>
@@ -45,7 +45,8 @@
          android:id="@+id/tv_cout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="13sp"
+        android:textSize="15sp"
+        android:textColor="@color/slow_black"
         android:text="3颗"
         android:layout_marginRight="14dp"/>
 </LinearLayout>

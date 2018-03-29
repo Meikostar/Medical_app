@@ -2,20 +2,20 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="horizontal"
-    android:background="@color/content_bg"
+    android:background="@color/white"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
     <LinearLayout
         android:orientation="vertical"
-        android:layout_width="wrap_content"
+        android:layout_width="69dp"
         android:layout_height="wrap_content">
         <TextView
             android:id="@+id/tv_time"
             android:layout_marginRight="16dp"
             android:layout_marginLeft="15dp"
             android:layout_marginTop="16dp"
-            android:textSize="15sp"
-            android:textColor="@color/slow_black"
+            android:textSize="15.5sp"
+            android:textColor="@color/blue"
             android:text="01.26"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
@@ -31,7 +31,7 @@
             android:layout_width="2dp"
             app:lineHeight="1dp"
             app:lineWidth="4dp"
-            app:dashWidth="4dp"
+            app:dashWidth="0dp"
             app:dashOrientation="1"
             app:lineColor="@color/linecolor"
             android:layout_height="22dp"
@@ -44,7 +44,7 @@
             android:layout_width="2dp"
             app:lineHeight="1dp"
             app:lineWidth="4dp"
-            app:dashWidth="4dp"
+            app:dashWidth="0dp"
             app:dashOrientation="1"
             app:lineColor="@color/linecolor"
             android:layout_height="100dp"
@@ -54,8 +54,8 @@
             android:layout_marginTop="22dp"
             android:background="@drawable/hui_cycle"
             android:layout_centerHorizontal="true"
-            android:layout_width="6dp"
-            android:layout_height="6dp" />
+            android:layout_width="8dp"
+            android:layout_height="8dp" />
     </RelativeLayout>
     <LinearLayout
         android:orientation="vertical"
@@ -84,18 +84,18 @@
                 android:layout_height="wrap_content">
                 <TextView
                     android:id="@+id/tv_times"
-                    android:textSize="14sp"
+                    android:textSize="13.5sp"
                     android:gravity="center_vertical"
-                    android:textColor="@color/color6"
+                    android:textColor="@color/color8"
                     android:text="15:30:26"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
                 <TextView
-                    android:layout_marginBottom="12dp"
+                    android:layout_marginBottom="9dp"
                     android:id="@+id/tv_data"
-                    android:textSize="13sp"
+                    android:textSize="15sp"
                     android:gravity="center_vertical"
-                    android:layout_marginTop="8dp"
+                    android:layout_marginTop="12dp"
                     android:textColor="@color/slow_black"
                     android:text="收缩压 ：130  舒张压：130  心率 ：72"
                     android:layout_width="wrap_content"

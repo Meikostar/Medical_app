@@ -27,8 +27,8 @@
           <com.canplay.medical.view.HourSelector
               android:layout_width="match_parent"
               android:layout_height="180dp"
-              app:hour="14"
-              app:minter="38"/>
+              app:hour="8"
+              app:minter="00"/>
           <LinearLayout
               android:layout_marginTop="10dp"
               android:background="@color/white"

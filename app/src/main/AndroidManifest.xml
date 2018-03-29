@@ -243,6 +243,14 @@
             android:name=".mvp.activity.mine.BloodSugarRecordActivity"
             android:theme="@style/AppTheme"
             android:screenOrientation="portrait" />
+        <activity
+            android:name=".mvp.activity.mine.MedicalDetailActivity"
+            android:theme="@style/AppTheme"
+            android:screenOrientation="portrait" />
+
+
+
+
 
 
 

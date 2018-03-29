@@ -41,17 +41,13 @@ public class MeasureRemindFragment extends BaseFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_remind_medical, null);
         unbinder = ButterKnife.bind(this, view);
-
         initView();
-
-
         return view;
     }
 
     @Override
     public void onResume() {
         super.onResume();
-
     }
 
 

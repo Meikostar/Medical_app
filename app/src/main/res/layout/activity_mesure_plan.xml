@@ -37,14 +37,14 @@
                 android:layout_width="13dp"
                 android:layout_height="13dp"
                 android:layout_marginLeft="15dp"
-                android:layout_marginTop="12dp" />
+                android:layout_marginTop="19dp" />
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="60dp"
+                android:layout_height="79dp"
                 android:layout_marginLeft="8dp"
                 android:layout_weight="1"
-                android:gravity="center_vertical"
+                android:layout_marginTop="19dp"
                 android:orientation="vertical">
 
                 <TextView
@@ -52,27 +52,28 @@
                     android:layout_height="wrap_content"
                     android:text="下次吃药时间"
                     android:textColor="@color/color6"
-                    android:textSize="12sp" />
+                    android:textSize="14.5sp" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="6dp"
+                    android:layout_marginTop="13dp"
                     android:text="19:30"
-                    android:textColor="@color/slow_black"
-                    android:textSize="13sp" />
+                    android:textColor="@color/red_pop"
+                    android:textSize="19sp" />
             </LinearLayout>
 
             <TextView
                 android:id="@+id/tv_hour"
-                android:layout_width="22dp"
-                android:layout_height="35dp"
+                android:layout_width="26dp"
+                android:layout_height="26dp"
+                android:textSize="15sp"
                 android:layout_gravity="center_vertical"
-                android:background="@color/blue"
+                android:background="@drawable/black_samll"
                 android:gravity="center"
                 android:text="11"
-                android:textColor="@color/slow_black"
-                android:textSize="13sp" />
+                android:textColor="@color/white"
+                />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -87,14 +88,15 @@
 
             <TextView
                 android:id="@+id/tv_minter"
-                android:layout_width="22dp"
-                android:layout_height="35dp"
+                android:layout_width="26dp"
+                android:layout_height="26dp"
+                android:textSize="15sp"
                 android:layout_gravity="center_vertical"
-                android:background="@color/blue"
+                android:background="@drawable/black_samll"
                 android:gravity="center"
                 android:text="21"
-                android:textColor="@color/slow_black"
-                android:textSize="13sp" />
+                android:textColor="@color/white"
+              />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -109,37 +111,57 @@
 
             <TextView
                 android:id="@+id/tv_second"
-                android:layout_width="22dp"
-                android:layout_height="35dp"
+                android:layout_width="26dp"
+                android:layout_height="26dp"
+                android:textSize="15sp"
                 android:layout_gravity="center_vertical"
                 android:layout_marginRight="14dp"
-                android:background="@color/blue"
+                android:background="@drawable/black_samll"
                 android:gravity="center"
                 android:text="11"
-                android:textColor="@color/slow_black"
-                android:textSize="13sp" />
+                android:textColor="@color/white"
+                 />
         </LinearLayout>
 
         <View
+            android:layout_marginLeft="15dp"
             android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@drawable/store_line" />
+            android:layout_height="0.5dp"
+            android:background="@color/linecolor" />
 
+
+            <TextView
+                android:gravity="center_vertical"
+                android:id="@+id/tv_content"
+                android:layout_marginLeft="15dp"
+                android:layout_width="match_parent"
+                android:layout_height="54dp"
+                android:text="测量血压，血糖"
+                android:textColor="@color/blue"
+                android:textSize="14sp" />
+        <View
+
+            android:layout_width="match_parent"
+            android:layout_height="10dp"
+            android:background="@color/content_bg" />
         <LinearLayout
             android:gravity="center_vertical"
             android:layout_width="match_parent"
-            android:layout_height="50dp" >
+            android:layout_height="54dp" >
+            <ImageView
+                android:src="@drawable/bule_samll"
+                android:layout_marginLeft="15dp"
+                android:layout_width="6dp"
+                android:layout_height="18dp" />
             <TextView
-                android:id="@+id/tv_content"
-                android:layout_marginLeft="18dp"
+
+                android:layout_marginLeft="14dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="6dp"
-                android:text="测量血压，血糖"
+                android:text="今日测量记录"
                 android:textColor="@color/slow_black"
-                android:textSize="15sp" />
+                android:textSize="14sp" />
         </LinearLayout>
-
     </LinearLayout>
 
     <ListView

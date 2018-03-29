@@ -123,8 +123,12 @@ public class UsePlanAdapter extends BaseAdapter {
     static class ViewHolder {
         @BindView(R.id.tv_time)
         TextView tvTime;
+        @BindView(R.id.tv_times)
+        TextView tvTimes;
         @BindView(R.id.tv_cout)
         TextView tvCout;
+        @BindView(R.id.tv_state)
+        TextView tv_state;
         @BindView(R.id.line1)
         DashView line1;
         @BindView(R.id.line2)
