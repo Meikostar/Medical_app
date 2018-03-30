@@ -13,6 +13,7 @@
         android:id="@+id/navigationBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        app:navigationLeft_img="@drawable/black_left"
         app:navigationTitle="设置" />
 
     <View
@@ -46,8 +47,8 @@
         <ImageView
 
             android:src="@drawable/arrow_left"
-            android:layout_width="12dp"
-            android:layout_height="16dp"
+            android:layout_width="8dp"
+            android:layout_height="13dp"
             android:layout_marginRight="13dp"/>
     </LinearLayout>
     <View
@@ -79,11 +80,12 @@
             android:text="134***1234"
             android:textColor="@color/slow_black"
             android:textSize="15sp" />
+
         <ImageView
 
             android:src="@drawable/arrow_left"
-            android:layout_width="12dp"
-            android:layout_height="16dp"
+            android:layout_width="8dp"
+            android:layout_height="13dp"
             android:layout_marginRight="13dp"/>
     </LinearLayout>
     <View
@@ -116,10 +118,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
         <ImageView
-
             android:src="@drawable/arrow_left"
-            android:layout_width="12dp"
-            android:layout_height="16dp"
+            android:layout_width="8dp"
+            android:layout_height="13dp"
             android:layout_marginRight="13dp"/>
     </LinearLayout>
 

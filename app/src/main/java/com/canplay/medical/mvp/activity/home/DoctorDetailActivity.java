@@ -8,6 +8,7 @@ import android.widget.TextView;
 
 import com.canplay.medical.R;
 import com.canplay.medical.base.BaseActivity;
+import com.canplay.medical.base.BaseAllActivity;
 import com.canplay.medical.view.NavigationBar;
 
 import butterknife.BindView;
@@ -16,13 +17,11 @@ import butterknife.ButterKnife;
 /**
  * 医生详情
  */
-public class DoctorDetailActivity extends BaseActivity {
+public class DoctorDetailActivity extends BaseAllActivity {
 
 
     @BindView(R.id.line)
     View line;
-    @BindView(R.id.navigationBar)
-    NavigationBar navigationBar;
     @BindView(R.id.iv_img)
     ImageView ivImg;
     @BindView(R.id.tv_name)
@@ -41,18 +40,24 @@ public class DoctorDetailActivity extends BaseActivity {
     LinearLayout llBg;
     @BindView(R.id.tv_detail)
     TextView tvDetail;
-
+    @BindView(R.id.ll_back)
+    LinearLayout ll_back;
     @Override
     public void initViews() {
         setContentView(R.layout.activity_doctor_detail);
         ButterKnife.bind(this);
-        navigationBar.setNavigationBarListener(this);
+
 
     }
 
     @Override
     public void bindEvents() {
-
+        ll_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
     }
 
 

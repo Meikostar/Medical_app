@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import com.canplay.medical.R;
 import com.canplay.medical.base.BaseActivity;
+import com.canplay.medical.base.BaseAllActivity;
 import com.canplay.medical.view.EditorNameDialog;
 import com.canplay.medical.view.PhotoPopupWindow;
 
@@ -18,7 +19,7 @@ import butterknife.ButterKnife;
 /**
  * 亲友详情
  */
-public class FriendDetailActivity extends BaseActivity implements View.OnClickListener {
+public class FriendDetailActivity extends BaseAllActivity implements View.OnClickListener {
 
 
     @BindView(R.id.line)

@@ -128,10 +128,10 @@
     <!-- 顶部导航 -->
     <dimen name="header_height">45dp</dimen>
     <dimen name="header_left_paddingLeft">10dp</dimen>
-    <dimen name="header_right_paddingRight">10dp</dimen>
-    <dimen name="header_right_iconHw">20dp</dimen>
+    <dimen name="header_right_paddingRight">15dp</dimen>
+    <dimen name="header_right_iconHw">22dp</dimen>
     <dimen name="textsize_big_low">16dp</dimen>
-    <dimen name="textsize_big">16dp</dimen>
+    <dimen name="textsize_big">17dp</dimen>
     <!-- 全界面通用 -->
     <dimen name="margin_left_right">15dp</dimen>
     <dimen name="side_letter_bar_width">36dp</dimen>·

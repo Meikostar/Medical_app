@@ -236,6 +236,10 @@
             android:theme="@style/AppTheme"
             android:screenOrientation="portrait" />
         <activity
+            android:name=".mvp.activity.home.EquipDetailActivity"
+            android:theme="@style/AppTheme"
+            android:screenOrientation="portrait" />
+        <activity
             android:name=".mvp.activity.mine.UseMedicalRecordActivity"
             android:theme="@style/AppTheme"
             android:screenOrientation="portrait" />
@@ -247,8 +251,14 @@
             android:name=".mvp.activity.mine.MedicalDetailActivity"
             android:theme="@style/AppTheme"
             android:screenOrientation="portrait" />
-
-
+        <activity
+            android:name=".mvp.activity.account.ForgetPswActivity"
+            android:theme="@style/AppTheme"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".mvp.activity.account.ChangePhoneActivity"
+            android:theme="@style/AppTheme"
+            android:screenOrientation="portrait" />
 
 
 

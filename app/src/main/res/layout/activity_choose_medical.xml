@@ -23,12 +23,12 @@
 
             <ImageView
                 android:id="@+id/top_view_back"
-                android:layout_width="@dimen/header_right_iconHw"
-                android:layout_height="@dimen/header_right_iconHw"
+                android:layout_width="12dp"
+                android:layout_height="16dp"
                 android:layout_gravity="center_vertical"
                 android:layout_marginLeft="@dimen/header_left_paddingLeft"
                 android:layout_marginRight="@dimen/header_left_paddingLeft"
-                android:src="@drawable/arrow_right_blue" />
+                android:src="@drawable/black_left" />
         </LinearLayout>
 
         <TextView

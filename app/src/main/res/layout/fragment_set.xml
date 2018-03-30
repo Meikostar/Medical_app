@@ -12,11 +12,11 @@
     <TextView
         android:background="@color/white"
         android:gravity="center"
-        android:textSize="16sp"
+        android:textSize="17sp"
         android:textColor="@color/black"
         android:text="个人中心"
         android:layout_width="match_parent"
-        android:layout_height="55dp" />
+        android:layout_height="45dp" />
 
 
     <LinearLayout
@@ -34,8 +34,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
             <ImageView
-                android:layout_width="53.5dp"
-                android:layout_height="53.5dp"
+                android:src="@drawable/moren"
+                android:layout_width="56.5dp"
+                android:layout_height="56.5dp"
               />
         </FrameLayout>
 
@@ -67,21 +68,21 @@
                 android:layout_marginTop="14dp"
                 android:text="广东，深圳"
                 android:layout_marginRight="13dp"
-                android:textColor="@color/color6"
+                android:textColor="@color/slow_black"
                 android:textSize="13sp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
         </LinearLayout>
         <ImageView
-            android:src="@drawable/wode_erweima"
+            android:src="@drawable/mine2"
             android:id="@+id/iv_code"
             android:layout_width="26dp"
             android:layout_height="26dp"
             android:layout_marginRight="14.5dp"/>
         <ImageView
             android:src="@drawable/arrow_left"
-            android:layout_width="12dp"
-            android:layout_height="16dp"
+            android:layout_width="8dp"
+            android:layout_height="13dp"
             android:layout_marginRight="13dp"/>
     </LinearLayout>
     <LinearLayout
@@ -93,9 +94,9 @@
         android:layout_height="59dp"
         android:orientation="horizontal">
         <ImageView
-
-            android:layout_width="30dp"
-            android:layout_height="30dp"
+            android:src="@drawable/mine3"
+            android:layout_width="21dp"
+            android:layout_height="21dp"
             android:layout_marginLeft="15dp"/>
         <TextView
             android:text="我的用药提醒"
@@ -114,8 +115,8 @@
         <ImageView
 
             android:src="@drawable/arrow_left"
-            android:layout_width="12dp"
-            android:layout_height="16dp"
+            android:layout_width="8dp"
+            android:layout_height="13dp"
             android:layout_marginRight="13dp"/>
     </LinearLayout>
     <View
@@ -130,11 +131,13 @@
         android:layout_width="match_parent"
         android:layout_height="59dp"
         android:orientation="horizontal">
-        <ImageView
 
-            android:layout_width="30dp"
-            android:layout_height="30dp"
+        <ImageView
+            android:src="@drawable/mine4"
+            android:layout_width="21dp"
+            android:layout_height="21dp"
             android:layout_marginLeft="15dp"/>
+
         <TextView
             android:text="健康关爱中心"
             android:layout_weight="1"
@@ -152,8 +155,8 @@
         <ImageView
 
             android:src="@drawable/arrow_left"
-            android:layout_width="12dp"
-            android:layout_height="16dp"
+            android:layout_width="8dp"
+            android:layout_height="13dp"
             android:layout_marginRight="13dp"/>
     </LinearLayout>
     <View
@@ -169,9 +172,9 @@
         android:layout_height="59dp"
         android:orientation="horizontal">
         <ImageView
-
-            android:layout_width="30dp"
-            android:layout_height="30dp"
+            android:src="@drawable/mine5"
+            android:layout_width="21dp"
+            android:layout_height="21dp"
             android:layout_marginLeft="15dp"/>
         <TextView
             android:text="我的设备"
@@ -190,8 +193,8 @@
         <ImageView
 
             android:src="@drawable/arrow_left"
-            android:layout_width="12dp"
-            android:layout_height="16dp"
+            android:layout_width="8dp"
+            android:layout_height="13dp"
             android:layout_marginRight="13dp"/>
     </LinearLayout>
     <View
@@ -207,8 +210,9 @@
         android:layout_height="59dp"
         android:orientation="horizontal">
         <ImageView
-            android:layout_width="30dp"
-            android:layout_height="30dp"
+            android:src="@drawable/mine6"
+            android:layout_width="21dp"
+            android:layout_height="21dp"
             android:layout_marginLeft="15dp"/>
         <TextView
             android:text="我的收藏"
@@ -222,8 +226,8 @@
         <ImageView
 
             android:src="@drawable/arrow_left"
-            android:layout_width="12dp"
-            android:layout_height="16dp"
+            android:layout_width="8dp"
+            android:layout_height="13dp"
             android:layout_marginRight="13dp"/>
     </LinearLayout>
     <View
@@ -240,9 +244,9 @@
         android:layout_height="59dp"
         android:orientation="horizontal">
         <ImageView
-
-            android:layout_width="30dp"
-            android:layout_height="30dp"
+            android:src="@drawable/mine7"
+            android:layout_width="21dp"
+            android:layout_height="21dp"
             android:layout_marginLeft="15dp"/>
         <TextView
             android:text="设置"
@@ -261,8 +265,8 @@
         <ImageView
 
             android:src="@drawable/arrow_left"
-            android:layout_width="12dp"
-            android:layout_height="16dp"
+            android:layout_width="8dp"
+            android:layout_height="13dp"
             android:layout_marginRight="13dp"/>
     </LinearLayout>
 

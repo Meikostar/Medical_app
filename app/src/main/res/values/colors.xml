@@ -40,6 +40,7 @@
     <color name="txt_hint_color">#cdd1d4</color>
     <color name="color_8290AF">#8290AF</color>
     <color name="black">#000000</color>
+    <color name="bd">#bdbdbd</color>
     <color name="red_cyc">#E51c23</color>
     <color name="red_pop">#fe5a73</color>
     <color name="reds">#fd5b73</color>

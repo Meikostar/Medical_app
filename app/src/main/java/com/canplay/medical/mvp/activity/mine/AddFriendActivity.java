@@ -51,7 +51,7 @@ public class AddFriendActivity extends BaseActivity {
         navigationBar.setNavigationBarListener(this);
         mLinearLayoutManager = new LinearLayoutManager(this);
         mSuperRecyclerView.setLayoutManager(mLinearLayoutManager);
-        mSuperRecyclerView.addItemDecoration(new DivItemDecoration(2, true));
+        mSuperRecyclerView.addItemDecoration(new DivItemDecoration(2,true));
         mSuperRecyclerView.getMoreProgressView().getLayoutParams().width = ViewGroup.LayoutParams.MATCH_PARENT;
         adapter = new HealthCenterAdapter(this);
         mSuperRecyclerView.setAdapter(adapter);
@@ -95,7 +95,6 @@ public class AddFriendActivity extends BaseActivity {
         //intent.putExtra(Constant.INTENT_ZXING_CONFIG, config);
         startActivityForResult(intent, REQUEST_CODE_SCAN);
     }
-
 
     @Override
     public void bindEvents() {

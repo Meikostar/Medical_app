@@ -5,6 +5,7 @@ import android.Manifest;
 import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
+import android.view.View;
 
 
 import com.canplay.medical.R;
@@ -25,6 +26,7 @@ import com.canplay.medical.permission.PermissionGen;
 import com.canplay.medical.permission.PermissionSuccess;
 import com.canplay.medical.util.TextUtil;
 import com.canplay.medical.view.BottonNevgBar;
+import com.canplay.medical.view.ChangeNoticeDialog;
 import com.canplay.medical.view.NoScrollViewPager;
 import com.google.gson.Gson;
 import com.yzq.zxinglibrary.android.CaptureActivity;
@@ -58,15 +60,16 @@ public class MainActivity extends BaseActivity implements HomeFragment.ScanListe
 
     private HealthDataFragment menutFragment;
     private SetFragment setFragment;
-
-
+    private View line;
+    private ChangeNoticeDialog dialog;
     @Override
     public void initViews() {
         setContentView(R.layout.activity_main);
         bnbHome = (BottonNevgBar) findViewById(R.id.bnb_home);
+        line =  findViewById(R.id.line);
         viewpagerMain = (NoScrollViewPager) findViewById(R.id.viewpager_main);
         viewpagerMain.setScanScroll(false);
-
+        dialog=new ChangeNoticeDialog(this,line);
     }
 
     @Override
@@ -80,7 +83,7 @@ public class MainActivity extends BaseActivity implements HomeFragment.ScanListe
             public void call(SubscriptionBean.RxBusSendBean bean) {
                 if (bean == null) return;
                 if(SubscriptionBean.MENU_SCAN==bean.type){
-
+                  dialog.show();
                 }
 
 
@@ -93,7 +96,12 @@ public class MainActivity extends BaseActivity implements HomeFragment.ScanListe
         });
         RxBus.getInstance().addSubscription(mSubscription);
 
-
+        dialog.setBindClickListener(new ChangeNoticeDialog.BindClickListener() {
+            @Override
+            public void teaMoney(String money) {
+                dialog.dismiss();
+            }
+        });
     }
     @Override
     public void initData() {

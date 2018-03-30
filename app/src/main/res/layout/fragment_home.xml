@@ -3,31 +3,34 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
+
     <RelativeLayout
-        android:background="@color/white"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/header_height">
+        android:layout_height="44dp"
+        android:background="@color/white">
+
         <ImageView
-            android:src="@drawable/login_selector"
             android:id="@+id/iv_scan"
-            android:layout_marginLeft="14dp"
+            android:layout_width="22dp"
+            android:layout_height="22dp"
             android:layout_centerVertical="true"
-            android:layout_width="19dp"
-            android:layout_height="21dp"
             android:layout_gravity="center_horizontal"
+            android:layout_marginLeft="14dp"
             android:layout_marginRight="7dp"
-            />
+            android:src="@drawable/home" />
+
         <ImageView
-            android:src="@drawable/login_selector"
             android:id="@+id/iv_alarm"
-            android:layout_centerVertical="true"
+            android:layout_width="22dp"
+            android:layout_height="22dp"
             android:layout_alignParentRight="true"
-            android:layout_width="19dp"
-            android:layout_height="21dp"
+            android:layout_centerVertical="true"
             android:layout_gravity="center_horizontal"
             android:layout_marginRight="12dp"
+            android:src="@drawable/home1"
 
             />
+
         <TextView
 
             android:id="@+id/navigationbar_title"
@@ -49,6 +52,7 @@
             android:visibility="visible" />
 
     </RelativeLayout>
+
     <com.canplay.medical.view.scrollView.StickyScrollView
         android:background="@color/content_bg"
         android:layout_width="match_parent"
@@ -61,7 +65,7 @@
             <com.canplay.medical.view.banner.BannerView
                 android:id="@+id/bannerView"
                 android:layout_width="match_parent"
-                android:layout_height="150dp"
+                android:layout_height="180dp"
                 app:bannerPageAlpha="1.0"
                 app:bannerPageMargin="8dp"
                 app:bannerPagePercent="0.8"
@@ -73,7 +77,7 @@
             <LinearLayout
                 android:background="@color/white"
                 android:layout_width="match_parent"
-                android:layout_height="75dp"
+                android:layout_height="115dp"
                 android:orientation="horizontal">
 
                 <LinearLayout
@@ -86,13 +90,14 @@
                     android:orientation="vertical">
 
                     <RelativeLayout
-                        android:layout_width="26dp"
-                        android:layout_height="28dp"
+                        android:layout_width="57dp"
+                        android:layout_height="57dp"
                         android:layout_gravity="center_horizontal">
 
                         <ImageView
-                            android:layout_width="19dp"
-                            android:layout_height="21dp"
+                            android:layout_width="57dp"
+                            android:layout_height="57dp"
+                            android:src="@drawable/home2"
                             android:layout_gravity="center_horizontal"
                             android:layout_marginRight="7dp"
                             android:layout_marginTop="7dp"
@@ -101,13 +106,14 @@
                     </RelativeLayout>
 
                     <TextView
+                        android:textColor="@color/slow_black"
                         android:singleLine="true"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
+                        android:layout_marginTop="9dp"
                         android:gravity="center"
                         android:text="健康提醒"
-                        android:textSize="11sp" />
+                        android:textSize="13sp" />
 
                     />
                 </LinearLayout>
@@ -122,13 +128,14 @@
                     android:orientation="vertical">
 
                     <RelativeLayout
-                        android:layout_width="26dp"
-                        android:layout_height="28dp"
+                        android:layout_width="57dp"
+                        android:layout_height="57dp"
                         android:layout_gravity="center_horizontal">
 
                         <ImageView
-                            android:layout_width="19dp"
-                            android:layout_height="21dp"
+                            android:layout_width="57dp"
+                            android:layout_height="57dp"
+                            android:src="@drawable/home3"
                             android:layout_gravity="center_horizontal"
                             android:layout_marginRight="7dp"
                             android:layout_marginTop="7dp"
@@ -137,6 +144,7 @@
                     </RelativeLayout>
 
                     <TextView
+                        android:textColor="@color/slow_black"
                         android:singleLine="true"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -158,13 +166,14 @@
                     android:orientation="vertical">
 
                     <RelativeLayout
-                        android:layout_width="26dp"
-                        android:layout_height="28dp"
+                        android:layout_width="57dp"
+                        android:layout_height="57dp"
                         android:layout_gravity="center_horizontal">
 
                         <ImageView
-                            android:layout_width="19dp"
-                            android:layout_height="21dp"
+                            android:layout_width="57dp"
+                            android:layout_height="57dp"
+                            android:src="@drawable/home4"
                             android:layout_gravity="center_horizontal"
                             android:layout_marginRight="7dp"
                             android:layout_marginTop="7dp"
@@ -173,6 +182,7 @@
                     </RelativeLayout>
 
                     <TextView
+                        android:textColor="@color/slow_black"
                         android:singleLine="true"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -190,15 +200,15 @@
                     android:layout_weight="1"
                     android:gravity="center_vertical"
                     android:orientation="vertical">
-
                     <RelativeLayout
-                        android:layout_width="28dp"
-                        android:layout_height="26dp"
+                        android:layout_width="57dp"
+                        android:layout_height="57dp"
                         android:layout_gravity="center_horizontal">
 
                         <ImageView
-                            android:layout_width="21dp"
-                            android:layout_height="19dp"
+                            android:layout_width="57dp"
+                            android:layout_height="57dp"
+                            android:src="@drawable/home5"
                             android:layout_gravity="center_horizontal"
                             android:layout_marginRight="7dp"
                             android:layout_marginTop="7dp"
@@ -207,6 +217,7 @@
                     </RelativeLayout>
 
                     <TextView
+                        android:textColor="@color/slow_black"
                         android:singleLine="true"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -217,15 +228,28 @@
 
                 </LinearLayout>
             </LinearLayout>
-            <TextView
-                android:paddingLeft="8dp"
-                 android:gravity="center_vertical"
+            <LinearLayout
+                android:gravity="center_vertical"
+                android:layout_marginTop="10dp"
                 android:background="@color/white"
+                android:orientation="horizontal"
                 android:layout_width="match_parent"
-                android:layout_height="45dp"
-                android:layout_marginTop="9dp"
-                android:text="每日健康提醒"
-                android:textSize="13sp" />
+                android:layout_height="49dp">
+                <ImageView
+                    android:src="@drawable/bule_samll"
+                    android:layout_marginLeft="15dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <TextView
+                    android:paddingLeft="10dp"
+                    android:gravity="center_vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="49dp"
+                    android:textColor="@color/slow_black"
+                    android:text="每日健康提醒"
+                    android:textSize="15sp" />
+            </LinearLayout>
+
             <View
                 android:layout_width="match_parent"
                 android:layout_height="0.8dp"

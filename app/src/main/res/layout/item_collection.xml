@@ -101,8 +101,8 @@
 
 
                 android:src="@drawable/arrow_left"
-                android:layout_width="25dp"
-                android:layout_height="16dp"
+                android:layout_width="8dp"
+                android:layout_height="13dp"
 
                 android:layout_marginRight="14dp"/>
         </LinearLayout>

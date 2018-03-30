@@ -14,6 +14,8 @@ import com.canplay.medical.bean.Euip;
 
 import java.util.List;
 
+import retrofit2.http.Headers;
+
 
 public class SmartCycAdapter extends BaseAdapter {
     private Context mContext;
@@ -71,7 +73,24 @@ public class SmartCycAdapter extends BaseAdapter {
         }else{
             holder = (ResultViewHolder) view.getTag();
         }
-
+        if(position==0){
+            holder.ll_item.setBackground(mContext.getResources().getDrawable(R.drawable.blue_cycle));
+            holder.tvTime.setTextColor(mContext.getResources().getColor(R.color.white));
+            holder.tvTimes.setTextColor(mContext.getResources().getColor(R.color.white));
+            holder.tvTime.setVisibility(View.VISIBLE);
+            holder.tvTimes.setVisibility(View.VISIBLE);
+        }else if(position==2){
+            holder.ll_item.setBackground(mContext.getResources().getDrawable(R.drawable.line_cyc_red));
+            holder.tvTimes.setTextColor(mContext.getResources().getColor(R.color.red_cyc));
+            holder.tvTime.setVisibility(View.GONE);
+            holder.tvTimes.setVisibility(View.VISIBLE);
+        }else {
+            holder.ll_item.setBackground(mContext.getResources().getDrawable(R.drawable.line_cyc_blue));
+            holder.tvTime.setTextColor(mContext.getResources().getColor(R.color.blue));
+            holder.tvTimes.setTextColor(mContext.getResources().getColor(R.color.txt_blue));
+            holder.tvTime.setVisibility(View.VISIBLE);
+            holder.tvTimes.setVisibility(View.VISIBLE);
+        }
         return view;
 
 

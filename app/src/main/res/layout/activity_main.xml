@@ -6,6 +6,10 @@
     android:layout_height="match_parent"
 
     >
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.001dp"
+        android:id="@+id/line"/>
     <com.canplay.medical.view.NoScrollViewPager
         android:layout_above="@+id/bnb_home"
         android:id="@+id/viewpager_main"

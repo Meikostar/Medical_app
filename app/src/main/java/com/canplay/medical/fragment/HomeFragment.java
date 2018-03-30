@@ -19,18 +19,13 @@ import com.canplay.medical.mvp.activity.LocationBdActivity;
 import com.canplay.medical.mvp.activity.home.MeasurePlanActivity;
 import com.canplay.medical.mvp.activity.home.MessageActivity;
 import com.canplay.medical.mvp.activity.home.UsePlanActivity;
-import com.canplay.medical.mvp.activity.mine.AddFriendActivity;
 import com.canplay.medical.mvp.activity.mine.MineEuipmentActivity;
 import com.canplay.medical.mvp.activity.mine.MineHealthCenterActivity;
 import com.canplay.medical.mvp.activity.mine.RemindHealthActivity;
 import com.canplay.medical.mvp.adapter.HomeAdapter;
-import com.canplay.medical.permission.PermissionConst;
-import com.canplay.medical.permission.PermissionSuccess;
-import com.canplay.medical.view.NavigationBar;
 import com.canplay.medical.view.RegularListView;
 import com.canplay.medical.view.banner.BannerView;
-import com.yzq.zxinglibrary.android.CaptureActivity;
-import com.yzq.zxinglibrary.common.Constant;
+
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -38,7 +33,6 @@ import butterknife.Unbinder;
 import rx.Subscription;
 import rx.functions.Action1;
 
-import static android.app.Activity.RESULT_OK;
 
 
 /**
@@ -83,7 +77,8 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, null);
         unbinder = ButterKnife.bind(this, view);
-
+        bannerView.requestFocus();
+        bannerView.setFocusableInTouchMode(true);
         initView();
         initListener();
 
@@ -190,6 +185,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
     }
 
     private void initView() {
+
         adapter=new HomeAdapter(getActivity());
         lvInfo.setAdapter(adapter);
 

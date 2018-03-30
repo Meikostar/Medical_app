@@ -106,8 +106,7 @@ public class LoginActivity extends BaseActivity implements LoginContract.View {
         tvForget.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {//忘记密码
-                Intent intent=new Intent(LoginActivity.this,RegisteredActivity.class);
-                intent.putExtra("type",1);
+                Intent intent=new Intent(LoginActivity.this,ForgetPswActivity.class);
                 startActivity(intent);
             }
         });
@@ -116,7 +115,6 @@ public class LoginActivity extends BaseActivity implements LoginContract.View {
             @Override
             public void onClick(View v) {//注册
                 Intent intent=new Intent(LoginActivity.this,RegisteredActivity.class);
-                intent.putExtra("type",0);
                 startActivity(intent);
             }
         });

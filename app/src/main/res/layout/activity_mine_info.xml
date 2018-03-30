@@ -35,7 +35,7 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent" />
         <ImageView
-
+            android:src="@drawable/adds"
             android:id="@+id/iv_phone"
             android:layout_width="59dp"
             android:layout_height="59dp"
@@ -43,8 +43,8 @@
         <ImageView
 
             android:src="@drawable/arrow_left"
-            android:layout_width="12dp"
-            android:layout_height="16dp"
+            android:layout_width="8dp"
+            android:layout_height="13dp"
             android:layout_marginRight="13dp"/>
 
     </LinearLayout>
@@ -86,8 +86,8 @@
         <ImageView
 
             android:src="@drawable/arrow_left"
-            android:layout_width="12dp"
-            android:layout_height="16dp"
+            android:layout_width="8dp"
+            android:layout_height="13dp"
             android:layout_marginRight="13dp"/>
     </LinearLayout>
     <View
@@ -122,8 +122,8 @@
         <ImageView
 
             android:src="@drawable/arrow_left"
-            android:layout_width="12dp"
-            android:layout_height="16dp"
+            android:layout_width="8dp"
+            android:layout_height="13dp"
             android:layout_marginRight="13dp"/>
     </LinearLayout>
     <View
@@ -158,8 +158,8 @@
         <ImageView
 
             android:src="@drawable/arrow_left"
-            android:layout_width="12dp"
-            android:layout_height="16dp"
+            android:layout_width="8dp"
+            android:layout_height="13dp"
             android:layout_marginRight="13dp"/>
     </LinearLayout>
     <View
@@ -193,8 +193,8 @@
         <ImageView
 
             android:src="@drawable/arrow_left"
-            android:layout_width="12dp"
-            android:layout_height="16dp"
+            android:layout_width="8dp"
+            android:layout_height="13dp"
             android:layout_marginRight="13dp"/>
     </LinearLayout>
     <View
@@ -229,8 +229,8 @@
         <ImageView
 
             android:src="@drawable/arrow_left"
-            android:layout_width="12dp"
-            android:layout_height="16dp"
+            android:layout_width="8dp"
+            android:layout_height="13dp"
             android:layout_marginRight="13dp"/>
     </LinearLayout>
 

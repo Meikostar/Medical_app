@@ -11,6 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:navigationTitle="修改密码"
+        app:navigationLeft_img="@drawable/black_left"
         app:navigationRight_type="gone"/>
 
     <LinearLayout
@@ -18,12 +19,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/tv_logo"
-        android:layout_marginTop="35dp"
+        android:layout_marginTop="10dp"
         android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="54dp"
             android:background="@color/white"
             android:gravity="center_vertical"
             android:orientation="horizontal">
@@ -44,17 +45,21 @@
                 android:layout_weight="1"
                 android:background="@null"
                 android:gravity="center_vertical"
-                android:hint=""
+                android:hint="请输入旧密码"
                 android:maxLength="11"
                 android:text=""
                 android:textColor="@color/slow_black"
-                android:textColorHint="@color/blue"
+                android:textColorHint="@color/color8"
                 android:textSize="14sp" />
         </LinearLayout>
-
+       <View
+           android:layout_width="match_parent"
+           android:layout_height="0.5dp"
+           android:background="@color/linecolor"
+           android:layout_marginLeft="15dp"/>
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="54dp"
             android:layout_marginTop="0.6dp"
             android:background="@color/white"
             android:gravity="center_vertical"
@@ -75,19 +80,23 @@
                 android:layout_marginRight="12dp"
                 android:background="@null"
                 android:gravity="center_vertical"
-                android:hint=""
+                android:hint="请输入新密码"
                 android:inputType="textPassword"
                 android:maxLength="11"
                 android:text=""
                 android:textColor="@color/slow_black"
-                android:textColorHint="@color/blue"
+                android:textColorHint="@color/color8"
                 android:textSize="14sp" />
 
         </LinearLayout>
-
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="@color/linecolor"
+            android:layout_marginLeft="15dp"/>
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="54dp"
             android:layout_marginTop="0.6dp"
             android:background="@color/white"
             android:gravity="center_vertical"
@@ -108,12 +117,12 @@
                 android:layout_marginRight="12dp"
                 android:background="@null"
                 android:gravity="center_vertical"
-                android:hint=""
+                android:hint="请再次输入新密码"
                 android:inputType="textPassword"
                 android:maxLength="11"
                 android:text=""
                 android:textColor="@color/slow_black"
-                android:textColorHint="@color/blue"
+                android:textColorHint="@color/color8"
                 android:textSize="14sp" />
 
         </LinearLayout>

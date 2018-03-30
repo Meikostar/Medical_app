@@ -19,6 +19,6 @@ public interface AppComponent{
 
     void inject(BaseApplication application);
 
-    void inject(BaseActivity baseActivity);
+    void inject(BaseAllActivity baseActivity);
 
 }

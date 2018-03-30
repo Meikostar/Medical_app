@@ -11,6 +11,7 @@
         android:id="@+id/navigationBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        app:navigationLeft_img="@drawable/black_left"
         app:navigationTitle="我的二维码" />
 
     <LinearLayout
@@ -46,6 +47,7 @@
                     android:orientation="vertical">
 
                     <ImageView
+                        android:src="@drawable/moren"
                         android:id="@+id/img"
                         android:layout_width="59dp"
                         android:layout_height="59dp"

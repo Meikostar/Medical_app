@@ -1,12 +1,14 @@
 package com.canplay.medical.mvp.activity.mine;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
 import com.canplay.medical.R;
 import com.canplay.medical.base.BaseActivity;
+import com.canplay.medical.mvp.activity.account.ChangePhoneActivity;
 import com.canplay.medical.view.NavigationBar;
 
 import butterknife.BindView;
@@ -39,7 +41,7 @@ public class BindPhoneActivity extends BaseActivity {
         tvChange.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+              startActivity(new Intent(BindPhoneActivity.this,ChangePhoneActivity.class));
             }
         });
 

@@ -10,8 +10,8 @@
         android:layout_marginRight="6dp"
         android:layout_marginLeft="15dp"
         android:layout_marginTop="16dp"
-        android:textSize="14sp"
-        android:textColor="@color/slow_black"
+        android:textSize="15.5sp"
+        android:textColor="@color/blue"
         android:text="01.26"
         android:layout_width="40dp"
         android:layout_height="wrap_content" />
@@ -25,7 +25,7 @@
             android:layout_width="2dp"
             app:lineHeight="1dp"
             app:lineWidth="4dp"
-            app:dashWidth="4dp"
+            app:dashWidth="0dp"
             app:dashOrientation="1"
             app:lineColor="@color/linecolor"
             android:layout_height="22dp"
@@ -37,8 +37,8 @@
             android:layout_centerHorizontal="true"
             android:layout_width="2dp"
             app:lineHeight="1dp"
-            app:lineWidth="2dp"
-            app:dashWidth="2dp"
+            app:lineWidth="4dp"
+            app:dashWidth="0dp"
             app:dashOrientation="1"
              app:lineColor="@color/linecolor"
             android:layout_height="60dp"
@@ -48,8 +48,8 @@
             android:layout_marginTop="22dp"
             android:background="@drawable/hui_cycle"
             android:layout_centerHorizontal="true"
-            android:layout_width="6dp"
-            android:layout_height="6dp" />
+            android:layout_width="8dp"
+            android:layout_height="8dp" />
     </RelativeLayout>
     <LinearLayout
 
@@ -68,12 +68,12 @@
             android:textSize="14sp"
             android:gravity="center_vertical"
 
-            android:textColor="@color/slow_black"
+            android:textColor="#878787"
             android:text="15:30:56"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
         <LinearLayout
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="13dp"
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
