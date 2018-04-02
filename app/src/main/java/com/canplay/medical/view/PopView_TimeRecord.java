@@ -3,6 +3,7 @@ package com.canplay.medical.view;
 import android.app.Activity;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.canplay.medical.R;
@@ -17,14 +18,14 @@ import butterknife.ButterKnife;
 public class PopView_TimeRecord extends BasePopView {
 
 
-    @BindView(R.id.tv_all)
-    TextView tvAll;
-    @BindView(R.id.tv_press)
-    TextView tvPress;
-    @BindView(R.id.tv_eat)
-    TextView tvEat;
-    @BindView(R.id.tv_sugar)
-    TextView tvSugar;
+    @BindView(R.id.ll_all)
+    LinearLayout tvAll;
+    @BindView(R.id.ll_press)
+    LinearLayout tvPress;
+    @BindView(R.id.ll_eat)
+    LinearLayout tvEat;
+    @BindView(R.id.ll_sugar)
+    LinearLayout tvSugar;
 
 
     public PopView_TimeRecord(Activity activity, int type) {
@@ -64,16 +65,16 @@ public class PopView_TimeRecord extends BasePopView {
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.tv_all:
+            case R.id.ll_all:
                 listeners.clickListener(0);
                 break;
-            case R.id.tv_press:
+            case R.id.ll_press:
                 listeners.clickListener(1);
                 break;
-            case R.id.tv_eat:
+            case R.id.ll_eat:
                 listeners.clickListener(2);
                 break;
-            case R.id.tv_sugar:
+            case R.id.ll_sugar:
                 listeners.clickListener(3);
                 break;
 

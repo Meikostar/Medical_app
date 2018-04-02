@@ -16,8 +16,7 @@
         app:navigationRight_type="txt"
         app:navigationRight_txt="编辑"
         app:navigationTitle="血压计" />
-=
-=
+
 
             <LinearLayout
                 android:background="@color/white"
@@ -96,22 +95,15 @@
                 android:layout_width="match_parent"
                 android:layout_height="0.5dp"
                 android:background="@color/linecolor" />
-            <LinearLayout
+    <ListView
+        android:layout_below="@+id/navigationBar"
+        android:divider="@color/content_bg"
+        android:id="@+id/listview"
+        style="@style/lv_content"
 
-                android:background="@color/white"
-                android:gravity="center_vertical"
-                android:layout_width="match_parent"
-                android:layout_height="50dp" >
-                <TextView
-                    android:layout_weight="1"
-                    android:id="@+id/tv_time"
-                    android:layout_marginLeft="18dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="11:30"
-                    android:textColor="@color/slow_black"
-                    android:textSize="15sp" />
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        />
 
-            </LinearLayout>
 
 </LinearLayout>

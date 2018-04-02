@@ -57,7 +57,7 @@ public class MineHealthCenterActivity extends BaseActivity {
         mSuperRecyclerView.setLayoutManager(mLinearLayoutManager);
         mSuperRecyclerView.addItemDecoration(new DivItemDecoration(2, true));
         mSuperRecyclerView.getMoreProgressView().getLayoutParams().width = ViewGroup.LayoutParams.MATCH_PARENT;
-        adapter = new HealthCenterAdapter(this);
+        adapter = new HealthCenterAdapter(this,1);
         mSuperRecyclerView.setAdapter(adapter);
         reflash();
         // mSuperRecyclerView.setRefreshing(false);

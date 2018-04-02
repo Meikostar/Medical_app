@@ -13,6 +13,9 @@ import com.canplay.medical.view.NavigationBar;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+/**
+ * 更换手机号
+ */
 
 public class ChangePhoneActivity extends BaseActivity {
 

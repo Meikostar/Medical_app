@@ -26,7 +26,7 @@
                 android:id="@+id/iv_checkbox_image1"
                 android:layout_gravity="center_horizontal"
                 android:layout_width="20dp"
-
+                 android:src="@drawable/home1_selector"
                 android:layout_height="20dp" />
             <TextView
                 android:textColor="@color/bottom"
@@ -52,7 +52,7 @@
                 android:id="@+id/iv_checkbox_image2"
                 android:layout_gravity="center_horizontal"
                 android:layout_width="20dp"
-
+                android:src="@drawable/home2_selector"
                 android:layout_height="20dp" />
             <TextView
                 android:textColor="@color/bottom"
@@ -75,7 +75,7 @@
                 android:id="@+id/iv_checkbox_image3"
                 android:layout_gravity="center_horizontal"
                 android:layout_width="20dp"
-
+                android:src="@drawable/home3_selector"
                 android:layout_height="20dp" />
             <TextView
                 android:textColor="@color/bottom"
@@ -100,7 +100,7 @@
                 android:id="@+id/iv_checkbox_image4"
                 android:layout_gravity="center_horizontal"
                 android:layout_width="20dp"
-
+                android:src="@drawable/home4_selector"
                 android:layout_height="20dp" />
             <TextView
                 android:textColor="@color/bottom"

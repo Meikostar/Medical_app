@@ -26,7 +26,7 @@ public class EditorNameDialog {
     private TextView mButtonCancel;
     private TextView mButtonConfirm;
     private TextView but_title;
-    private EditText editText;
+    private ClearEditText editText;
 
     private BindClickListener mBindClickListener;
     private TextView[] views;
@@ -72,7 +72,7 @@ public class EditorNameDialog {
         mButtonConfirm = (TextView) mView.findViewById(R.id.but_tsw_confirm);
         but_title = (TextView) mView.findViewById(R.id.select_title);
         tv_content = (TextView) mView.findViewById(R.id.tv_content);
-        editText = (EditText) mView.findViewById(R.id.et_money);
+        editText = (ClearEditText) mView.findViewById(R.id.et_money);
 
 
         mButtonCancel.setOnClickListener(new View.OnClickListener() {

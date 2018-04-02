@@ -24,67 +24,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="149dp"
                 >
-                <RelativeLayout
-                    android:layout_marginTop="22dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/header_height">
 
-                    <LinearLayout
-                        android:id="@+id/ll_back"
-                        android:layout_width="wrap_content"
-                        android:layout_height="fill_parent"
-                        android:layout_alignParentLeft="true"
-                        android:background="@drawable/ease_common_tab_bg"
-                        >
-
-                        <ImageView
-
-                            android:layout_width="@dimen/header_right_iconHw"
-                            android:layout_height="@dimen/header_right_iconHw"
-                            android:layout_gravity="center_vertical"
-                            android:layout_marginLeft="@dimen/header_left_paddingLeft"
-                            android:layout_marginRight="@dimen/header_left_paddingLeft"
-                            android:src="@drawable/black_left" />
-                    </LinearLayout>
-
-                    <TextView
-
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:gravity="center"
-                        android:text="医生详情"
-                        android:textColor="@color/white"
-                        android:textSize="@dimen/textsize_big"
-                        android:layout_alignParentTop="true"
-                        android:layout_centerHorizontal="true" />
-                    <LinearLayout
-                        android:layout_alignParentRight="true"
-                        android:layout_width="wrap_content"
-                        android:layout_height="fill_parent"
-                        android:orientation="horizontal">
-                        <FrameLayout
-                            android:id="@+id/topview_right_layout"
-                            android:layout_width="wrap_content"
-                            android:layout_height="fill_parent">
-
-
-
-                            <TextView
-
-                                android:layout_width="wrap_content"
-                                android:layout_height="30dp"
-                                android:layout_gravity="center_vertical"
-                                android:layout_marginRight="12dp"
-                                android:gravity="center"
-                                android:minWidth="55dp"
-                                android:text="确认添加"
-                                android:textColor="@color/white"
-                                android:textSize="15.5sp" />
-                        </FrameLayout>
-
-                    </LinearLayout>
-
-                </RelativeLayout>
             </LinearLayout>
 
 
@@ -328,6 +268,67 @@
 
     </com.canplay.medical.view.scrollView.StickyScrollView>
 
+    <RelativeLayout
+        android:layout_marginTop="22dp"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/header_height">
+
+        <LinearLayout
+            android:id="@+id/ll_back"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:layout_alignParentLeft="true"
+
+            >
+
+            <ImageView
+
+                android:layout_width="@dimen/header_right_iconHw"
+                android:layout_height="@dimen/header_right_iconHw"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="@dimen/header_left_paddingLeft"
+                android:layout_marginRight="@dimen/header_left_paddingLeft"
+                android:src="@drawable/black_left" />
+        </LinearLayout>
+
+        <TextView
+
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="医生详情"
+            android:textColor="@color/white"
+            android:textSize="@dimen/textsize_big"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true" />
+        <LinearLayout
+            android:layout_alignParentRight="true"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:orientation="horizontal">
+            <FrameLayout
+                android:id="@+id/topview_right_layout"
+                android:layout_width="wrap_content"
+                android:layout_height="fill_parent">
+
+
+
+                <TextView
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="30dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginRight="12dp"
+                    android:gravity="center"
+                    android:minWidth="55dp"
+                    android:text="确认添加"
+                    android:textColor="@color/white"
+                    android:textSize="15.5sp" />
+            </FrameLayout>
+
+        </LinearLayout>
+
+    </RelativeLayout>
 
 
 </RelativeLayout>

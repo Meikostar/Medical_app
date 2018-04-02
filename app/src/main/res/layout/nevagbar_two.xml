@@ -19,7 +19,10 @@
             style="@style/button_item"
             android:drawableBottom="@drawable/line_selector"
             android:text="曲线" />
-
+        <View
+            android:layout_width="0.5dp"
+            android:layout_height="match_parent"
+            android:background="@color/linecolor"/>
         <RadioButton
             android:layout_marginLeft="20dp"
             android:layout_weight="1"

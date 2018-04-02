@@ -9,8 +9,8 @@
         android:orientation="vertical"
         android:src="@drawable/menu_bg"
         android:layout_alignParentRight="true"
-        android:layout_marginTop="30dp"
-        android:layout_marginRight="8dp"
+        android:layout_marginTop="33dp"
+        android:layout_marginRight="5.5dp"
         />
 
     <LinearLayout
@@ -19,8 +19,8 @@
         android:orientation="vertical"
 
         android:layout_alignParentRight="true"
-        android:layout_marginTop="45dp"
-        android:layout_marginRight="8dp"
+        android:layout_marginTop="48dp"
+        android:layout_marginRight="5.5dp"
         >
         <TextView
 

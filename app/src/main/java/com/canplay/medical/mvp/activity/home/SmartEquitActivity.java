@@ -3,12 +3,13 @@ package com.canplay.medical.mvp.activity.home;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.canplay.medical.R;
 import com.canplay.medical.base.BaseActivity;
 import com.canplay.medical.bean.Equip;
-import com.canplay.medical.bean.Euip;
+import com.canplay.medical.mvp.adapter.TimeAdapter;
 import com.canplay.medical.util.TextUtil;
 import com.canplay.medical.view.NavigationBar;
 
@@ -29,21 +30,25 @@ public class SmartEquitActivity extends BaseActivity {
     TextView tvType;
     @BindView(R.id.tv_ring)
     TextView tvRing;
-    @BindView(R.id.tv_time)
-    TextView tvTime;
+    @BindView(R.id.listview)
+    ListView listview;
     private Equip data;
+    private TimeAdapter adapter;
+
     @Override
     public void initViews() {
         setContentView(R.layout.activity_smart_equit);
         ButterKnife.bind(this);
-        data= (Equip) getIntent().getSerializableExtra("data");
+        data = (Equip) getIntent().getSerializableExtra("data");
 
         navigationBar.setNavigationBarListener(this);
-        if(data!=null){
-            if(TextUtil.isNotEmpty(data.name)){
+        if (data != null) {
+            if (TextUtil.isNotEmpty(data.name)) {
                 navigationBar.setNaviTitle(data.name);
             }
         }
+        adapter=new TimeAdapter(this);
+        listview.setAdapter(adapter);
     }
 
     @Override
@@ -59,7 +64,7 @@ public class SmartEquitActivity extends BaseActivity {
             @Override
             public void navigationRight() {
                 Intent intent = new Intent(SmartEquitActivity.this, MeasureActivity.class);
-                intent.putExtra("data",data);
+                intent.putExtra("data", data);
                 startActivity(intent);
             }
 

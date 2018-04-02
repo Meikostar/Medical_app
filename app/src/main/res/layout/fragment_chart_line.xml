@@ -22,26 +22,42 @@
         <TextView
             android:text="18.2.12 10:30"
             android:layout_weight="1"
-            android:layout_marginLeft="13dp"
-            android:textColor="@color/slow_black"
+            android:layout_marginLeft="5dp"
+            android:textColor="@color/color8"
             android:textSize="12sp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
     </LinearLayout>
     <LinearLayout
+        android:paddingTop="3dp"
         android:background="@color/white"
         android:id="@+id/ll_center"
         android:gravity="center_vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
-        <ImageView
+        <FrameLayout
             android:layout_marginBottom="15dp"
             android:layout_marginTop="10dp"
-            android:layout_width="70dp"
-            android:layout_height="60dp"
-            android:layout_marginLeft="19dp"/>
+            android:layout_marginLeft="19dp"
+            android:layout_width="113dp"
+            android:layout_height="59dp">
+            <ImageView
+                android:src="@drawable/char_bg"
+                android:layout_width="113dp"
+                android:layout_height="59dp"
+                />
+            <TextView
+                android:layout_marginTop="40dp"
+                android:layout_gravity="center_horizontal"
+                android:textColor="@color/red_pop"
+                android:text="异常"
+                android:textSize="16sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </FrameLayout>
+    
         <LinearLayout
             android:layout_marginLeft="8dp"
             android:gravity="center"
@@ -54,14 +70,14 @@
                 android:id="@+id/tv_press"
                 android:text="130"
                 android:textColor="@color/slow_black"
-                android:textSize="16sp"
+                android:textSize="28sp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
             <TextView
-                android:layout_marginTop="6dp"
+                android:layout_marginTop="9dp"
                 android:text="收缩压"
-                android:textColor="@color/slow_black"
+                android:textColor="@color/color8"
                 android:textSize="13sp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
@@ -78,14 +94,14 @@
                 android:id="@+id/tv_data"
                 android:text="70"
                 android:textColor="@color/slow_black"
-                android:textSize="16sp"
+                android:textSize="28sp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
             <TextView
-                android:layout_marginTop="6dp"
+                android:layout_marginTop="9dp"
                 android:text="舒张压"
-                android:textColor="@color/slow_black"
+                android:textColor="@color/color8"
                 android:textSize="13sp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
@@ -101,41 +117,67 @@
             <TextView
                 android:id="@+id/tv_rate"
                 android:text="90"
-                android:textColor="@color/red"
-                android:textSize="16sp"
+                android:textColor="#FF5B74"
+                android:textSize="28sp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
             <TextView
-                android:layout_marginTop="6dp"
+                android:layout_marginTop="9dp"
                 android:text="心率"
-                android:textColor="@color/slow_black"
+                android:textColor="@color/color8"
                 android:textSize="13sp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
         </LinearLayout>
     </LinearLayout>
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="0.5dp"
-        android:background="@color/linecolor"/>
+  <LinearLayout
+      android:paddingTop="15dp"
+      android:background="@color/white"
+      android:gravity="center_vertical"
+      android:orientation="horizontal"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content">
+      <View
+          android:layout_marginRight="22dp"
+          android:layout_weight="1"
+          android:layout_width="match_parent"
+          android:layout_height="0.5dp"
+          android:background="@color/linecolor"/>
+      <TextView
+          android:text="正常值"
+          android:textColor="#545454"
+          android:textSize="14sp"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content" />
+
+      <View
+          android:layout_marginLeft="22dp"
+          android:layout_weight="1"
+          android:layout_width="match_parent"
+          android:layout_height="0.5dp"
+          android:background="@color/linecolor"/>
+  </LinearLayout>
     <LinearLayout
         android:background="@color/white"
         android:layout_width="match_parent"
         android:layout_height="45dp"
         android:orientation="horizontal">
+
+
+
         <TextView
-            android:gravity="center"
-            android:layout_weight="1"
             android:id="@+id/tv_one"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
             android:text="收缩压   130mmHg"
             android:textColor="@color/slow_black"
-            android:textSize="16sp"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent" />
+            android:textSize="16sp" />
         <View
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="8dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
             android:layout_width="0.5dp"
             android:layout_height="match_parent"
             android:background="@color/linecolor"/>
@@ -151,12 +193,12 @@
             android:layout_height="wrap_content" />
     </LinearLayout>
     <LinearLayout
-        android:background="@drawable/blackt_title_rectangle_light"
-        android:layout_marginTop="13dp"
-        android:layout_marginLeft="38dp"
-        android:layout_marginRight="38dp"
+        android:background="@drawable/char_blue_line"
+        android:layout_marginTop="15dp"
+        android:layout_marginLeft="18dp"
+        android:layout_marginRight="18dp"
         android:layout_width="match_parent"
-        android:layout_height="40dp"
+        android:layout_height="42dp"
         android:orientation="horizontal">
         <TextView
             android:gravity="center"
@@ -169,11 +211,10 @@
             android:layout_height="match_parent"
             android:layout_weight="1"/>
         <View
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="8dp"
+
             android:layout_width="0.5dp"
             android:layout_height="match_parent"
-            android:background="@color/linecolor"/>
+            android:background="#00A8FF"/>
 
         <TextView
             android:textSize="15sp"
@@ -181,16 +222,15 @@
             android:gravity="center"
             android:text="15天"
             android:id="@+id/tv_ctwo"
-            android:textColor="@color/slow_black"
+            android:textColor="#00A8FF"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="1"/>
         <View
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="8dp"
+
             android:layout_width="0.5dp"
             android:layout_height="match_parent"
-            android:background="@color/linecolor"/>
+            android:background="#00A8FF"/>
 
         <TextView
             android:textSize="15sp"
@@ -198,7 +238,7 @@
             android:gravity="center"
             android:text="30天"
             android:id="@+id/tv_cthree"
-            android:textColor="@color/slow_black"
+            android:textColor="#00A8FF"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="1"/>
@@ -208,37 +248,15 @@
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-      <com.canplay.medical.view.NoScrollViewPager
-          android:id="@+id/viewpager_main"
-          android:background="@color/content_bg"
-          android:layout_weight="1"
-          android:layout_width="match_parent"
-          android:layout_height="match_parent"/>
-        <LinearLayout
-            android:layout_marginTop="8dp"
-            android:background="@color/white"
-            android:orientation="horizontal"
-            android:gravity="center"
+
+        <com.canplay.medical.view.NoScrollViewPager
+            android:id="@+id/viewpager_main"
             android:layout_width="match_parent"
-            android:layout_height="30dp">
-            <ImageView
-                android:src="@drawable/org_cycle"
-                android:id="@+id/iv_one"
-                android:layout_width="10dp"
-                android:layout_height="10dp" />
-            <ImageView
-                android:src="@drawable/while_cycle"
-                android:layout_marginRight="8dp"
-                android:layout_marginLeft="8dp"
-                android:id="@+id/iv_two"
-                android:layout_width="10dp"
-                android:layout_height="10dp" />
-            <ImageView
-                android:src="@drawable/while_cycle"
-                android:id="@+id/iv_three"
-                android:layout_width="10dp"
-                android:layout_height="10dp" />
-        </LinearLayout>
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/content_bg" />
+
+
     </LinearLayout>
 
 </LinearLayout>

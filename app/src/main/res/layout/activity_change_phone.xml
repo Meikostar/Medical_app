@@ -14,7 +14,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
 
-        app:navigationTitle="更换手机" />
+        app:navigationTitle="更换手机号" />
 
     <View
         android:layout_width="match_parent"
@@ -54,8 +54,8 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_marginTop="12dp"
+            android:layout_height="54dp"
+
             android:background="@color/white"
             android:gravity="center_vertical"
             android:orientation="horizontal">
@@ -89,7 +89,7 @@
                 android:id="@+id/tv_getcode"
                 android:layout_width="wrap_content"
                 android:layout_height="34dp"
-                android:layout_marginRight="6dp"
+                android:layout_marginRight="16dp"
                 android:background="@drawable/login_selector"
                 android:gravity="center"
                 android:padding="7dp"
@@ -106,9 +106,10 @@
             android:background="@color/linecolor" />
 
         <LinearLayout
+
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
+            android:layout_height="54dp"
+
             android:background="@color/white"
             android:gravity="center_vertical"
             android:orientation="horizontal">

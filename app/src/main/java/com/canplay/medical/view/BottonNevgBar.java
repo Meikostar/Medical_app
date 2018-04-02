@@ -92,8 +92,10 @@ public class BottonNevgBar extends LinearLayout implements View.OnClickListener 
         for (int i=0;i<4;i++){
             if (index == i){
                 textViews[i].setTextColor(ContextCompat.getColor(mContext,R.color.blue));
+                imageViews[i].setSelected(true);
             }else {
                 textViews[i].setTextColor(ContextCompat.getColor(mContext,R.color.bottom));
+                imageViews[i].setSelected(false);
             }
         }
 

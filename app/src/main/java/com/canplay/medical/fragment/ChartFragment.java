@@ -53,12 +53,7 @@ public class ChartFragment extends BaseFragment {
     TextView tvCthree;
     @BindView(R.id.viewpager_main)
     NoScrollViewPager viewpagerMain;
-    @BindView(R.id.iv_one)
-    ImageView ivOne;
-    @BindView(R.id.iv_two)
-    ImageView ivTwo;
-    @BindView(R.id.iv_three)
-    ImageView ivThree;
+
     private LineCharFragment fragment1;
     private LineCharFragment fragment2;
     private LineCharFragment fragment3;
@@ -135,36 +130,29 @@ public class ChartFragment extends BaseFragment {
         if(type==0){
             tvCone.setBackground(getResources().getDrawable(R.drawable.choose_hui_rectangle));
             tvCone .setTextColor(getResources().getColor(R.color.white));
-            tvCthree.setTextColor(getResources().getColor(R.color.slow_black));
+            tvCthree.setTextColor(getResources().getColor(R.color.blues));
             tvCthree.setBackground(null);
-            tvCtwo.setTextColor(getResources().getColor(R.color.slow_black));
+            tvCtwo.setTextColor(getResources().getColor(R.color.blues));
             tvCtwo.setBackground(null);
-            ivOne.setImageResource(R.drawable.org_cycle);
-            ivTwo.setImageResource(R.drawable.while_cycle);
-            ivThree.setImageResource(R.drawable.while_cycle);
+
             viewpagerMain.setCurrentItem(0);
         }else if(type==1){
             tvCone.setBackground(null);
-            tvCone.setTextColor(getResources().getColor(R.color.slow_black));
-            tvCthree.setTextColor(getResources().getColor(R.color.slow_black));
+            tvCone.setTextColor(getResources().getColor(R.color.blues));
+            tvCthree.setTextColor(getResources().getColor(R.color.blues));
             tvCthree.setBackground(null);
             tvCtwo.setTextColor(getResources().getColor(R.color.white));
 
-            tvCtwo.setBackground(getResources().getDrawable(R.drawable.choose_huis_rectangle));
-            ivOne.setImageResource(R.drawable.while_cycle);
-            ivTwo.setImageResource(R.drawable.org_cycle);
-            ivThree.setImageResource(R.drawable.while_cycle);
+            tvCtwo.setBackground(getResources().getDrawable(R.drawable.blue_rectangle));
+
             viewpagerMain.setCurrentItem(1);
         }else if(type==2){
             tvCone.setBackground(null);
-            ivOne.setImageResource(R.drawable.while_cycle);
-            ivTwo.setImageResource(R.drawable.while_cycle);
-            ivThree.setImageResource(R.drawable.org_cycle);
             tvCone.setTextColor(getResources().getColor(R.color.slow_black));
-            tvCthree.setTextColor(getResources().getColor(R.color.white));
+            tvCthree.setTextColor(getResources().getColor(R.color.blues));
             tvCthree.setBackground(getResources().getDrawable(R.drawable.choose_huis_rectangle));
 
-            tvCtwo.setTextColor(getResources().getColor(R.color.slow_black));
+            tvCtwo.setTextColor(getResources().getColor(R.color.blues));
             tvCtwo.setBackground(null);
             viewpagerMain.setCurrentItem(2);
         }

@@ -41,7 +41,7 @@
                 android:layout_height="match_parent">
                 <com.canplay.medical.view.ClearEditText
                     android:paddingLeft="11dp"
-                    android:id="@+id/et_search"
+                    android:id="@+id/et_money"
                     android:layout_weight="1"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"

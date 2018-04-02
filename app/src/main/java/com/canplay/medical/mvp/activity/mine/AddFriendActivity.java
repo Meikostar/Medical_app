@@ -25,7 +25,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
- * 添加亲友
+ * 添加亲友/添加医生
  */
 public class AddFriendActivity extends BaseActivity {
 
@@ -53,7 +53,7 @@ public class AddFriendActivity extends BaseActivity {
         mSuperRecyclerView.setLayoutManager(mLinearLayoutManager);
         mSuperRecyclerView.addItemDecoration(new DivItemDecoration(2,true));
         mSuperRecyclerView.getMoreProgressView().getLayoutParams().width = ViewGroup.LayoutParams.MATCH_PARENT;
-        adapter = new HealthCenterAdapter(this);
+        adapter = new HealthCenterAdapter(this,0);
         mSuperRecyclerView.setAdapter(adapter);
         reflash();
         // mSuperRecyclerView.setRefreshing(false);

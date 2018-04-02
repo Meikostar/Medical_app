@@ -14,6 +14,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:navigationRight_type="img"
+        app:navigationLeft_img="@drawable/black_left"
         app:navigationRight_img="@drawable/saixuan"
         app:navigationTitle="时间轴事件" />
 

@@ -13,9 +13,12 @@ import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import com.canplay.medical.R;
+import com.canplay.medical.mvp.adapter.UsePlanAdapter;
+import com.canplay.medical.mvp.adapter.UserRecordAdapter;
 import com.canplay.medical.util.TextUtil;
 
 import butterknife.BindView;
+import io.valuesfeng.picker.universalimageloader.utils.L;
 
 /**
  * Created by qi_fu on 2017/12/18.
@@ -73,7 +76,7 @@ public class ChangeNoticeDialog {
         tvTitle.setVisibility(View.VISIBLE);
         tvTitle.setText(name);
     }
-
+    private UsePlanAdapter adapter;
     private void initView() {
         mView = View.inflate(mContext, R.layout.change_notic_dialog, null);
         tvTitle = (TextView) mView.findViewById(R.id.tv_title);
@@ -85,7 +88,9 @@ public class ChangeNoticeDialog {
         ivImg = (ImageView) mView.findViewById(R.id.iv_img);
         list = (ListView) mView.findViewById(R.id.list);
 
-
+        adapter = new UsePlanAdapter(mContext);
+        adapter.setType(1);
+        list.setAdapter(adapter);
 
         tvCancel.setOnClickListener(new View.OnClickListener() {
             @Override

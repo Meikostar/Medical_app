@@ -23,16 +23,23 @@ import butterknife.ButterKnife;
 public class HealthCenterAdapter extends BaseRecycleViewAdapter {
 
     private Context context;
-
-    public HealthCenterAdapter(Context context) {
+    private int type;
+    public HealthCenterAdapter(Context context,int type) {
         this.context = context;
+        this.type=type;
     }
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.friend_item, null);
+        View view=null;
+        if(type==0){
+            view = LayoutInflater.from(parent.getContext()).inflate(R.layout.friend_item, null);
+        }else {
+            view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_health, null);
+        }
 
-        return new HealtCenterHolder(view);
+
+        return new HealtCenterHolder(view,type);
     }
 
     @Override

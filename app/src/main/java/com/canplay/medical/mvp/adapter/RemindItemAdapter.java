@@ -72,7 +72,11 @@ public class RemindItemAdapter extends BaseAdapter {
         }else{
             holder = (ResultViewHolder) view.getTag();
         }
-
+//         if(position==list.size()-1){
+//             holder.line.setVisibility(View.INVISIBLE);
+//         }else {
+//             holder.line.setVisibility(View.VISIBLE);
+//         }
         return view;
 
 
@@ -81,12 +85,10 @@ public class RemindItemAdapter extends BaseAdapter {
     public  class ResultViewHolder{
 
         TextView name;
-
         TextView tvNumber;
         TextView tvCount;
         View line;
         ImageView img;
-        LinearLayout ll_item;
 
     }
 }
