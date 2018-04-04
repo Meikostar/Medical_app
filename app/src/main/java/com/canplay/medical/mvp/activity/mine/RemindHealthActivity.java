@@ -103,7 +103,13 @@ public class RemindHealthActivity extends BaseActivity {
                 if (type == 0) {
                     startActivity(new Intent(RemindHealthActivity.this, RemindSettingActivity.class));
                 } else {
-                    startActivity(new Intent(RemindHealthActivity.this, TakeMedicineActivity.class));
+                    if(status==0){
+                        startActivity(new Intent(RemindHealthActivity.this, TakeMedicineActivity.class));
+                    }else {
+                        startActivity(new Intent(RemindHealthActivity.this, BloodPressRecordActivity.class));
+
+                    }
+
                 }
 
             }
@@ -151,10 +157,5 @@ public class RemindHealthActivity extends BaseActivity {
     }
 
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
-        ButterKnife.bind(this);
-    }
+
 }

@@ -103,7 +103,7 @@
                 android:hint="请输入验证码"
                 android:inputType="number"
                 android:maxLength="11"
-                android:text="a1"
+                android:text=""
                 android:textColor="@color/slow_black"
                 android:textColorHint="@color/bd"
                 android:textSize="16.5sp" />

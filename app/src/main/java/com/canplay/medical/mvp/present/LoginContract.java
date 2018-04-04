@@ -9,7 +9,7 @@ public class LoginContract {
 //        <T> void toList(List<T> list, int type, int... refreshType);
         <T> void toEntity(T entity);
 
-//        void toNextStep(int type);
+        void toNextStep(int type);
 
         void showTomast(String msg);
     }
@@ -25,6 +25,20 @@ public class LoginContract {
          * 获取token
          */
         void getToken();
+        /**
+         * 发送验证码
+         */
+        void getCode(String phone);
+        /**
+         * 校验验证码
+         */
+        void checkCode(String phone,String code);
+
+        /**
+         * 注册
+         */
+        void register(String name,String phone,String date,String pwd);
+
 
     }
 }

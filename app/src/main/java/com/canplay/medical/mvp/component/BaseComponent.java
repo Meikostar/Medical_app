@@ -8,6 +8,7 @@ import com.canplay.medical.fragment.SetFragment;
 import com.canplay.medical.mvp.ActivityScope;
 import com.canplay.medical.mvp.activity.account.LoginActivity;
 import com.canplay.medical.mvp.activity.MainActivity;
+import com.canplay.medical.mvp.activity.account.RegisteredActivity;
 
 import dagger.Component;
 
@@ -19,6 +20,7 @@ import dagger.Component;
 public interface BaseComponent{
 
     void inject(LoginActivity binderActivity);
+    void inject(RegisteredActivity binderActivity);
     void inject(MainActivity binderActivity);
     void inject(HealthDataFragment binderActivity);
     void inject(SetFragment binderActivity);

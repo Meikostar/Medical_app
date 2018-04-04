@@ -26,10 +26,10 @@
             app:canNoClick="true"
             android:layout_gravity="center_vertical"
             android:id="@+id/iv_choose"
-            app:drawablechoose="@drawable/gouxuan"
-            app:drawables="@drawable/gouxues"
-            android:layout_width="20dp"
-            android:layout_height="20dp"/>
+            app:drawablechoose="@drawable/check"
+            app:drawables="@drawable/uncheck"
+            android:layout_width="19dp"
+            android:layout_height="19dp"/>
         <ImageView
             android:src="@drawable/moren"
             android:id="@+id/iv_img"

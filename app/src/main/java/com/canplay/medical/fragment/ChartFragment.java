@@ -31,7 +31,7 @@ import butterknife.Unbinder;
 public class ChartFragment extends BaseFragment {
 
 
-    ;
+
     Unbinder unbinder;
     @BindView(R.id.tv_press)
     TextView tvPress;

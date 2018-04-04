@@ -13,8 +13,9 @@
         android:id="@+id/navigationBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        app:navigationLeft_img="@drawable/black_left"
         app:navigationRight_type="img"
-        app:navigationRight_img="@drawable/login_selector"
+        app:navigationRight_img="@drawable/zhongs"
         app:navigationTitle="健康提醒" />
 
     <View

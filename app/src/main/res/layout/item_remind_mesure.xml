@@ -67,15 +67,14 @@
             <com.canplay.medical.view.MCheckBox
 
                 android:clickable="false"
-                app:canNoClick="true"
+                app:canNoClick="false"
                 android:layout_gravity="center_vertical"
-                android:padding="9dp"
                 android:layout_marginRight="13dp"
                 android:id="@+id/iv_choose"
-                app:drawablechoose="@drawable/gouxuan"
-                app:drawables="@drawable/gouxues"
-                android:layout_width="70dp"
-                android:layout_height="40dp"/>
+                app:drawablechoose="@drawable/open"
+                app:drawables="@drawable/unopen"
+                android:layout_width="54dp"
+                android:layout_height="33dp"/>
 
 
         </LinearLayout>

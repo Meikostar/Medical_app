@@ -21,10 +21,7 @@ import rx.functions.Action1;
 public class LineCharFragment extends BaseFragment {
 
 
-    @BindView(R.id.tv_unit)
-    TextView tvUnit;
-    @BindView(R.id.tv_name)
-    TextView tvName;
+
     @BindView(R.id.hgm_kpi_first)
     HistogramView hgmKpiFirst;
     private String user_class;

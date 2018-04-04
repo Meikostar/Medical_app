@@ -5,6 +5,8 @@ import android.support.annotation.NonNull;
 
 
 import com.canplay.medical.base.manager.ApiManager;
+import com.canplay.medical.bean.BASE;
+import com.canplay.medical.bean.Righter;
 import com.canplay.medical.bean.USER;
 import com.canplay.medical.mvp.http.BaseApi;
 
@@ -54,6 +56,72 @@ public class LoginPresenter implements LoginContract.Presenter {
     @Override
     public void getToken() {
 
+    }
+
+    @Override
+    public void getCode(String phone) {
+        subscription = ApiManager.setSubscribe(contactApi.getCode(phone), new MySubscriber<BASE>(){
+            @Override
+            public void onError(Throwable e){
+                super.onError(e);
+                if(e.toString().contains("java.io.IOException:")){
+                    mView.showTomast("账号或密码错误");
+                }
+
+            }
+
+            @Override
+            public void onNext(BASE entity){
+                mView.toEntity(entity);
+
+            }
+        });
+    }
+
+
+    @Override
+    public void checkCode(String code,String phone) {
+        subscription = ApiManager.setSubscribe(contactApi.checkCode(phone,code), new MySubscriber<BASE>(){
+            @Override
+            public void onError(Throwable e){
+                super.onError(e);
+                mView.toNextStep(0);
+                mView.showTomast("验证码错误");
+
+            }
+
+            @Override
+            public void onNext(BASE entity){
+
+                mView.toNextStep(1);
+
+            }
+        });
+    }
+    @Override
+    public void register(String name,String phone,String date,String pwd) {
+
+        Righter righter = new Righter();
+        righter.lastname=name;
+        righter.username=name;
+        righter.confirmPassword=pwd;
+        righter.firstname=name;
+        righter.password=pwd;
+        righter.mobile=phone;
+        subscription = ApiManager.setSubscribe(contactApi.righter("{Content-Type: \"application/json\",username: \"test9\",firstname: \"Gao\",lastname: \"test\",password: \"123456aA\",confirmPassword: \"123456aA\",mobile: \"13612345678\"}"), new MySubscriber<BASE>(){
+            @Override
+            public void onError(Throwable e){
+                super.onError(e);
+                mView.toNextStep(0);
+                mView.showTomast("稍后再试");
+            }
+
+            @Override
+            public void onNext(BASE entity){
+                mView.toNextStep(2);
+
+            }
+        });
     }
     @Override
     public void attachView(@NonNull LoginContract.View view){

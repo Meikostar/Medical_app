@@ -9,34 +9,6 @@ import java.util.List;
 
 public class KPI {
 
-
-
-    public String month;
-    public String y_axis;
-
-    public List<KPI> list;
-
-    public String getMonth() {
-        return month;
-    }
-
-    public void setMonth(String month) {
-        this.month = month;
-    }
-
-    public String getY_axis() {
-        return y_axis;
-    }
-
-    public void setY_axis(String y_axis) {
-        this.y_axis = y_axis;
-    }
-
-    public List<KPI> getList() {
-        return list;
-    }
-
-    public void setList(List<KPI> list) {
-        this.list = list;
-    }
+    public double xdata;
+    public double ydata;
 }

@@ -147,6 +147,11 @@ public class LoginActivity extends BaseActivity implements LoginContract.View {
     }
 
     @Override
+    public void toNextStep(int type) {
+
+    }
+
+    @Override
     public void showTomast(String msg) {
         showToasts(msg);
         dimessProgress();

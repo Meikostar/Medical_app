@@ -35,5 +35,5 @@ public class NetConfig{
  * 服务端地址
  */
 
-    public static final String SERVER_URL = "http://qsgx-pt.com:8091/Flow/v2";//测试
+    public static final String SERVER_URL = "http://qsgx-pt.com:8091/";//测试
 }

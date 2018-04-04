@@ -27,10 +27,12 @@ public class HistogramView extends View {
 
     private Paint xLinePaint;// 坐标轴 轴线 画笔：
     private Paint hLinePaint;// 坐标轴水平内部 虚线画笔
+    private Paint hLinePaints;// 坐标轴水平内部 虚线画笔
     private Paint titlePaint;// 绘制文本的画笔
     private Paint chartLinePaint;// 折线
+    private Paint pointLinePaint;// 折线
     private Paint paint;// 矩形画笔 柱状图的样式信息
-    private int[] progress = { 2000, 5000, 6000, 8000, 500, 6000, 9000 };// 7
+    private int[] progress = {2000, 5000, 6000, 8000, 500, 6000, 9000};// 7
     // 条，显示各个柱状的数据
     private int[] aniProgress;// 实现动画的值
     private List<Integer> aniProgres;// 实现动画的值
@@ -40,72 +42,102 @@ public class HistogramView extends View {
     private Bitmap bitmap;
     // 坐标轴左侧的数标
     private String[] ySteps;
-    private List<String> yStep=new ArrayList<>();
+    private List<String> yStep = new ArrayList<>();
     // 坐标轴底部的星期数
     private String[] xWeeks;
     private List<String> xWeek;
     private int flag;// 是否使用动画
     private Context context;
-    private int cout=7;
+    private int cout = 7;
     private HistogramAnimation ani;
 
     public HistogramView(Context context) {
         super(context);
-        this.context=context;
+        this.context = context;
         init();
     }
 
     public HistogramView(Context context, AttributeSet attrs) {
         super(context, attrs);
-        this.context=context;
+        this.context = context;
         init();
     }
-    private List<KPI> list;
-    int max=0;
-    public void setDatas(List<KPI> list){
-        this.list=list;
-         max=0;
-      for(KPI kpi:list){
-          if(Integer.valueOf(kpi.getY_axis())>=max){
-              max= Integer.valueOf(kpi.getY_axis());
-          }
-      }
-        yStep.clear();
-        double add = max / 7.0;
-        for(int i=0;i<9;i++){
-            yStep.add((add==0?100*(8-i):(int)add*(8-i))+"");
-      }
+
+    private List<KPI> data=new ArrayList<>();
+    int max = 0;
+
+    public void setDatas(List<KPI> list) {
+        this.data = list;
+
 //        "month": "Dec",
 //                "y_axis": 0
     }
+
     private void init() {
 
-        ySteps = new String[] { "90Hg", "100Hg", "110Hg", "120Hg", "130Hg", "140Hg", "150Hg", "160Hg" };
-        xWeeks = new String[] { "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul"
-                , "Aug", "Sep", "Oct", "Nov", "Dec" };
-        text = new int[] { 0, 0, 0, 0, 0, 0, 0 , 0, 0, 0, 0, 0};
-        aniProgress = new int[] { 500, 300, 900, 350, 680, 690, 720 , 900, 350, 680, 690, 720 };
+        ySteps = new String[]{"240", "210", "190", "160", "130", "100", "70", "40"};
+        xWeeks = new String[]{"1", "2", "3", "4", "5", "6", "7"};
+        KPI kpi = new KPI();
+        kpi.xdata=1;
+        kpi.ydata=65;
+        KPI kpi1 = new KPI();
+        kpi1.xdata=2;
+        kpi1.ydata=75;
+        KPI kpi2 = new KPI();
+        kpi2.xdata=3;
+        kpi2.ydata=86;
+        KPI kpi3 = new KPI();
+        kpi3.xdata=4;
+        kpi3.ydata=70;
+        KPI kpi4 = new KPI();
+        kpi4.xdata=5;
+        kpi4.ydata=90;
+        KPI kpi5 = new KPI();
+        kpi5.xdata=6;
+        kpi5.ydata=165;
+        KPI kpi6 = new KPI();
+        kpi6.xdata=7;
+        kpi6.ydata=145;
+        data.add(kpi);
+        data.add(kpi1);
+        data.add(kpi2);
+        data.add(kpi3);
+        data.add(kpi4);
+        data.add(kpi5);
+        data.add(kpi6);
+        text = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+        aniProgress = new int[]{500, 300, 900, 350, 680, 690, 720, 900, 350, 680, 690, 720};
         ani = new HistogramAnimation();
         ani.setDuration(2000);
 
         xLinePaint = new Paint();
         hLinePaint = new Paint();
+        hLinePaints = new Paint();
         titlePaint = new Paint();
         chartLinePaint = new Paint();
+        pointLinePaint = new Paint();
 
         paint = new Paint();
 
         // 给画笔设置颜色
-        xLinePaint.setColor(Color.DKGRAY);
+        xLinePaint.setColor(getResources().getColor(R.color.blues));
+        xLinePaint.setStrokeWidth(1);
+        hLinePaint.setStrokeWidth(1);
+        hLinePaints.setStrokeWidth(0.8f);
 
-
-        hLinePaint.setColor(Color.LTGRAY);
+        hLinePaint.setColor(getResources().getColor(R.color.blues));
+        hLinePaints.setColor(getResources().getColor(R.color.blu));
         titlePaint.setColor(getResources().getColor(R.color.color9));
         //绘制的折线
         chartLinePaint.setStyle(Paint.Style.FILL);
         chartLinePaint.setStrokeWidth(3);
-        chartLinePaint.setColor(Color.RED);//(1)黄色
+        chartLinePaint.setColor(getResources().getColor(R.color.orange));//(1)黄色
         chartLinePaint.setAntiAlias(true);
+        pointLinePaint.setStyle(Paint.Style.FILL);
+        pointLinePaint.setStrokeWidth(6);
+        pointLinePaint.setColor(getResources().getColor(R.color.red));//(1)黄色
+        pointLinePaint.setAntiAlias(true);
+
         // 加载画图
         bitmap = BitmapFactory
                 .decodeResource(context.getResources(), R.drawable.menu_bg);
@@ -116,73 +148,71 @@ public class HistogramView extends View {
         this.startAnimation(ani);
     }
 
+    private float xsqr;
+    private float ysqr;
+    private float NorValue =75;
+
     @SuppressLint("DrawAllocation")
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
 
-        int width = getWidth();
-        int height = getHeight() - dp2px(50);
+        float width = getWidth() - dp2px(68);
+        float height = getHeight() - dp2px(25);
 
-        int leftHeight = height - dp2px(5);// 左侧外周的 需要划分的高度：
+        float hPerHeight = (height ) / (ySteps.length - 0.6f);// 分成四部分
+        ysqr=(height-dp2px(15))/240.0f;
+        // 绘制底部的线条
+        canvas.drawLine(dp2px(28), height, width, height, xLinePaint);
+        canvas.drawLine(dp2px(28), dp2px(2), dp2px(28), height, hLinePaint);
+        hLinePaint.setTextAlign(Align.CENTER);
+        // 设置四条虚线
+        for (int i = 0; i < ySteps.length - 1; i++) {
 
+            canvas.drawLine(dp2px(30), i * hPerHeight + hPerHeight*0.4f, width
+                    , i * hPerHeight + hPerHeight*0.4f, hLinePaints);
+            canvas.drawLine(dp2px(30), i * hPerHeight + hPerHeight*0.4f + 0.25f, dp2px(36), i * hPerHeight + hPerHeight*0.4f + 0.25f, hLinePaint);
 
+        }
 
-            int hPerHeight = height / (ySteps.length-1);// 分成四部分
-            // 绘制底部的线条
-            canvas.drawLine(dp2px(30), height+dp2px(5  ) , width - dp2px(30), height+dp2px(5), xLinePaint);
-            canvas.drawLine(dp2px(30), dp2px(2),dp2px(30), dp2px(10) + height-dp2px(6), hLinePaint);
-            hLinePaint.setTextAlign(Align.CENTER);
-            // 设置四条虚线
-            for (int i = 0; i < ySteps.length-1; i++) {
-                if(i==4){
-                    canvas.drawLine(dp2px(30), i * hPerHeight, width
-                            - dp2px(30), i * hPerHeight, hLinePaint);
-                }
+        // 绘制 Y 周坐标
+        titlePaint.setTextAlign(Align.RIGHT);
+        titlePaint.setTextSize(sp2px(12));
+        titlePaint.setAntiAlias(true);
+        titlePaint.setStyle(Paint.Style.FILL);
+        // 设置左部的数字
+        for (int i = 0; i < ySteps.length; i++) {
+            canvas.drawText(ySteps[i], dp2px(25), hPerHeight*0.4f+dp2px(2) + i * (hPerHeight),
+                    titlePaint);
+        }
 
-            }
+        // 绘制 X 周 做坐标
 
-            // 绘制 Y 周坐标
-            titlePaint.setTextAlign(Align.RIGHT);
-            titlePaint.setTextSize(sp2px(8));
-            titlePaint.setAntiAlias(true);
-            titlePaint.setStyle(Paint.Style.FILL);
-            // 设置左部的数字
-            for (int i = 0; i <  ySteps.length; i++) {
-                canvas.drawText(ySteps[i], dp2px(25), dp2px(13) + i * hPerHeight,
-                        titlePaint);
-            }
-
-            // 绘制 X 周 做坐标
-            int xAxisLength = width - dp2px(30);
-//            int columCount = list.size() + 1;
-//            int step = (xAxisLength-dp2px(12)) / columCount;
-
+        int columCount = xWeeks.length;
+        float step = (width - dp2px(14)) / (columCount);
+        xsqr = step;
 //            // 设置底部的数字
-//            for (int i = 0; i < columCount - 1; i++) {
-//                // text, baseX, baseY, textPaint
-//                canvas.drawText(list.get(i).month, dp2px(27) + step * (i + 1), height
-//                        + dp2px(14), titlePaint);
-//            }
+        for (int i = 0; i < xWeeks.length; i++) {
+            // text, baseX, baseY, textPaint
+            canvas.drawText(xWeeks[i], dp2px(29) + step * (i), height + dp2px(18), titlePaint);
+            if(i!=xWeeks.length-1){
+                canvas.drawLine(dp2px(28) + step * (i + 1), height, dp2px(28) + step * (i + 1), height - dp2px(6), xLinePaint);
+            }
 
-            canvas.drawLine(58, 120, 108, 60, chartLinePaint);
-            canvas.drawLine(108, 60, 160, 160, chartLinePaint);
-            canvas.drawLine(160, 160, 220, 100, chartLinePaint);
-            canvas.drawLine(220, 130, 290, 80, chartLinePaint);
-            canvas.drawLine(290, 80, 360, 200, chartLinePaint);
-            canvas.drawLine(360, 200, 410, 240, chartLinePaint);
-
-
-
+        }
+        canvas.drawText("时间", dp2px(35) + width, dp2px(10) + height, titlePaint);
+        for(int i=1;i<data.size();i++){
+            if(data.get(i).ydata>NorValue){
+                canvas.drawCircle(dp2px(28) +(float) (data.get(i).xdata-1)*xsqr , height- (float) (data.get(i).ydata)*ysqr, 10, pointLinePaint);
+            }
+            canvas.drawLine(dp2px(28) +(float) ((data.get(i-1).xdata-1)*xsqr),height- (float) (data.get(i-1).ydata)*ysqr,dp2px(28) + (float) (data.get(i).xdata-1)*xsqr, height- (float) (data.get(i).ydata)*ysqr, chartLinePaint);
+        }
 
 
 
     }
-    float gridX,gridY,xSpace = 0,ySpace = 0,spaceYT = 0,yStart=0;
-    String[] dateX = null;
-    float[] dateY = null;
 
-    List<float[]> data = null;
+
     private int dp2px(int value) {
         float v = getContext().getResources().getDisplayMetrics().density;
         return (int) (v * value + 0.5f);
@@ -218,11 +248,7 @@ public class HistogramView extends View {
         return super.onTouchEvent(event);
     }
 
-    /**
-     * 集成animation的一个动画类
-     *
-     * @author 李垭超
-     */
+
     private class HistogramAnimation extends Animation {
         protected void applyTransformation(float interpolatedTime,
                                            Transformation t) {
