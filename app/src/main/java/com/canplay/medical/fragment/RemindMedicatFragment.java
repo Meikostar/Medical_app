@@ -9,13 +9,22 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 
 import com.canplay.medical.R;
+import com.canplay.medical.base.BaseApplication;
 import com.canplay.medical.base.BaseFragment;
 import com.canplay.medical.base.RxBus;
 import com.canplay.medical.base.SubscriptionBean;
+import com.canplay.medical.bean.Medicine;
 import com.canplay.medical.mvp.activity.mine.RemindSettingActivity;
 import com.canplay.medical.mvp.adapter.RemindMedicatAdapter;
+import com.canplay.medical.mvp.component.DaggerBaseComponent;
+import com.canplay.medical.mvp.present.HomeContract;
+import com.canplay.medical.mvp.present.HomePresenter;
 import com.canplay.medical.view.NavigationBar;
 import com.canplay.medical.view.RegularListView;
+
+import java.util.List;
+
+import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -27,15 +36,14 @@ import rx.functions.Action1;
 /**
  * 用药提醒
  */
-public class RemindMedicatFragment extends BaseFragment {
-
-
-
+public class RemindMedicatFragment extends BaseFragment implements HomeContract.View {
+    @Inject
+    HomePresenter presenter;
     @BindView(R.id.rl_menu)
     ListView rlMenu;
-;
     Unbinder unbinder;
     private RemindMedicatAdapter adapter;
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,7 +53,9 @@ public class RemindMedicatFragment extends BaseFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_remind_medical, null);
         unbinder = ButterKnife.bind(this, view);
-
+        DaggerBaseComponent.builder().appComponent(((BaseApplication) getActivity().getApplication()).getAppComponent()).build().inject(this);
+        presenter.attachView(this);
+        presenter.MedicineRemindList();
         initView();
 
 
@@ -60,7 +70,7 @@ public class RemindMedicatFragment extends BaseFragment {
 
 
     private void initView() {
-        adapter=new RemindMedicatAdapter(getActivity(),null,rlMenu);
+        adapter = new RemindMedicatAdapter(getActivity(), null, rlMenu);
         rlMenu.setAdapter(adapter);
         adapter.setListener(new RemindMedicatAdapter.selectItemListener() {
             @Override
@@ -79,13 +89,27 @@ public class RemindMedicatFragment extends BaseFragment {
     }
 
 
-
-
-
-
     @Override
     public void onDestroy() {
         super.onDestroy();
+
+    }
+
+    private List<Medicine> data;
+
+    @Override
+    public <T> void toEntity(T entity) {
+        data = (List<Medicine>) entity;
+        adapter.setData(data);
+    }
+
+    @Override
+    public void toNextStep(int type) {
+
+    }
+
+    @Override
+    public void showTomast(String msg) {
 
     }
 }

@@ -124,11 +124,11 @@ public class NofifyReceiver extends BroadcastReceiver {
         menuName = extrasJson.optString("menuName");
         tableNo = extrasJson.optString("tableNo");
         Message message = new Message();
-        message.setMenuName(menuName);
-        Log.e("menuName", menuName);
-        message.setPushId(pushId);
-        message.setBusinessId(businessId);
-        message.setTableNo(tableNo);
+//        message.setMenuName(menuName);
+//        Log.e("menuName", menuName);
+//        message.setPushId(pushId);
+//        message.setBusinessId(businessId);
+//        message.setTableNo(tableNo);
         Log.e("messageRecevier", message.toString());
         RxBus.getInstance().send(SubscriptionBean.createSendBean(SubscriptionBean.NOFIFY, message));
         if (appManager.isActivityExist(MainActivity.class)) {

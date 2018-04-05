@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 
 import com.baidu.location.BDLocation;
 import com.canplay.medical.base.ApplicationConfig;
+import com.canplay.medical.bean.USER;
 
 public class SpUtil{
     public static String PREFERENCE_NAME = "repast_app_sp";
@@ -17,6 +18,12 @@ public class SpUtil{
     public static final String CITY="city";
     public static final String ADDRESS_DETAIL="address_detail";
     public static final String CONTURY="contury";//国家
+    public static final String TOKEN="access_token";//国家
+    public static final String TOKEN_TYPE="token_type";//国家
+    public static final String USERID="userId";//国家
+    public static final String USERNAME="userName";//国家
+    public static final String FIRSTNAME="firstName";//国家
+    public static final String LASTNAME="lastName";//国家
     private static SharedPreferences settings;
     public static String USER_ID="merchantId";
 
@@ -34,6 +41,20 @@ public class SpUtil{
         editor.putString(CONTURY, location.getAddress().country);
         return editor.commit();
     }
+
+
+    public boolean putUser(USER location) {
+        SharedPreferences.Editor editor = settings.edit();
+        editor.putString(TOKEN, location.getAccess_token()+"");
+        editor.putString(TOKEN_TYPE, location.getToken_type()+"");
+        editor.putString(USERID, location.getUserId());
+        editor.putString(USERNAME, location.getUserName());
+        editor.putString(FIRSTNAME, location.getFirstName());
+        editor.putString(LASTNAME, location.getLastName());
+        return editor.commit();
+    }
+
+
     /**
      * 返回单例对象
      *
@@ -55,7 +76,16 @@ public class SpUtil{
         return editor.commit();
     }
     public String getUserId(){
-        return settings.getString(USER_ID, "");
+        return settings.getString(USERID, "");
+    }
+    public String getToken(){
+        return settings.getString(TOKEN, "");
+    }
+    public String getTokenType(){
+        return settings.getString(TOKEN_TYPE, "");
+    }
+    public String getUser(){
+        return settings.getString(USERNAME, "");
     }
     /**
      * put string preferences

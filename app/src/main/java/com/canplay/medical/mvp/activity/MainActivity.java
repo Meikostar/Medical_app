@@ -20,7 +20,10 @@ import com.canplay.medical.fragment.HealthDataFragment;
 import com.canplay.medical.fragment.SetFragment;
 import com.canplay.medical.mvp.activity.mine.MineInfoActivity;
 import com.canplay.medical.mvp.adapter.FragmentViewPagerAdapter;
+import com.canplay.medical.mvp.component.DaggerBaseComponent;
 import com.canplay.medical.mvp.component.OnChangeListener;
+import com.canplay.medical.mvp.present.HomeContract;
+import com.canplay.medical.mvp.present.HomePresenter;
 import com.canplay.medical.permission.PermissionConst;
 import com.canplay.medical.permission.PermissionGen;
 import com.canplay.medical.permission.PermissionSuccess;
@@ -38,6 +41,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 
+import javax.inject.Inject;
+
+import butterknife.ButterKnife;
 import rx.Observable;
 import rx.Subscriber;
 import rx.Subscription;
@@ -45,9 +51,9 @@ import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
 import rx.schedulers.Schedulers;
 
-public class MainActivity extends BaseActivity implements HomeFragment.ScanListener {
-
-
+public class MainActivity extends BaseActivity implements HomeFragment.ScanListener , HomeContract.View {
+    @Inject
+    HomePresenter presenter;
     NoScrollViewPager viewpagerMain;
     BottonNevgBar bnbHome;
     private Subscription mSubscription;
@@ -67,9 +73,13 @@ public class MainActivity extends BaseActivity implements HomeFragment.ScanListe
         setContentView(R.layout.activity_main);
         bnbHome = (BottonNevgBar) findViewById(R.id.bnb_home);
         line =  findViewById(R.id.line);
+
+        DaggerBaseComponent.builder().appComponent(((BaseApplication) getApplication()).getAppComponent()).build().inject(this);
+        presenter.attachView(this);
         viewpagerMain = (NoScrollViewPager) findViewById(R.id.viewpager_main);
         viewpagerMain.setScanScroll(false);
         dialog=new ChangeNoticeDialog(this,line);
+
     }
 
     @Override
@@ -226,6 +236,21 @@ public class MainActivity extends BaseActivity implements HomeFragment.ScanListe
                         Manifest.permission.WRITE_EXTERNAL_STORAGE,
                         Manifest.permission.READ_EXTERNAL_STORAGE)
                 .request();
+    }
+
+    @Override
+    public <T> void toEntity(T entity) {
+
+    }
+
+    @Override
+    public void toNextStep(int type) {
+
+    }
+
+    @Override
+    public void showTomast(String msg) {
+
     }
 //
 //    //屏蔽返回键的代码:

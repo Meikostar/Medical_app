@@ -11,13 +11,15 @@ import android.widget.TextView;
 
 import com.canplay.medical.R;
 import com.canplay.medical.bean.Euip;
+import com.canplay.medical.bean.Item;
+import com.canplay.medical.util.TextUtil;
 
 import java.util.List;
 
 
 public class RemindItemAdapter extends BaseAdapter {
     private Context mContext;
-    private List<Euip> list;
+    private List<Item> list;
     private int type=0;//1是用药记录item
     public RemindItemAdapter(Context mContext) {
 
@@ -25,13 +27,13 @@ public class RemindItemAdapter extends BaseAdapter {
     }
 
     public interface ItemCliks{
-        void getItem(Euip menu, int type);//type 1表示点击事件2 表示长按事件
+        void getItem(Item menu, int type);//type 1表示点击事件2 表示长按事件
     }
     private ItemCliks listener;
     public void setClickListener(ItemCliks listener){
         this.listener=listener;
     }
-    public void setData(List<Euip> list){
+    public void setData(List<Item> list){
         this.list=list;
         notifyDataSetChanged();
     }
@@ -43,7 +45,7 @@ public class RemindItemAdapter extends BaseAdapter {
     }
     @Override
     public int getCount() {
-        return list!=null?list.size():2;
+        return list!=null?list.size():0;
     }
 
     @Override
@@ -72,11 +74,17 @@ public class RemindItemAdapter extends BaseAdapter {
         }else{
             holder = (ResultViewHolder) view.getTag();
         }
-//         if(position==list.size()-1){
-//             holder.line.setVisibility(View.INVISIBLE);
-//         }else {
-//             holder.line.setVisibility(View.VISIBLE);
-//         }
+        if(TextUtil.isNotEmpty(list.get(position).name)){
+            holder.name.setText(list.get(position).name);
+        }
+        if(TextUtil.isNotEmpty(list.get(position).message)){
+            holder.tvNumber.setText(list.get(position).message);
+        }
+         if(position==list.size()-1){
+             holder.line.setVisibility(View.INVISIBLE);
+         }else {
+             holder.line.setVisibility(View.VISIBLE);
+         }
         return view;
 
 

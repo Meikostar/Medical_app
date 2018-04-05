@@ -12,9 +12,11 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.canplay.medical.R;
+import com.canplay.medical.base.BaseApplication;
 import com.canplay.medical.base.BaseFragment;
 import com.canplay.medical.base.RxBus;
 import com.canplay.medical.base.SubscriptionBean;
+import com.canplay.medical.bean.BASE;
 import com.canplay.medical.mvp.activity.LocationBdActivity;
 import com.canplay.medical.mvp.activity.home.MeasurePlanActivity;
 import com.canplay.medical.mvp.activity.home.MessageActivity;
@@ -23,9 +25,12 @@ import com.canplay.medical.mvp.activity.mine.MineEuipmentActivity;
 import com.canplay.medical.mvp.activity.mine.MineHealthCenterActivity;
 import com.canplay.medical.mvp.activity.mine.RemindHealthActivity;
 import com.canplay.medical.mvp.adapter.HomeAdapter;
-import com.canplay.medical.view.RegularListView;
+import com.canplay.medical.mvp.component.DaggerBaseComponent;
+import com.canplay.medical.mvp.present.HomeContract;
+import com.canplay.medical.mvp.present.HomePresenter;
 import com.canplay.medical.view.banner.BannerView;
 
+import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -34,13 +39,12 @@ import rx.Subscription;
 import rx.functions.Action1;
 
 
-
 /**
  * Created by mykar on 17/4/10.
  */
-public class HomeFragment extends BaseFragment implements View.OnClickListener {
-
-
+public class HomeFragment extends BaseFragment implements View.OnClickListener, HomeContract.View {
+    @Inject
+    HomePresenter presenter;
     Unbinder unbinder;
     @BindView(R.id.iv_scan)
     ImageView ivScan;
@@ -60,14 +64,33 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
     LinearLayout llEquipment;
     @BindView(R.id.ll_shop)
     LinearLayout llShop;
-    @BindView(R.id.lv_info)
-    RegularListView lvInfo;
+    @BindView(R.id.tv_hour)
+    TextView tvHour;
+    @BindView(R.id.tv_minter)
+    TextView tvMinter;
+    @BindView(R.id.tv_state)
+    TextView tvState;
+    @BindView(R.id.ll_bg)
+    LinearLayout llBg;
+    @BindView(R.id.tv_hour1)
+    TextView tvHour1;
+    @BindView(R.id.tv_minter1)
+    TextView tvMinter1;
+    @BindView(R.id.tv_state1)
+    TextView tvState1;
+    @BindView(R.id.ll_bg1)
+    LinearLayout llBg1;
+    @BindView(R.id.tv_count)
+    TextView tvCount;
 
-   public interface ScanListener{
-       void scanListener();
-   }
-   public ScanListener listener;
+
+    public interface ScanListener {
+        void scanListener();
+    }
+
+    public ScanListener listener;
     private HomeAdapter adapter;
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -77,6 +100,8 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, null);
         unbinder = ButterKnife.bind(this, view);
+        DaggerBaseComponent.builder().appComponent(((BaseApplication) getActivity().getApplication()).getAppComponent()).build().inject(this);
+        presenter.attachView(this);
         bannerView.requestFocus();
         bannerView.setFocusableInTouchMode(true);
         initView();
@@ -90,6 +115,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
         super.onResume();
 
     }
+
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
@@ -122,30 +148,32 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
         });
         RxBus.getInstance().addSubscription(mSubscription);
 
-      adapter.setClickListener(new HomeAdapter.ClickListener() {
-          @Override
-          public void clickListener(int poistion, String id) {
-              if(poistion%2==0){
-                  Intent intent = new Intent(getActivity(), UsePlanActivity.class);
-                  startActivity(intent);
-              }else {
-                  Intent intent = new Intent(getActivity(), MeasurePlanActivity.class);
-                  startActivity(intent);
-              }
 
-          }
-      });
+        llBg1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), UsePlanActivity.class);
+                startActivity(intent);
+            }
+        });
+        llBg.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), MeasurePlanActivity.class);
+                startActivity(intent);
+            }
+        });
         llShop.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getActivity(),LocationBdActivity.class));
+                startActivity(new Intent(getActivity(), LocationBdActivity.class));
             }
         });
         llEquipment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), MineEuipmentActivity.class);
-                intent.putExtra("name","智能设备");
+                intent.putExtra("name", "智能设备");
                 startActivity(intent);
             }
         });
@@ -164,12 +192,11 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
         });
 
 
-
         llHealth.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), RemindHealthActivity.class);
-                intent.putExtra("type",1);
+                intent.putExtra("type", 1);
                 startActivity(intent);
 
             }
@@ -185,10 +212,44 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
     }
 
     private void initView() {
+        presenter.getUserData(1);
+        presenter.getUserData(2);
+        presenter.getMessageCout();
 
-        adapter=new HomeAdapter(getActivity());
-        lvInfo.setAdapter(adapter);
 
+    }
+
+    @Override
+    public <T> void toEntity(T entity) {
+        BASE entitys = (BASE) entity;
+        String time = entitys.nextTaskDueIn;
+        String[] split = time.split(":");
+
+        if (entitys.type == 1) {
+            tvHour.setText(split[0]);
+            tvMinter.setText(split[1]);
+            tvState.setText(entitys.isCompleted ? "已完成" : "未完成");
+        } else if(entitys.type==2) {
+            tvHour1.setText(split[0]);
+            tvMinter1.setText(split[1]);
+            tvState1.setText(entitys.isCompleted ? "已完成" : "未完成");
+        }else if(entitys.type==3) {
+           if(entitys.numberOfUnreadMessages==0){
+               tvCount.setVisibility(View.GONE);
+           }else {
+               tvCount.setVisibility(View.VISIBLE);
+               tvCount.setText(""+entitys.numberOfUnreadMessages);
+           }
+        }
+    }
+
+    @Override
+    public void toNextStep(int type) {
+
+    }
+
+    @Override
+    public void showTomast(String msg) {
 
     }
 

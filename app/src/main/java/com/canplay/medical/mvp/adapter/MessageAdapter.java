@@ -13,6 +13,7 @@ import android.widget.TextView;
 import com.canplay.medical.R;
 import com.canplay.medical.bean.Euip;
 import com.canplay.medical.bean.Message;
+import com.canplay.medical.util.TextUtil;
 
 import java.util.List;
 
@@ -45,7 +46,7 @@ public class MessageAdapter extends BaseAdapter {
     }
     @Override
     public int getCount() {
-        return list!=null?list.size():6;
+        return list!=null?list.size():0;
     }
 
     @Override
@@ -75,7 +76,12 @@ public class MessageAdapter extends BaseAdapter {
         }else{
             holder = (ResultViewHolder) view.getTag();
         }
-
+        if(TextUtil.isNotEmpty(list.get(position).title)){
+            holder.name.setText(list.get(position).title);
+        }
+        if(TextUtil.isNotEmpty(list.get(position).content)){
+            holder.contnet.setText(list.get(position).content);
+        }
         holder.card.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

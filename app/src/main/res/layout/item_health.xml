@@ -35,7 +35,7 @@
                     android:id="@+id/tv_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Lxm"
+                    android:text=""
                     android:textColor="@color/slow_black"
                     android:textSize="16.5sp"
                     />
@@ -55,7 +55,7 @@
                     android:id="@+id/tv_phone"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="高级护师"
+                    android:text=""
                     android:textColor="#575757"
                     android:textSize="13.5sp"
                     />

@@ -14,6 +14,8 @@ import android.widget.TextView;
 
 import com.canplay.medical.R;
 import com.canplay.medical.bean.Collect;
+import com.canplay.medical.bean.Medicine;
+import com.canplay.medical.util.TextUtil;
 import com.canplay.medical.view.RegularListView;
 import com.canplay.medical.view.SwipeListLayout;
 
@@ -29,7 +31,7 @@ import java.util.Set;
 public class RemindMedicatAdapter extends BaseAdapter {
     private Context context;
     private LayoutInflater inflater;
-    private List<Collect> list;
+    private List<Medicine> list;
     private int type;
     private ListView lv_content;
     private Set<SwipeListLayout> sets = new HashSet();
@@ -40,14 +42,14 @@ public class RemindMedicatAdapter extends BaseAdapter {
     public void setListener(selectItemListener listener){
         this.listener=listener;
     }
-    public void setData( List<Collect> list){
+    public void setData( List<Medicine> list){
         this.list=list;
         notifyDataSetChanged();
     }
-    public List<Collect> getDatas(){
+    public List<Medicine> getDatas(){
         return list;
     }
-    public RemindMedicatAdapter(Context context, ArrayList<Collect> list, ListView lv_content) {
+    public RemindMedicatAdapter(Context context, ArrayList<Medicine> list, ListView lv_content) {
         this.lv_content=lv_content;
         this.context = context;
         this.list = list;
@@ -116,8 +118,23 @@ public class RemindMedicatAdapter extends BaseAdapter {
         } else {
             holder = (ViewHolder) convertView.getTag();
         }
-
+        if(TextUtil.isNotEmpty(list.get(position).when)){
+            holder.tvTime.setText(list.get(position).when);
+        }
+        String con="";
+        if(position<10){
+            con="0"+position;
+        }else {
+            con=""+position;
+        }
+        if(TextUtil.isNotEmpty(list.get(position).type)){
+            holder.tvContent.setText(con+","+list.get(position).type);
+        }
+        if(TextUtil.isNotEmpty(list.get(position).when)){
+            holder.tvTime.setText(list.get(position).when);
+        }
         RemindItemAdapter adapter=new RemindItemAdapter(context);
+        adapter.setData(list.get(position).items);
         holder.rllist.setAdapter(adapter);
 
            final   SwipeListLayout swipeListLayout = (SwipeListLayout) convertView;
@@ -154,7 +171,6 @@ public class RemindMedicatAdapter extends BaseAdapter {
         TextView tvContent;
         LinearLayout rl_bg;
         RegularListView rllist;
-
         TextView tv_delete;
 
     }

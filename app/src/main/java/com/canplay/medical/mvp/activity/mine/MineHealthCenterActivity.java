@@ -11,19 +11,29 @@ import android.view.ViewGroup;
 
 import com.canplay.medical.R;
 import com.canplay.medical.base.BaseActivity;
+import com.canplay.medical.base.BaseApplication;
 import com.canplay.medical.bean.Euip;
+import com.canplay.medical.bean.Friend;
 import com.canplay.medical.mvp.adapter.EuipmentAdapter;
 import com.canplay.medical.mvp.adapter.recycle.HealthCenterAdapter;
 import com.canplay.medical.mvp.adapter.recycle.HomeDoctorRecycleAdapter;
+import com.canplay.medical.mvp.component.DaggerBaseComponent;
+import com.canplay.medical.mvp.present.HomeContract;
+import com.canplay.medical.mvp.present.HomePresenter;
 import com.canplay.medical.permission.PermissionConst;
 import com.canplay.medical.permission.PermissionGen;
 import com.canplay.medical.permission.PermissionSuccess;
 import com.canplay.medical.view.DivItemDecoration;
 import com.canplay.medical.view.NavigationBar;
 import com.canplay.medical.view.PhotoPopupWindow;
+import com.malinskiy.superrecyclerview.OnMoreListener;
 import com.malinskiy.superrecyclerview.SuperRecyclerView;
 import com.yzq.zxinglibrary.android.CaptureActivity;
 import com.yzq.zxinglibrary.common.Constant;
+
+import java.util.List;
+
+import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -31,9 +41,9 @@ import butterknife.ButterKnife;
 /**
  * 健康关爱中心
  */
-public class MineHealthCenterActivity extends BaseActivity {
-
-
+public class MineHealthCenterActivity extends BaseActivity implements HomeContract.View {
+    @Inject
+    HomePresenter presenter;
     @BindView(R.id.line)
     View line;
     @BindView(R.id.navigationBar)
@@ -52,15 +62,20 @@ public class MineHealthCenterActivity extends BaseActivity {
     public void initViews() {
         setContentView(R.layout.activity_mine_healt_center);
         ButterKnife.bind(this);
+
+        DaggerBaseComponent.builder().appComponent(((BaseApplication) getApplication()).getAppComponent()).build().inject(this);
+        presenter.attachView(this);
+
         navigationBar.setNavigationBarListener(this);
         mLinearLayoutManager = new LinearLayoutManager(this);
         mSuperRecyclerView.setLayoutManager(mLinearLayoutManager);
         mSuperRecyclerView.addItemDecoration(new DivItemDecoration(2, true));
         mSuperRecyclerView.getMoreProgressView().getLayoutParams().width = ViewGroup.LayoutParams.MATCH_PARENT;
-        adapter = new HealthCenterAdapter(this,1);
+        adapter = new HealthCenterAdapter(this, 1);
         mSuperRecyclerView.setAdapter(adapter);
         reflash();
-        // mSuperRecyclerView.setRefreshing(false);
+//         mSuperRecyclerView.setRefreshing(false);
+
         refreshListener = new SwipeRefreshLayout.OnRefreshListener() {
 
             @Override
@@ -70,6 +85,7 @@ public class MineHealthCenterActivity extends BaseActivity {
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
+                        presenter.getFriendList();
                         mSuperRecyclerView.hideMoreProgress();
                     }
                 }, 2000);
@@ -98,12 +114,12 @@ public class MineHealthCenterActivity extends BaseActivity {
 
             }
         });
-       adapter.setClickListener(new HealthCenterAdapter.OnItemClickListener() {
-           @Override
-           public void clickListener(int poiston, String id) {
-               startActivity(new Intent(MineHealthCenterActivity.this,FriendDetailActivity.class));
-           }
-       });
+        adapter.setClickListener(new HealthCenterAdapter.OnItemClickListener() {
+            @Override
+            public void clickListener(int poiston, String id) {
+                startActivity(new Intent(MineHealthCenterActivity.this, FriendDetailActivity.class));
+            }
+        });
 
         mWindowAddPhoto.setSureListener(new PhotoPopupWindow.ClickListener() {
             @Override
@@ -138,8 +154,66 @@ public class MineHealthCenterActivity extends BaseActivity {
     public void initData() {
 
     }
+//    public void onDataLoaded(int loadtype,final boolean haveNext, List<Friend> datas) {
+//
+//        if (loadtype == TYPE_PULL_REFRESH) {
+//            currpage=1;
+//            list.clear();
+//            for (Friend info : datas) {
+//                list.add(info);
+//            }
+//        } else {
+//            for (Friend info : datas) {
+//                list.add(info);
+//            }
+//        }
+//        adapter.setDatas(list);
+//        adapter.notifyDataSetChanged();
+////        mSuperRecyclerView.setLoadingMore(false);
+//        mSuperRecyclerView.hideMoreProgress();
+//        /**
+//         * 判断是否需要加载更多，与服务器的总条数比
+//         */
+//        if (haveNext) {
+//            mSuperRecyclerView.setupMoreListener(new OnMoreListener() {
+//                @Override
+//                public void onMoreAsked(int overallItemsCount, int itemsBeforeMore, int maxLastVisiblePosition) {
+//                    currpage++;
+//                    mSuperRecyclerView.showMoreProgress();
+//
+//                    new Handler().postDelayed(new Runnable() {
+//                        @Override
+//                        public void run() {
+//                            if (haveNext)
+//                                mSuperRecyclerView.hideMoreProgress();
+////                            presenter.getAppOrderList("",currpage,state,TYPE_PULL_MORE);
+//
+//                        }
+//                    }, 2000);
+//                }
+//            }, 1);
+//        } else {
+//            mSuperRecyclerView.removeMoreListener();
+//            mSuperRecyclerView.hideMoreProgress();
+//
+//        }
+//    }
+    private List<Friend> list ;
+    @Override
+    public <T> void toEntity(T entity) {
+        mSuperRecyclerView.hideMoreProgress();
+        mSuperRecyclerView.setLoadingMore(false);
+        list= (List<Friend>) entity;
+        adapter.setDatas(list);
+    }
 
+    @Override
+    public void toNextStep(int type) {
 
+    }
 
+    @Override
+    public void showTomast(String msg) {
 
+    }
 }

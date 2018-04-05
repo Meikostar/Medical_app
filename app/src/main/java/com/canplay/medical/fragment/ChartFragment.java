@@ -7,14 +7,13 @@ import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
+
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.canplay.medical.R;
 import com.canplay.medical.base.BaseFragment;
 import com.canplay.medical.mvp.adapter.FragmentViewPagerAdapter;
-import com.canplay.medical.mvp.adapter.RemindMedicatAdapter;
 import com.canplay.medical.view.NoScrollViewPager;
 
 import java.util.ArrayList;

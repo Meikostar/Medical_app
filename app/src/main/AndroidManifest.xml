@@ -109,6 +109,10 @@
             android:theme="@style/AppTheme"
             android:screenOrientation="portrait" />
         <activity
+            android:name=".mvp.activity.account.RegisteredSecondActivity"
+            android:theme="@style/AppTheme"
+            android:screenOrientation="portrait" />
+        <activity
             android:name=".mvp.activity.mine.MineEuipmentActivity"
             android:theme="@style/AppTheme"
             android:screenOrientation="portrait"/>

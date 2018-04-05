@@ -13,6 +13,8 @@ public class BASE {
     public Boolean isCompleted;
     public String message;
     public int type;
+    public int total;
+    public int numberOfUnreadMessages;
     public String nextTaskDueIn;
     public String jobId;
 

@@ -22,22 +22,32 @@ public class HomeContract {
         void getUserData(int type);
 
         /**
-         * 获取token
+         * 获取消息列表
          */
-        void getToken();
+        void getMessageList();
         /**
-         * 发送验证码
+         * 获取消息未读数
          */
-        void getCode(String phone);
+        void getMessageCout();
         /**
          * 校验验证码
          */
         void checkCode(String phone, String code);
 
         /**
-         * 注册
+         * 获取用药提醒
          */
-        void register(String name, String phone, String date, String pwd);
+        void MedicineRemindList();
+
+        /**
+         * 获取测量提醒
+         */
+        void MeasureRemindList();
+
+        /**
+         * 好友列表
+         */
+        void getFriendList();
 
 
     }

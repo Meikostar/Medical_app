@@ -9,6 +9,7 @@ import com.canplay.medical.base.config.NetConfig;
 import com.canplay.medical.net.FastJsonConverterFactory;
 import com.canplay.medical.net.HttpCachInterceptor;
 import com.canplay.medical.net.MarvelSignInterceptor;
+import com.canplay.medical.net.TokenInterceptor;
 import com.canplay.medical.util.CryptUtil;
 import com.orhanobut.logger.Logger;
 
@@ -129,7 +130,7 @@ public class ApiManager{
         MarvelSignInterceptor marvelSign = new MarvelSignInterceptor();
         HttpCachInterceptor cachInterceptor = new HttpCachInterceptor();
         OkHttpClient.Builder builder = new OkHttpClient.Builder().
-                addInterceptor(logging).
+                addInterceptor(new TokenInterceptor()).
                 addNetworkInterceptor(cachInterceptor).
                 addInterceptor(marvelSign).
                 connectTimeout(NetConfig.HTTP_TIMEOUT, TimeUnit.SECONDS).

@@ -11,6 +11,7 @@ import com.canplay.medical.bean.USER;
 import com.canplay.medical.mvp.http.BaseApi;
 
 import com.canplay.medical.net.MySubscriber;
+import com.canplay.medical.util.SpUtil;
 
 import java.util.Map;
 import java.util.TreeMap;
@@ -34,22 +35,24 @@ public class LoginPresenter implements LoginContract.Presenter {
     @Override
     public void goLogin(String account, String pwd) {
         Map<String, String> params = new TreeMap<>();
-        params.put("account", account);
-        params.put("pwd", pwd);
-        subscription = ApiManager.setSubscribe(contactApi.Login(ApiManager.getParameters(params, true)), new MySubscriber<USER>(){
+        params.put("grant_type", "password");
+        params.put("username", account);
+        params.put("password", pwd);
+        String content = params.toString();
+        subscription = ApiManager.setSubscribe(contactApi.Login(params), new MySubscriber<USER>(){
             @Override
             public void onError(Throwable e){
                 super.onError(e);
-                if(e.toString().contains("java.io.IOException:")){
+
                     mView.showTomast("账号或密码错误");
-                }
+
 
             }
 
             @Override
             public void onNext(USER entity){
+                SpUtil.getInstance().putUser(entity);
                 mView.toEntity(entity);
-
             }
         });
     }
@@ -92,28 +95,31 @@ public class LoginPresenter implements LoginContract.Presenter {
 
             @Override
             public void onNext(BASE entity){
+               if(entity.isVerfied){
+                   mView.toNextStep(1);
+               }
 
-                mView.toNextStep(1);
 
             }
         });
     }
     @Override
-    public void register(String name,String phone,String date,String pwd) {
+    public void register(String name,String firt,String last,String pwd,String phone) {
 
         Righter righter = new Righter();
-        righter.lastname=name;
+        righter.lastname=last;
         righter.username=name;
         righter.confirmPassword=pwd;
-        righter.firstname=name;
+        righter.firstname=firt;
         righter.password=pwd;
         righter.mobile=phone;
-        subscription = ApiManager.setSubscribe(contactApi.righter("{Content-Type: \"application/json\",username: \"test9\",firstname: \"Gao\",lastname: \"test\",password: \"123456aA\",confirmPassword: \"123456aA\",mobile: \"13612345678\"}"), new MySubscriber<BASE>(){
+        subscription = ApiManager.setSubscribe(contactApi.righter(righter), new MySubscriber<BASE>(){
             @Override
             public void onError(Throwable e){
                 super.onError(e);
                 mView.toNextStep(0);
                 mView.showTomast("稍后再试");
+
             }
 
             @Override

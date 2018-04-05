@@ -37,7 +37,7 @@ public class LoginContract {
         /**
          * 注册
          */
-        void register(String name,String phone,String date,String pwd);
+        void register(String a,String b,String c,String d,String e );
 
 
     }

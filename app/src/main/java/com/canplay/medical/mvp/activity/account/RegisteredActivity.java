@@ -1,19 +1,18 @@
 package com.canplay.medical.mvp.activity.account;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.v7.widget.LinearLayoutManager;
 import android.text.Editable;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.canplay.medical.R;
 import com.canplay.medical.base.BaseActivity;
 import com.canplay.medical.base.BaseApplication;
 import com.canplay.medical.bean.BASE;
-import com.canplay.medical.mvp.activity.mine.MineInfoActivity;
 import com.canplay.medical.mvp.component.DaggerBaseComponent;
 import com.canplay.medical.mvp.present.LoginContract;
 import com.canplay.medical.mvp.present.LoginPresenter;
@@ -43,18 +42,9 @@ public class RegisteredActivity extends BaseActivity implements LoginContract.Vi
     TextView tvGetcode;
     @BindView(R.id.et_code)
     ClearEditText etCode;
-    @BindView(R.id.et_name)
-    ClearEditText etName;
-    @BindView(R.id.tv_psw)
-    TextView tvPsw;
-    @BindView(R.id.tv_date)
-    TextView tvDate;
-    @BindView(R.id.et_pws)
-    ClearEditText etPws;
     @BindView(R.id.tv_save)
     TextView tvSave;
-    @BindView(R.id.ll_hint)
-    LinearLayout llHint;
+
     private Subscription mSubscription;
 
     private LinearLayoutManager mLinearLayoutManager;
@@ -63,6 +53,7 @@ public class RegisteredActivity extends BaseActivity implements LoginContract.Vi
     private boolean is_right;
     private TimeCount timeCount;
     private String jobId;
+
     @Override
     public void initViews() {
         setContentView(R.layout.activity_registered);
@@ -90,23 +81,8 @@ public class RegisteredActivity extends BaseActivity implements LoginContract.Vi
         tvSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                presenter.checkCode(jobId,etCode.getText().toString());
 
-                presenter.register("","","","");
-                if (is_right) {
-                    Map<String, Object> pubArgs = new HashMap<>();
-                    pubArgs.put("mobile", etPhone.getText().toString());
-                    pubArgs.put("confirmPassword", etPws.getText().toString());
-                    pubArgs.put("password", etPws.getText().toString());
-                    pubArgs.put("lastname", etName.getText().toString());
-                    pubArgs.put("firstname", etName.getText().toString());
-                    pubArgs.put("username", etName.getText().toString());
-                    String gson = gsonUtils.getGson(pubArgs);
-
-//                    presenter.register(etName.getText().toString(),etPhone.getText().toString(),"Lxm",etPws.getText().toString());
-
-                }else {
-                    showToasts("验证码错误");
-                }
             }
         });
         ivBack.setOnClickListener(new View.OnClickListener() {
@@ -115,62 +91,13 @@ public class RegisteredActivity extends BaseActivity implements LoginContract.Vi
                 finish();
             }
         });
-        tvDate.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                TimeSelectorDialog selectorDialog = new TimeSelectorDialog(RegisteredActivity.this);
-                selectorDialog.setDate(new Date(System.currentTimeMillis()))
-                        .setBindClickListener(new TimeSelectorDialog.BindClickListener() {
-                            @Override
-                            public void time(String time) {
-                                tvDate.setText(time);
-                            }
-                        });
-                selectorDialog.show(findViewById(R.id.iv_back));
-            }
-        });
+
         etCode.setOnClearEditTextListener(new ClearEditText.ClearEditTextListener() {
             @Override
             public void afterTextChanged4ClearEdit(Editable s) {
-                if (TextUtil.isNotEmpty(s.toString())) {
-                    if (s.toString().length() == 6) {
-                          presenter.checkCode(jobId,s.toString());
-                    }
-                    if (a == 0) {
-                        ++count;
-                        a = 1;
-                    }
-                } else {
-                    --count;
-                    a = 0;
-                }
-                if (count == 4) {
+                if(TextUtil.isNotEmpty(s.toString())&&s.toString().length()==6){
                     isSelect(true);
-                } else {
-                    isSelect(false);
-                }
-            }
-
-            @Override
-            public void changeText(CharSequence s) {
-
-            }
-        });
-        etName.setOnClearEditTextListener(new ClearEditText.ClearEditTextListener() {
-            @Override
-            public void afterTextChanged4ClearEdit(Editable s) {
-                if (TextUtil.isNotEmpty(s.toString())) {
-                    if (b == 0) {
-                        ++count;
-                        b = 1;
-                    }
-                } else {
-                    --count;
-                    b = 0;
-                }
-                if (count == 4) {
-                    isSelect(true);
-                } else {
+                }else {
                     isSelect(false);
                 }
             }
@@ -183,19 +110,8 @@ public class RegisteredActivity extends BaseActivity implements LoginContract.Vi
         etPhone.setOnClearEditTextListener(new ClearEditText.ClearEditTextListener() {
             @Override
             public void afterTextChanged4ClearEdit(Editable s) {
-                if (TextUtil.isNotEmpty(s.toString())) {
-                    if (c == 0) {
-                        ++count;
-                        c = 1;
-                    }
-                } else {
-                    --count;
-                    c = 0;
-                }
-                if (count == 4) {
-                    isSelect(true);
-                } else {
-                    isSelect(false);
+                if(s.toString().length()<11){
+                    etCode.setText("");
                 }
             }
 
@@ -204,39 +120,7 @@ public class RegisteredActivity extends BaseActivity implements LoginContract.Vi
 
             }
         });
-        etPws.setOnClearEditTextListener(new ClearEditText.ClearEditTextListener() {
-            @Override
-            public void afterTextChanged4ClearEdit(Editable s) {
-                if (TextUtil.isNotEmpty(s.toString())) {
-                    if (d == 0) {
-                        ++count;
-                        d = 1;
-                    }
-                } else {
-                    --count;
-                    d = 0;
-                }
-                if (count == 4) {
-                    isSelect(true);
-                } else {
-                    isSelect(false);
-                }
-            }
-
-            @Override
-            public void changeText(CharSequence s) {
-
-            }
-        });
-
     }
-
-    private int count;
-    private int a;
-    private int b;
-    private int c;
-    private int d;
-
     @Override
     public void initData() {
 
@@ -251,14 +135,9 @@ public class RegisteredActivity extends BaseActivity implements LoginContract.Vi
 
     public void isSelect(boolean choose) {
         if (choose) {
-            if (TextUtil.isNotEmpty(tvDate.getText().toString())) {
                 tvSave.setEnabled(true);
-
                 tvSave.setBackground(getResources().getDrawable(R.drawable.login_selector));
-            } else {
-                tvSave.setBackground(getResources().getDrawable(R.drawable.hui_blue_rectangle));
-                tvSave.setEnabled(false);
-            }
+
         } else {
             tvSave.setBackground(getResources().getDrawable(R.drawable.hui_blue_rectangle));
             tvSave.setEnabled(false);
@@ -270,8 +149,8 @@ public class RegisteredActivity extends BaseActivity implements LoginContract.Vi
     public <T> void toEntity(T entity) {
         timeCount.start();
         tvGetcode.setBackground(getResources().getDrawable(R.drawable.send_hui_rectangle));
-        BASE base= (BASE) entity;
-        jobId=base.jobId;
+        BASE base = (BASE) entity;
+        jobId = base.jobId;
     }
 
     @Override
@@ -279,7 +158,11 @@ public class RegisteredActivity extends BaseActivity implements LoginContract.Vi
         if (type == 0) {
             etCode.setText("");
         } else if (type == 1) {
-            is_right = true;
+
+            Intent intent = new Intent(RegisteredActivity.this, RegisteredSecondActivity.class);
+            intent.putExtra("phone",etPhone.getText().toString().trim());
+            startActivity(intent);
+            finish();
         } else if (type == 2) {
             showToasts("注册成功");
             finish();
@@ -290,6 +173,8 @@ public class RegisteredActivity extends BaseActivity implements LoginContract.Vi
     public void showTomast(String msg) {
 
     }
+
+
 
     //计时器
     class TimeCount extends CountDownTimer {

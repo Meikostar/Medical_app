@@ -18,6 +18,9 @@ import com.canplay.medical.permission.PermissionFail;
 import com.canplay.medical.permission.PermissionGen;
 import com.canplay.medical.permission.PermissionSuccess;
 
+import com.canplay.medical.util.SpUtil;
+import com.canplay.medical.util.StringUtil;
+import com.canplay.medical.util.TextUtil;
 import com.canplay.medical.view.ClearEditText;
 import com.yzq.zxinglibrary.common.Constant;
 
@@ -59,11 +62,11 @@ public class LoginActivity extends BaseActivity implements LoginContract.View {
                         Manifest.permission.ACCESS_FINE_LOCATION,
                         Manifest.permission.READ_EXTERNAL_STORAGE)
                 .request();
-//        String userId = SpUtil.getInstance().getUserId();
-//        if (TextUtil.isNotEmpty(userId)) {
-//            startActivity(new Intent(this, MainActivity.class));
-//            finish();
-//        }
+        String userId = SpUtil.getInstance().getUserId();
+        if (TextUtil.isNotEmpty(userId)) {
+            startActivity(new Intent(this, MainActivity.class));
+            finish();
+        }
     }
 
     @PermissionSuccess(requestCode = PermissionConst.REQUECT_DATE)
@@ -84,21 +87,17 @@ public class LoginActivity extends BaseActivity implements LoginContract.View {
             public void onClick(View v) {
                 String user = etUser.getText().toString();
                 String password = etPws.getText().toString();
-                Intent intent=new Intent(LoginActivity.this,MainActivity.class);
 
-                startActivity(intent);
-                 finish();
-
-//                if (TextUtil.isEmpty(user)) {
-//                    showToasts(getString(R.string.qingshurusjh));
-//                    return;
-//                }
-//                if (TextUtil.isEmpty(password)) {
-//                    showToasts(getString(R.string.mimanull));
-//                    return;
-//                }
-//                showProgress("登录中...");
-//                presenter.goLogin(user, StringUtil.md5(password));
+                if (TextUtil.isEmpty(user)) {
+                    showToasts(getString(R.string.qingshurusjh));
+                    return;
+                }
+                if (TextUtil.isEmpty(password)) {
+                    showToasts(getString(R.string.mimanull));
+                    return;
+                }
+                showProgress("登录中...");
+                presenter.goLogin(user, password);
             }
         });
 
@@ -125,20 +124,6 @@ public class LoginActivity extends BaseActivity implements LoginContract.View {
 
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        // 扫描二维码/条码回传
-        if (requestCode == REQUEST_CODE_SCAN && resultCode == RESULT_OK) {
-            if (data != null) {
-
-                String content = data.getStringExtra(Constant.CODED_CONTENT);
-                showToasts("扫描结果为：" +content);
-//                result.setText("扫描结果为：" + content);
-            }
-        }
-    }
     @Override
     public <T> void toEntity(T entity) {
         startActivity(new Intent(this, MainActivity.class));

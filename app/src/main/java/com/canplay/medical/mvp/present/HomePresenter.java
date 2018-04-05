@@ -5,10 +5,15 @@ import android.support.annotation.NonNull;
 
 import com.canplay.medical.base.manager.ApiManager;
 import com.canplay.medical.bean.BASE;
+import com.canplay.medical.bean.Friend;
+import com.canplay.medical.bean.Medicine;
+import com.canplay.medical.bean.Message;
 import com.canplay.medical.bean.USER;
 import com.canplay.medical.mvp.http.BaseApi;
 import com.canplay.medical.net.MySubscriber;
+import com.canplay.medical.util.SpUtil;
 
+import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -40,9 +45,9 @@ public class HomePresenter implements HomeContract.Presenter {
             @Override
             public void onError(Throwable e){
                 super.onError(e);
-                if(e.toString().contains("java.io.IOException:")){
-                    mView.showTomast("账号或密码错误");
-                }
+//                if(e.toString().contains("java.io.IOException:")){
+//                    mView.showTomast("账号或密码错误");
+//                }
 
             }
 
@@ -55,13 +60,8 @@ public class HomePresenter implements HomeContract.Presenter {
         });
     }
     @Override
-    public void getToken() {
-
-    }
-
-    @Override
-    public void getCode(String phone) {
-        subscription = ApiManager.setSubscribe(contactApi.getCode(phone), new MySubscriber<BASE>(){
+    public void getMessageList() {
+        subscription = ApiManager.setSubscribe(contactApi.getMessageList(), new MySubscriber<List<Message>>(){
             @Override
             public void onError(Throwable e){
                 super.onError(e);
@@ -72,7 +72,68 @@ public class HomePresenter implements HomeContract.Presenter {
             }
 
             @Override
+            public void onNext(List<Message> entity){
+                mView.toEntity(entity);
+
+            }
+        });
+    }
+    @Override
+    public void MedicineRemindList() {
+        String userId = SpUtil.getInstance().getUserId();
+        subscription = ApiManager.setSubscribe(contactApi.MedicineRemindList(userId), new MySubscriber<List<Medicine>>(){
+            @Override
+            public void onError(Throwable e){
+                super.onError(e);
+                if(e.toString().contains("java.io.IOException:")){
+                    mView.showTomast("账号或密码错误");
+                }
+
+            }
+
+            @Override
+            public void onNext(List<Medicine> entity){
+                mView.toEntity(entity);
+
+            }
+        });
+    }
+    @Override
+    public void MeasureRemindList() {
+        String userId = SpUtil.getInstance().getUserId();
+        subscription = ApiManager.setSubscribe(contactApi.MeasureRemindList(userId), new MySubscriber<List<Medicine>>(){
+            @Override
+            public void onError(Throwable e){
+                super.onError(e);
+                if(e.toString().contains("java.io.IOException:")){
+                    mView.showTomast("账号或密码错误");
+                }
+
+            }
+
+            @Override
+            public void onNext(List<Medicine> entity){
+                mView.toEntity(entity);
+
+            }
+        });
+    }
+
+    @Override
+    public void getMessageCout() {
+        subscription = ApiManager.setSubscribe(contactApi.getMessageCout(), new MySubscriber<BASE>(){
+            @Override
+            public void onError(Throwable e){
+                super.onError(e);
+                if(e.toString().contains("java.io.IOException:")){
+//                    mView.showTomast("账号或密码错误");
+                }
+
+            }
+
+            @Override
             public void onNext(BASE entity){
+                entity.type=3;
                 mView.toEntity(entity);
 
             }
@@ -99,8 +160,22 @@ public class HomePresenter implements HomeContract.Presenter {
         });
     }
     @Override
-    public void register(String name,String phone,String date,String pwd) {
+    public void getFriendList() {
+        subscription = ApiManager.setSubscribe(contactApi.getFriendList(), new MySubscriber<List<Friend>>(){
+            @Override
+            public void onError(Throwable e){
+                super.onError(e);
+                mView.toNextStep(0);
+                mView.showTomast("验证码错误");
 
+            }
+
+            @Override
+            public void onNext(List<Friend> entity){
+                mView.toEntity(entity);
+
+            }
+        });
     }
     @Override
     public void attachView(@NonNull HomeContract.View view){

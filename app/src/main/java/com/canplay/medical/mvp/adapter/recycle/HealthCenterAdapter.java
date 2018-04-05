@@ -9,9 +9,13 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.canplay.medical.R;
+import com.canplay.medical.bean.Friend;
 import com.canplay.medical.bean.ORDER;
 import com.canplay.medical.mvp.adapter.viewholder.HealtCenterHolder;
+import com.canplay.medical.util.TextUtil;
+import com.canplay.medical.view.CircleTransform;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -45,18 +49,30 @@ public class HealthCenterAdapter extends BaseRecycleViewAdapter {
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
         HealtCenterHolder holders = (HealtCenterHolder) holder;
-//       final ORDER data= (ORDER) datas.get(position);
+
         holders.ll_bg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 listener.clickListener(0,"");
             }
         });
+        if(type==0){
+            final Friend data= (Friend) datas.get(position);
+            if(TextUtil.isNotEmpty(data.name)){
+                holders.name.setText(data.name);
+            }  if(TextUtil.isNotEmpty(data.familyAndFriendsUserName)){
+                holders.phone.setText(data.familyAndFriendsUserName);
+            }
+            Glide.with(context).load(data.avatar).asBitmap()
+                    .placeholder(R.drawable.moren).transform(new CircleTransform(context)).into(holders.img);
+        }else {
+
+        }
      }
 
     @Override
     public int getItemCount() {
-        int count = 5;
+        int count = 0;
 
         if (datas != null && datas.size() > 0) {
             count = datas.size();
