@@ -177,6 +177,43 @@ public class HomePresenter implements HomeContract.Presenter {
             }
         });
     }
+
+    @Override
+    public void getFriendInfo(String userId) {
+        subscription = ApiManager.setSubscribe(contactApi.getFriendInfo(userId), new MySubscriber<Friend>(){
+            @Override
+            public void onError(Throwable e){
+                super.onError(e);
+                mView.toNextStep(0);
+                mView.showTomast("验证码错误");
+
+            }
+
+            @Override
+            public void onNext(Friend entity){
+                mView.toEntity(entity);
+
+            }
+        });
+    }
+    @Override
+    public void SearFriend(String content) {
+        subscription = ApiManager.setSubscribe(contactApi.searchFriend(content), new MySubscriber<Friend>(){
+            @Override
+            public void onError(Throwable e){
+                super.onError(e);
+                mView.toNextStep(0);
+                mView.showTomast("验证码错误");
+
+            }
+
+            @Override
+            public void onNext(Friend entity){
+                mView.toEntity(entity);
+
+            }
+        });
+    }
     @Override
     public void attachView(@NonNull HomeContract.View view){
         mView = view;

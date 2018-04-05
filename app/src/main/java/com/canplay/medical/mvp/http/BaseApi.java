@@ -87,4 +87,17 @@ public interface BaseApi {
     @GET("Flow/v2/Circle")
     Observable<List<Friend>> getFriendList();
 
+    /**
+     * 添加好友
+     */
+    @FormUrlEncoded
+    @GET("Flow/v2/User/Search/{search}")
+    Observable<Friend> searchFriend(@Path("search") String search);
+
+    /**
+     * 添加好友
+     */
+    @FormUrlEncoded
+    @GET("Flow/v2/User/{userId}")
+    Observable<Friend> getFriendInfo(@Path("userId") String userId);
 }

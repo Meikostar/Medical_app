@@ -3,13 +3,13 @@ apply plugin: 'com.android.library'
 
 
 android {
-    compileSdkVersion 25
-    buildToolsVersion '25.0.2'
+    compileSdkVersion COMPILE_SDK_VERSION as int
+    buildToolsVersion BUILD_TOOLS_VERSION
 
 
     defaultConfig {
-        minSdkVersion 16
-        targetSdkVersion 25
+        minSdkVersion MIN_SDK_VERSION as int
+        targetSdkVersion TARGET_SDK_VERSION as int
         versionCode 1
         versionName "1.0"
         vectorDrawables.useSupportLibrary = true
@@ -24,5 +24,5 @@ dependencies {
     testCompile 'junit:junit:4.12'
     compile 'com.android.support:design:26.0.0-alpha1'
     compile 'com.android.support:appcompat-v7:25.3.1'
-
+    compile 'com.google.zxing:core:3.2.1'
 }

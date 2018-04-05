@@ -49,6 +49,15 @@ public class HomeContract {
          */
         void getFriendList();
 
+        /**
+         * 好友列表
+         */
+        void SearFriend(String userId);
+
+        /**
+         * 好友列表
+         */
+        void getFriendInfo(String userId);
 
     }
 }
