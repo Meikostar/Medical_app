@@ -87,7 +87,7 @@ public class RemindMedicatAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
-        return list!=null?(list.size()==0?0:list.size()):6;
+        return list!=null?(list.size()==0?0:list.size()):0;
     }
 
     @Override

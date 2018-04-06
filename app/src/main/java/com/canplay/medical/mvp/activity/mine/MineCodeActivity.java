@@ -8,6 +8,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.canplay.medical.R;
 import com.canplay.medical.base.BaseActivity;
+import com.canplay.medical.util.SpUtil;
 import com.canplay.medical.util.TextUtil;
 import com.canplay.medical.view.NavigationBar;
 import com.google.zxing.WriterException;
@@ -54,7 +55,7 @@ public class MineCodeActivity extends BaseActivity {
                             .centerCrop()
                             .into(500, 500)
                             .get();
-                    final Bitmap qrCode = CodeCreator.createQRCode("晓鸣我喜欢你", 400, 400, myBitmap);
+                    final Bitmap qrCode = CodeCreator.createQRCode(SpUtil.getInstance().getUserId(), 400, 400, myBitmap);
 
                     runOnUiThread(new Runnable() {
                         @Override
@@ -70,7 +71,7 @@ public class MineCodeActivity extends BaseActivity {
                         public void run() {
                             final Bitmap qrCode;
                             try {
-                                qrCode = CodeCreator.createQRCode("晓鸣我喜欢你", 400, 400, null);
+                                qrCode = CodeCreator.createQRCode(SpUtil.getInstance().getUserId(), 400, 400, null);
                                 ivCode.setImageBitmap(qrCode);
                             } catch (WriterException e1) {
                                 e1.printStackTrace();

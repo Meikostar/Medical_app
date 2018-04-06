@@ -2,18 +2,29 @@ package com.canplay.medical.mvp.activity.mine;
 
 import android.Manifest;
 import android.content.Intent;
-import android.os.Handler;
+import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
+import android.text.Editable;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.canplay.medical.R;
 import com.canplay.medical.base.BaseActivity;
+import com.canplay.medical.base.BaseApplication;
+import com.canplay.medical.bean.Add;
+import com.canplay.medical.bean.Friend;
 import com.canplay.medical.mvp.adapter.recycle.HealthCenterAdapter;
+import com.canplay.medical.mvp.component.DaggerBaseComponent;
+import com.canplay.medical.mvp.present.HomeContract;
+import com.canplay.medical.mvp.present.HomePresenter;
 import com.canplay.medical.permission.PermissionConst;
 import com.canplay.medical.permission.PermissionGen;
 import com.canplay.medical.permission.PermissionSuccess;
+import com.canplay.medical.util.SpUtil;
+import com.canplay.medical.util.TextUtil;
+import com.canplay.medical.view.ClearEditText;
 import com.canplay.medical.view.DivItemDecoration;
 import com.canplay.medical.view.NavigationBar;
 import com.canplay.medical.view.PhotoPopupWindow;
@@ -21,13 +32,19 @@ import com.malinskiy.superrecyclerview.SuperRecyclerView;
 import com.yzq.zxinglibrary.android.CaptureActivity;
 import com.yzq.zxinglibrary.common.Constant;
 
+import java.util.List;
+
+import javax.inject.Inject;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
  * 添加亲友/添加医生
  */
-public class AddFriendActivity extends BaseActivity {
+public class AddFriendActivity extends BaseActivity implements HomeContract.View {
+    @Inject
+    HomePresenter presenter;
 
 
     @BindView(R.id.line)
@@ -36,6 +53,10 @@ public class AddFriendActivity extends BaseActivity {
     NavigationBar navigationBar;
     @BindView(R.id.super_recycle_view)
     SuperRecyclerView mSuperRecyclerView;
+    @BindView(R.id.search)
+    TextView search;
+    @BindView(R.id.et_search)
+    ClearEditText etSearch;
     private SwipeRefreshLayout.OnRefreshListener refreshListener;
     private HealthCenterAdapter adapter;
     private LinearLayoutManager mLinearLayoutManager;
@@ -43,39 +64,34 @@ public class AddFriendActivity extends BaseActivity {
     private final int TYPE_PULL_MORE = 2;
     private final int TYPE_REMOVE = 3;
     private PhotoPopupWindow mWindowAddPhoto;
+    private int type;//0是添加医生 1,qingyou
 
     @Override
     public void initViews() {
         setContentView(R.layout.activity_add_friend);
         ButterKnife.bind(this);
         navigationBar.setNavigationBarListener(this);
+        DaggerBaseComponent.builder().appComponent(((BaseApplication) getApplication()).getAppComponent()).build().inject(this);
+        presenter.attachView(this);
+        type = getIntent().getIntExtra("type", 0);
         mLinearLayoutManager = new LinearLayoutManager(this);
         mSuperRecyclerView.setLayoutManager(mLinearLayoutManager);
-        mSuperRecyclerView.addItemDecoration(new DivItemDecoration(2,true));
+        mSuperRecyclerView.addItemDecoration(new DivItemDecoration(2, true));
         mSuperRecyclerView.getMoreProgressView().getLayoutParams().width = ViewGroup.LayoutParams.MATCH_PARENT;
-        adapter = new HealthCenterAdapter(this,0);
+
+
+
+         if(type==1){
+             navigationBar.setNaviTitle("亲友添加");
+             adapter = new HealthCenterAdapter(this, 1);
+         }else {
+             adapter = new HealthCenterAdapter(this, 0);
+         }
         mSuperRecyclerView.setAdapter(adapter);
-        reflash();
+        adapter.setStatus(1);
         // mSuperRecyclerView.setRefreshing(false);
-        refreshListener = new SwipeRefreshLayout.OnRefreshListener() {
-
-            @Override
-            public void onRefresh() {
-                // mSuperRecyclerView.showMoreProgress();
-
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        mSuperRecyclerView.hideMoreProgress();
-                    }
-                }, 2000);
-            }
-        };
-        mSuperRecyclerView.setRefreshListener(refreshListener);
 
     }
-
-
 
 
     @PermissionSuccess(requestCode = PermissionConst.REQUECT_CODE_CAMERA)
@@ -100,6 +116,38 @@ public class AddFriendActivity extends BaseActivity {
     public void bindEvents() {
 
 
+        etSearch.setOnClearEditTextListener(new ClearEditText.ClearEditTextListener() {
+            @Override
+            public void afterTextChanged4ClearEdit(Editable s) {
+                if(TextUtil.isNotEmpty(s.toString())){
+                    if(type==0){
+                        presenter.searchDoctor(s.toString());
+                    }else {
+                        presenter.SearFriend(s.toString());
+                    }
+
+                }
+            }
+
+            @Override
+            public void changeText(CharSequence s) {
+
+            }
+        });
+        search.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (TextUtil.isNotEmpty(etSearch.getText().toString())){
+
+                    if(type==0){
+                        presenter.searchDoctor(etSearch.getText().toString());
+                    }else {
+                        presenter.SearFriend(etSearch.getText().toString());
+                    }
+                    search.setText("取消");
+                }
+            }
+        });
         navigationBar.setNavigationBarListener(new NavigationBar.NavigationBarListener() {
             @Override
             public void navigationLeft() {
@@ -120,27 +168,28 @@ public class AddFriendActivity extends BaseActivity {
 
             }
         });
+        adapter.setClickListener(new HealthCenterAdapter.OnItemClickListener() {
+            @Override
+            public void clickListener(int poiston, Friend data) {
+//                presenter.getDoctorInfo(id);
 
-
-
-    }
-
-
-    private void reflash() {
-        if (mSuperRecyclerView != null) {
-            //实现自动下拉刷新功能
-            mSuperRecyclerView.getSwipeToRefresh().post(new Runnable() {
-                @Override
-                public void run() {
-                    mSuperRecyclerView.setRefreshing(true);//执行下拉刷新的动画
-                    refreshListener.onRefresh();//执行数据加载操作
+                if(type==1){
+                    Add add = new Add();
+                    add.familyAndFriendsUserId=data.userId;
+                    add.familyAndFriendsUserName=data.userName;
+                    add.userId= SpUtil.getInstance().getUserId();
+                    add.name=SpUtil.getInstance().getUser();
+                    presenter.addFriend(add);
                 }
-            });
-        }
+            }
+        });
+
+
     }
 
 
-    private int REQUEST_CODE_SCAN=6;
+    private int REQUEST_CODE_SCAN = 6;
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -150,7 +199,12 @@ public class AddFriendActivity extends BaseActivity {
             if (data != null) {
 
                 String content = data.getStringExtra(Constant.CODED_CONTENT);
-                showToasts("扫描结果为：" +content);
+               if(type==0){
+                   presenter.getDoctorInfo(content);
+               }else {
+                   presenter.getFriendInfo(content);
+               }
+
 //                result.setText("扫描结果为：" + content);
             }
         }
@@ -162,7 +216,30 @@ public class AddFriendActivity extends BaseActivity {
 
     }
 
+   private List<Friend> list;
+    @Override
+    public <T> void toEntity(T entity) {
+        list= (List<Friend>) entity;
 
+        search.setText("搜索");
+        etSearch.setText("");
+        list= (List<Friend>) entity;
+        adapter.setDatas(list);
+        adapter.notifyDataSetChanged();
+
+    }
+
+    @Override
+    public void toNextStep(int type) {
+
+    }
+
+    @Override
+    public void showTomast(String msg) {
+        adapter.setStatus(2);
+        adapter.notifyDataSetChanged();
+        showToasts("添加成功");
+    }
 
 
 }

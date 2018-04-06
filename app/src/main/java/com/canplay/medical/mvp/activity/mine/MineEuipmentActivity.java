@@ -7,10 +7,15 @@ import android.view.View;
 
 import com.canplay.medical.R;
 import com.canplay.medical.base.BaseActivity;
+import com.canplay.medical.base.BaseApplication;
 import com.canplay.medical.bean.Euip;
+import com.canplay.medical.bean.Euipt;
 import com.canplay.medical.mvp.activity.account.LoginActivity;
 import com.canplay.medical.mvp.activity.home.SmartEquitActivity;
 import com.canplay.medical.mvp.adapter.EuipmentAdapter;
+import com.canplay.medical.mvp.component.DaggerBaseComponent;
+import com.canplay.medical.mvp.present.HomeContract;
+import com.canplay.medical.mvp.present.HomePresenter;
 import com.canplay.medical.permission.PermissionConst;
 import com.canplay.medical.permission.PermissionGen;
 import com.canplay.medical.permission.PermissionSuccess;
@@ -21,15 +26,19 @@ import com.canplay.medical.view.RegularListView;
 import com.yzq.zxinglibrary.android.CaptureActivity;
 import com.yzq.zxinglibrary.common.Constant;
 
+import java.util.List;
+
+import javax.inject.Inject;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
  * 我的设备
  */
-public class MineEuipmentActivity extends BaseActivity {
-
-
+public class MineEuipmentActivity extends BaseActivity implements HomeContract.View {
+    @Inject
+    HomePresenter presenter;
     @BindView(R.id.line)
     View line;
     @BindView(R.id.navigationBar)
@@ -43,6 +52,9 @@ public class MineEuipmentActivity extends BaseActivity {
     public void initViews() {
         setContentView(R.layout.activity_mine_equipment);
         ButterKnife.bind(this);
+        DaggerBaseComponent.builder().appComponent(((BaseApplication)getApplication()).getAppComponent()).build().inject(this);
+        presenter.attachView(this);
+        presenter.getSmartList();
         title=getIntent().getStringExtra("name");
         if(TextUtil.isNotEmpty(title)){
             navigationBar.setNaviTitle(title);
@@ -142,7 +154,20 @@ public class MineEuipmentActivity extends BaseActivity {
     }
 
     public String path;
+    private List<Euipt> list;
+    @Override
+    public <T> void toEntity(T entity) {
+        list= (List<Euipt>) entity;
+        adapter.setData(list);
+    }
 
+    @Override
+    public void toNextStep(int type) {
 
+    }
 
+    @Override
+    public void showTomast(String msg) {
+
+    }
 }

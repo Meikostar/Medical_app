@@ -113,6 +113,7 @@ public class LoginPresenter implements LoginContract.Presenter {
         righter.firstname=firt;
         righter.password=pwd;
         righter.mobile=phone;
+
         subscription = ApiManager.setSubscribe(contactApi.righter(righter), new MySubscriber<BASE>(){
             @Override
             public void onError(Throwable e){

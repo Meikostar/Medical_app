@@ -9,11 +9,13 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
+import com.baidu.platform.comapi.map.E;
 import com.bumptech.glide.Glide;
 import com.canplay.medical.R;
 import com.canplay.medical.bean.Friend;
 import com.canplay.medical.bean.ORDER;
 import com.canplay.medical.mvp.adapter.viewholder.HealtCenterHolder;
+import com.canplay.medical.util.SpUtil;
 import com.canplay.medical.util.TextUtil;
 import com.canplay.medical.view.CircleTransform;
 
@@ -28,9 +30,13 @@ public class HealthCenterAdapter extends BaseRecycleViewAdapter {
 
     private Context context;
     private int type;
+    private int status;
     public HealthCenterAdapter(Context context,int type) {
         this.context = context;
         this.type=type;
+    }
+    public void setStatus(int status){
+        this.status=status;
     }
 
     @Override
@@ -53,11 +59,12 @@ public class HealthCenterAdapter extends BaseRecycleViewAdapter {
         holders.ll_bg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                listener.clickListener(0,"");
+//                listener.clickListener(0,null);
             }
         });
+        final Friend data= (Friend) datas.get(position);
         if(type==0){
-            final Friend data= (Friend) datas.get(position);
+
             if(TextUtil.isNotEmpty(data.name)){
                 holders.name.setText(data.name);
             }  if(TextUtil.isNotEmpty(data.familyAndFriendsUserName)){
@@ -65,8 +72,80 @@ public class HealthCenterAdapter extends BaseRecycleViewAdapter {
             }
             Glide.with(context).load(data.avatar).asBitmap()
                     .placeholder(R.drawable.moren).transform(new CircleTransform(context)).into(holders.img);
+            if(status==0){
+                holders.iv_arrow.setVisibility(View.VISIBLE);
+                holders.add.setVisibility(View.VISIBLE);
+                if(data.status.equals("waiting")){
+                    holders.add.setTextColor(context.getResources().getColor(R.color.color6));
+                    holders.add.setText("接受");
+                    holders.add.setBackground(context.getResources().getDrawable(R.drawable.line_regle_blue));
+                }else {
+                    holders.add.setVisibility(View.GONE);
+                }
+            }else if(status==1) {
+                holders.iv_arrow.setVisibility(View.GONE);
+                holders.add.setVisibility(View.VISIBLE);
+                holders.add.setTextColor(context.getResources().getColor(R.color.white));
+                holders.add.setText("添加");
+                holders.add.setBackground(context.getResources().getDrawable(R.drawable.shape_bg_lin_cancel));
+            }
+            holders.add.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    listener.clickListener(position,data);
+                }
+            });
         }else {
 
+            if(TextUtil.isNotEmpty(data.name)){
+                holders.name.setText(data.name);
+            }  if(TextUtil.isNotEmpty(data.familyAndFriendsUserName)){
+                holders.phone.setText(data.familyAndFriendsUserName);
+            }
+            Glide.with(context).load(data.avatar).asBitmap()
+                    .placeholder(R.drawable.moren).transform(new CircleTransform(context)).into(holders.img);
+            if(status==0){
+                holders.iv_arrow.setVisibility(View.VISIBLE);
+                holders.add.setVisibility(View.GONE);
+            }else if(status==1) {
+                holders.iv_arrow.setVisibility(View.GONE);
+                holders.add.setVisibility(View.VISIBLE);
+                if(TextUtil.isNotEmpty(data.status)){
+                    if(data.status.equals("waiting")){
+                        holders.add.setText("添加");
+                        holders.add.setTextColor(context.getResources().getColor(R.color.white));
+                        holders.add.setBackground(context.getResources().getDrawable(R.drawable.shape_bg_lin_cancel));
+                    }else {
+                        holders.add.setTextColor(context.getResources().getColor(R.color.color6));
+                        holders.add.setText("已添加");
+                        holders.add.setBackground(context.getResources().getDrawable(R.drawable.line_regle_blue));
+                    }
+                }else {
+
+                        holders.add.setText("添加");
+                        holders.add.setTextColor(context.getResources().getColor(R.color.white));
+                        holders.add.setBackground(context.getResources().getDrawable(R.drawable.shape_bg_lin_cancel));
+
+                }
+                String userId = SpUtil.getInstance().getUserId();
+                if(userId.equals(data.userId)){
+                    holders.add.setVisibility(View.GONE);
+                }
+
+
+            }else if(status==2) {
+                holders.iv_arrow.setVisibility(View.GONE);
+                holders.add.setVisibility(View.VISIBLE);
+                holders.add.setTextColor(context.getResources().getColor(R.color.color6));
+                holders.add.setText("已添加");
+                holders.add.setBackground(context.getResources().getDrawable(R.drawable.line_regle_blue));
+            }
+            holders.add.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    listener.clickListener(position,data);
+                }
+            });
         }
      }
 
@@ -86,6 +165,6 @@ public class HealthCenterAdapter extends BaseRecycleViewAdapter {
     }
     public OnItemClickListener listener;
     public interface  OnItemClickListener{
-        void clickListener(int poiston, String id);
+        void clickListener(int type, Friend data);
     }
 }

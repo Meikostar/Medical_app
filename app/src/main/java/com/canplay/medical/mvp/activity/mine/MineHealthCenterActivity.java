@@ -73,25 +73,28 @@ public class MineHealthCenterActivity extends BaseActivity implements HomeContra
         mSuperRecyclerView.getMoreProgressView().getLayoutParams().width = ViewGroup.LayoutParams.MATCH_PARENT;
         adapter = new HealthCenterAdapter(this, 1);
         mSuperRecyclerView.setAdapter(adapter);
-        reflash();
-//         mSuperRecyclerView.setRefreshing(false);
+        presenter.getFriendList();
 
-        refreshListener = new SwipeRefreshLayout.OnRefreshListener() {
+//        reflash();
 
-            @Override
-            public void onRefresh() {
-                // mSuperRecyclerView.showMoreProgress();
+       //         mSuperRecyclerView.setRefreshing(false);
 
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        presenter.getFriendList();
-                        mSuperRecyclerView.hideMoreProgress();
-                    }
-                }, 2000);
-            }
-        };
-        mSuperRecyclerView.setRefreshListener(refreshListener);
+//        refreshListener = new SwipeRefreshLayout.OnRefreshListener() {
+//
+//            @Override
+//            public void onRefresh() {
+//                // mSuperRecyclerView.showMoreProgress();
+//
+//                new Handler().postDelayed(new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        presenter.getFriendList();
+//                        mSuperRecyclerView.hideMoreProgress();
+//                    }
+//                }, 2000);
+//            }
+//        };
+//        mSuperRecyclerView.setRefreshListener(refreshListener);
         mWindowAddPhoto = new PhotoPopupWindow(this);
         mWindowAddPhoto.setCont("解除绑定", "取消");
     }
@@ -106,17 +109,21 @@ public class MineHealthCenterActivity extends BaseActivity implements HomeContra
 
             @Override
             public void navigationRight() {
-
+                Intent intent = new Intent(MineHealthCenterActivity.this, AddFriendActivity.class);
+                intent.putExtra("type",1);
+                startActivity(intent);
             }
 
             @Override
             public void navigationimg() {
-
+                Intent intent = new Intent(MineHealthCenterActivity.this, AddFriendActivity.class);
+                intent.putExtra("type",1);
+                startActivity(intent);
             }
         });
         adapter.setClickListener(new HealthCenterAdapter.OnItemClickListener() {
             @Override
-            public void clickListener(int poiston, String id) {
+            public void clickListener(int poiston, Friend id) {
                 startActivity(new Intent(MineHealthCenterActivity.this, FriendDetailActivity.class));
             }
         });
@@ -201,10 +208,10 @@ public class MineHealthCenterActivity extends BaseActivity implements HomeContra
     private List<Friend> list ;
     @Override
     public <T> void toEntity(T entity) {
-        mSuperRecyclerView.hideMoreProgress();
-        mSuperRecyclerView.setLoadingMore(false);
+
         list= (List<Friend>) entity;
         adapter.setDatas(list);
+        adapter.notifyDataSetChanged();
     }
 
     @Override

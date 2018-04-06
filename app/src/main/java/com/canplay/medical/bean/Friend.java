@@ -19,17 +19,39 @@ public class Friend {
 //            "hasData":false
 
 
+    public Friend user;
+    public Friend participant;
     public String familyAndFriendsId;
+    public String familyDoctorId;
     public String userId;
-    public String userName;
+    public String lastName;
+    public String password;
+    public String firstName;
+    public boolean isSuperUser;
+    public String lineManagerName;
     public String familyAndFriendsUserId;
+
     public String familyAndFriendsUserName;
     public String name;
-    public String avatar;
+    public String gender;
+    public String mobile;
+    public String phone;
     public String nickname;
+    public String position;
+    public String avatar;
+    public String userName;
+    public String lineManager;
+    public String email;
+    public String dob;
+    public String hospitalId;
+    public String hospital;
+    public String personalId;
     public String status;
+    public String message;
+    public String notificationRegId;
     public Long createdDateTime;
     public Long lastModified;
+    public int type;
     public Boolean hasData;
 
 }

@@ -62,6 +62,7 @@
                 android:textColorHint="#bdbdbd"/>
         </FrameLayout>
         <TextView
+            android:padding="7dp"
             android:layout_marginTop="3dp"
             android:layout_marginRight="16dp"
             android:layout_width="wrap_content"
@@ -69,6 +70,7 @@
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="20dp"
             android:text="搜索"
+            android:id="@+id/search"
             android:textColor="@color/blue"
             android:textSize="17sp" />
     </LinearLayout>

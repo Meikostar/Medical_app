@@ -13,14 +13,23 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.canplay.medical.R;
+import com.canplay.medical.base.BaseApplication;
 import com.canplay.medical.base.BaseFragment;
 import com.canplay.medical.base.RxBus;
 import com.canplay.medical.base.SubscriptionBean;
+import com.canplay.medical.bean.Friend;
 import com.canplay.medical.mvp.activity.home.DoctorDetailActivity;
 import com.canplay.medical.mvp.activity.mine.AddFriendActivity;
 import com.canplay.medical.mvp.adapter.recycle.HomeDoctorRecycleAdapter;
+import com.canplay.medical.mvp.component.DaggerBaseComponent;
+import com.canplay.medical.mvp.present.HomeContract;
+import com.canplay.medical.mvp.present.HomePresenter;
 import com.canplay.medical.view.DivItemDecoration;
 import com.malinskiy.superrecyclerview.SuperRecyclerView;
+
+import java.util.List;
+
+import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -32,9 +41,9 @@ import rx.functions.Action1;
 /**
  * Created by mykar on 17/4/10.
  */
-public class HomeDoctorFragment extends BaseFragment implements View.OnClickListener {
-
-
+public class HomeDoctorFragment extends BaseFragment implements View.OnClickListener, HomeContract.View {
+    @Inject
+    HomePresenter presenter;
     @BindView(R.id.super_recycle_view)
     SuperRecyclerView mSuperRecyclerView;
     Unbinder unbinder;
@@ -62,7 +71,9 @@ public class HomeDoctorFragment extends BaseFragment implements View.OnClickList
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_doctor, null);
         unbinder = ButterKnife.bind(this, view);
-
+        DaggerBaseComponent.builder().appComponent(((BaseApplication) getActivity().getApplication()).getAppComponent()).build().inject(this);
+        presenter.attachView(this);
+        presenter.getDoctorList();
         initView();
         initListener();
 
@@ -100,7 +111,7 @@ public class HomeDoctorFragment extends BaseFragment implements View.OnClickList
         ivAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getActivity(),AddFriendActivity.class));
+                startActivity(new Intent(getActivity(), AddFriendActivity.class));
             }
         });
 
@@ -114,10 +125,10 @@ public class HomeDoctorFragment extends BaseFragment implements View.OnClickList
                 public void run() {
                     mSuperRecyclerView.setRefreshing(true);//执行下拉刷新的动画
                     refreshListener.onRefresh();//执行数据加载操作
+                }
+            });
         }
-        });
-        }
-        }
+    }
 
     public int currpage = 1;
 
@@ -141,6 +152,7 @@ public class HomeDoctorFragment extends BaseFragment implements View.OnClickList
                     @Override
                     public void run() {
                         mSuperRecyclerView.hideMoreProgress();
+                        presenter.getDoctorList();
                     }
                 }, 2000);
             }
@@ -150,7 +162,7 @@ public class HomeDoctorFragment extends BaseFragment implements View.OnClickList
         adapter.setClickListener(new HomeDoctorRecycleAdapter.OnItemClickListener() {
             @Override
             public void clickListener(int poiston, String id) {
-              startActivity(new Intent(getActivity(),DoctorDetailActivity.class));
+                startActivity(new Intent(getActivity(), DoctorDetailActivity.class));
             }
         });
 
@@ -172,5 +184,21 @@ public class HomeDoctorFragment extends BaseFragment implements View.OnClickList
         }
     }
 
+    private List<Friend> list;
+    @Override
+    public <T> void toEntity(T entity) {
+        list= (List<Friend>) entity;
+        adapter.setDatas(list);
+        adapter.notifyDataSetChanged();
+    }
 
+    @Override
+    public void toNextStep(int type) {
+
+    }
+
+    @Override
+    public void showTomast(String msg) {
+
+    }
 }

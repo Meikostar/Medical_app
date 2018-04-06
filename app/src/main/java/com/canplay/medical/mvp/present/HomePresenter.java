@@ -4,7 +4,9 @@ package com.canplay.medical.mvp.present;
 import android.support.annotation.NonNull;
 
 import com.canplay.medical.base.manager.ApiManager;
+import com.canplay.medical.bean.Add;
 import com.canplay.medical.bean.BASE;
+import com.canplay.medical.bean.Euipt;
 import com.canplay.medical.bean.Friend;
 import com.canplay.medical.bean.Medicine;
 import com.canplay.medical.bean.Message;
@@ -13,6 +15,7 @@ import com.canplay.medical.mvp.http.BaseApi;
 import com.canplay.medical.net.MySubscriber;
 import com.canplay.medical.util.SpUtil;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
@@ -165,8 +168,7 @@ public class HomePresenter implements HomeContract.Presenter {
             @Override
             public void onError(Throwable e){
                 super.onError(e);
-                mView.toNextStep(0);
-                mView.showTomast("验证码错误");
+
 
             }
 
@@ -184,13 +186,169 @@ public class HomePresenter implements HomeContract.Presenter {
             @Override
             public void onError(Throwable e){
                 super.onError(e);
-                mView.toNextStep(0);
-                mView.showTomast("验证码错误");
+
+
+            }
+
+            @Override
+            public void onNext( Friend entity){
+                List<Friend> list=new ArrayList<Friend>();
+                list.add(entity);
+                mView.toEntity(list);
+
+            }
+        });
+    }
+
+    @Override
+    public void getDoctorList() {
+        subscription = ApiManager.setSubscribe(contactApi.getDoctorList(), new MySubscriber<List<Friend>>(){
+            @Override
+            public void onError(Throwable e){
+                super.onError(e);
+
+
+            }
+
+            @Override
+            public void onNext(List<Friend> entity){
+                mView.toEntity(entity);
+
+            }
+        });
+    }
+
+    @Override
+    public void getSmartList() {
+        String userId = SpUtil.getInstance().getUserId();
+        subscription = ApiManager.setSubscribe(contactApi.getSmartList(userId), new MySubscriber<List<Euipt>>(){
+            @Override
+            public void onError(Throwable e){
+                super.onError(e);
+
+
+            }
+
+            @Override
+            public void onNext(List<Euipt> entity){
+                mView.toEntity(entity);
+
+            }
+        });
+    }
+
+
+
+
+    @Override
+    public void addFriend(Add base) {
+
+        subscription = ApiManager.setSubscribe(contactApi.addFriend(base), new MySubscriber<List<BASE>>(){
+            @Override
+            public void onError(Throwable e){
+                super.onError(e);
+
+
+            }
+
+            @Override
+            public void onNext(List<BASE> entity){
+
+                mView.toEntity(entity);
+            }
+        });
+    }
+
+    @Override
+    public void agree(String id) {
+        subscription = ApiManager.setSubscribe(contactApi.agree(id), new MySubscriber<BASE>(){
+            @Override
+            public void onError(Throwable e){
+                super.onError(e);
+
+
+            }
+
+            @Override
+            public void onNext(BASE entity){
+
+                mView.toEntity(entity);
+            }
+        });
+    }
+
+    @Override
+    public void disAgree(String id) {
+        subscription = ApiManager.setSubscribe(contactApi.dissAgree(id), new MySubscriber<BASE>(){
+            @Override
+            public void onError(Throwable e){
+                super.onError(e);
+
+
+            }
+
+            @Override
+            public void onNext(BASE entity){
+
+                mView.toEntity(entity);
+            }
+        });
+    }
+
+    @Override
+    public void AddDoctor(String content) {
+        subscription = ApiManager.setSubscribe(contactApi.AddDoctor(content), new MySubscriber<Friend>(){
+            @Override
+            public void onError(Throwable e){
+                super.onError(e);
+
 
             }
 
             @Override
             public void onNext(Friend entity){
+
+
+                mView.toNextStep(1);
+
+            }
+        });
+    }
+    @Override
+    public void getDoctorInfo(String content) {
+        subscription = ApiManager.setSubscribe(contactApi.getDoctorInfo(content), new MySubscriber<List<Friend>>(){
+            @Override
+            public void onError(Throwable e){
+                super.onError(e);
+
+
+            }
+
+            @Override
+            public void onNext(List<Friend> entity){
+                if(entity.size()>0&&entity.get(0)!=null){
+                    entity.get(0).type=1;
+                }
+                mView.toEntity(entity);
+
+            }
+        });
+    }
+    @Override
+    public void searchDoctor(String content) {
+        subscription = ApiManager.setSubscribe(contactApi.searchDoctor(content), new MySubscriber<List<Friend>>(){
+            @Override
+            public void onError(Throwable e){
+                super.onError(e);
+
+
+            }
+
+            @Override
+            public void onNext(List<Friend> entity){
+                if(entity.size()>0&&entity.get(0)!=null){
+                    entity.get(0).type=2;
+                }
                 mView.toEntity(entity);
 
             }
@@ -198,17 +356,16 @@ public class HomePresenter implements HomeContract.Presenter {
     }
     @Override
     public void SearFriend(String content) {
-        subscription = ApiManager.setSubscribe(contactApi.searchFriend(content), new MySubscriber<Friend>(){
+        subscription = ApiManager.setSubscribe(contactApi.searchFriend(content), new MySubscriber<List<Friend>>(){
             @Override
             public void onError(Throwable e){
                 super.onError(e);
-                mView.toNextStep(0);
-                mView.showTomast("验证码错误");
+
 
             }
 
             @Override
-            public void onNext(Friend entity){
+            public void onNext(List<Friend> entity){
                 mView.toEntity(entity);
 
             }

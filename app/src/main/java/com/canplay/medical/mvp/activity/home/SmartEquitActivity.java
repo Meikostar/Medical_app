@@ -9,9 +9,16 @@ import android.widget.TextView;
 import com.canplay.medical.R;
 import com.canplay.medical.base.BaseActivity;
 import com.canplay.medical.bean.Equip;
+import com.canplay.medical.bean.Euipt;
 import com.canplay.medical.mvp.adapter.TimeAdapter;
+import com.canplay.medical.mvp.present.HomeContract;
+import com.canplay.medical.mvp.present.HomePresenter;
 import com.canplay.medical.util.TextUtil;
 import com.canplay.medical.view.NavigationBar;
+
+import java.util.List;
+
+import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -19,9 +26,9 @@ import butterknife.ButterKnife;
 /**
  * 血压计、血糖仪等
  */
-public class SmartEquitActivity extends BaseActivity {
-
-
+public class SmartEquitActivity extends BaseActivity implements HomeContract.View {
+@Inject
+HomePresenter presenter;
     @BindView(R.id.line)
     View line;
     @BindView(R.id.navigationBar)
@@ -84,10 +91,21 @@ public class SmartEquitActivity extends BaseActivity {
     }
 
 
+
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
-        ButterKnife.bind(this);
+    public <T> void toEntity(T entity) {
+        list= (List<Euipt>) entity;
+
+    }
+   private List<Euipt> list;
+    @Override
+    public void toNextStep(int type) {
+
+    }
+
+    @Override
+    public void showTomast(String msg) {
+
     }
 }

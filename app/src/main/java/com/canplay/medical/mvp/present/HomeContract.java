@@ -2,6 +2,7 @@ package com.canplay.medical.mvp.present;
 
 import com.canplay.medical.base.BasePresenter;
 import com.canplay.medical.base.BaseView;
+import com.canplay.medical.bean.Add;
 
 public class HomeContract {
     public    interface View extends BaseView {
@@ -25,10 +26,12 @@ public class HomeContract {
          * 获取消息列表
          */
         void getMessageList();
+
         /**
          * 获取消息未读数
          */
         void getMessageCout();
+
         /**
          * 校验验证码
          */
@@ -59,5 +62,46 @@ public class HomeContract {
          */
         void getFriendInfo(String userId);
 
+        /**
+         * 医生列表
+         */
+        void getDoctorList();
+
+        /**
+         * 医生列表
+         */
+        void searchDoctor(String userId);
+
+        /**
+         * 医生详情
+         */
+        void getDoctorInfo(String userId);
+
+        /**
+         * 添加医生
+         */
+        void AddDoctor(String userId);
+
+        /**
+         * 智能设备列表
+         */
+        void getSmartList();
+        /**
+         * 添加pengyou
+         */
+        void addFriend(Add base);
+
+        /**
+         * 同意
+         */
+        void agree(String id);
+
+        /**
+         * 同意
+         */
+        void disAgree(String id);
+
     }
+
+
 }

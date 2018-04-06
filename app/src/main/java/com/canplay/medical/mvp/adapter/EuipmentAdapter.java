@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.canplay.medical.R;
 import com.canplay.medical.bean.Euip;
+import com.canplay.medical.bean.Euipt;
 import com.canplay.medical.util.TextUtil;
 
 import java.util.List;
@@ -19,7 +20,7 @@ import java.util.List;
 
 public class EuipmentAdapter extends BaseAdapter {
     private Context mContext;
-    private List<Euip> list;
+    private List<Euipt> list;
     private int type;
     public EuipmentAdapter(Context mContext) {
 
@@ -36,14 +37,14 @@ public class EuipmentAdapter extends BaseAdapter {
     public void setClickListener(ItemCliks listener){
         this.listener=listener;
     }
-    public void setData(List<Euip> list){
+    public void setData(List<Euipt> list){
         this.list=list;
         notifyDataSetChanged();
     }
 
     @Override
     public int getCount() {
-        return list!=null?list.size():6;
+        return list!=null?list.size():0;
     }
 
     @Override
@@ -79,12 +80,12 @@ public class EuipmentAdapter extends BaseAdapter {
             holder.iv_arrow.setVisibility(View.GONE);
             holder.tv_time.setVisibility(View.VISIBLE);
         }
-//        if(TextUtil.isNotEmpty(list.get(position).classifyName)){
-//            holder.name.setText(list.get(position).classifyName);
-//        }
-//        if(TextUtil.isNotEmpty(list.get(position).sort)){
-//            holder.tv_count.setText(list.get(position).sort);
-//        }
+        if(TextUtil.isNotEmpty(list.get(position).deviceTypeDisplayName)){
+            holder.name.setText(list.get(position).deviceTypeDisplayName);
+        }
+        if(TextUtil.isNotEmpty(list.get(position).serialNo)){
+            holder.tv_count.setText("设备编号:"+list.get(position).serialNo);
+        }
 
          holder.ll_item.setOnClickListener(new View.OnClickListener() {
              @Override

@@ -3,6 +3,7 @@ package com.canplay.medical.mvp.activity.home;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.BitmapDrawable;
+import android.icu.util.Measure;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -19,9 +20,17 @@ import android.widget.TextView;
 import com.canplay.medical.BuildConfig;
 import com.canplay.medical.R;
 import com.canplay.medical.base.BaseActivity;
+import com.canplay.medical.base.BaseApplication;
 import com.canplay.medical.base.BaseDailogManager;
+import com.canplay.medical.base.RxBus;
+import com.canplay.medical.base.SubscriptionBean;
 import com.canplay.medical.bean.DATA;
+import com.canplay.medical.bean.Mesure;
 import com.canplay.medical.mvp.adapter.TimeAddAdapter;
+import com.canplay.medical.mvp.component.DaggerBaseComponent;
+import com.canplay.medical.mvp.present.BaseContract;
+import com.canplay.medical.mvp.present.BasesPresenter;
+import com.canplay.medical.util.SpUtil;
 import com.canplay.medical.util.StringUtil;
 import com.canplay.medical.util.TextUtil;
 import com.canplay.medical.view.HourSelector;
@@ -39,6 +48,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.inject.Inject;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import okhttp3.OkHttpClient;
@@ -48,9 +59,9 @@ import okhttp3.Response;
 /**
  * 测量提醒
  */
-public class MeasureActivity extends BaseActivity {
-
-
+public class MeasureActivity extends BaseActivity implements BaseContract.View{
+    @Inject
+    BasesPresenter presenter;
     @BindView(R.id.line)
     View line;
     @BindView(R.id.navigationBar)
@@ -77,6 +88,8 @@ public class MeasureActivity extends BaseActivity {
     public void initViews() {
         setContentView(R.layout.activity_measure_remind);
         ButterKnife.bind(this);
+        DaggerBaseComponent.builder().appComponent(((BaseApplication)getApplication()).getAppComponent()).build().inject(this);
+        presenter.attachView(this);
         navigationBar.setNavigationBarListener(this);
         adapter=new TimeAddAdapter(this);
         listview.setAdapter(adapter);
@@ -85,8 +98,41 @@ public class MeasureActivity extends BaseActivity {
     }
     private int type=1;
     private int CHOOSE=6;
+    private Mesure mesure=new Mesure();
+    private List<String> datas=new ArrayList<>();
     @Override
     public void bindEvents() {
+
+        navigationBar.setNavigationBarListener(new NavigationBar.NavigationBarListener() {
+            @Override
+            public void navigationLeft() {
+                finish();
+            }
+
+            @Override
+            public void navigationRight() {
+                mesure.name=tvType.getText().toString().trim();
+                if(map.size()==0){
+                    showToasts("请添加提醒时间");
+                    return;
+                }
+                datas.clear();
+                for(String time:map.values()){
+                    datas.add(time);
+                }
+                mesure.when=datas;
+                String userId = SpUtil.getInstance().getUserId();
+                mesure.userId=userId;
+                mesure.type="time";
+                mesure.remindingFor="Measurement";
+                presenter.addMesure(mesure);
+            }
+
+            @Override
+            public void navigationimg() {
+
+            }
+        });
      tvAdd.setOnClickListener(new View.OnClickListener() {
          @Override
          public void onClick(View v) {
@@ -168,7 +214,7 @@ public class MeasureActivity extends BaseActivity {
                 if(type==1){
                     tvType.setText("血压");
                 }else {
-                    tvType.setText("血糖1");
+                    tvType.setText("血糖");
                 }
             }
         }
@@ -235,4 +281,19 @@ public class MeasureActivity extends BaseActivity {
 
     }
 
+    @Override
+    public <T> void toEntity(T entity, int type) {
+        RxBus.getInstance().send(SubscriptionBean.createSendBean(SubscriptionBean.MESURE,""));
+        finish();
+    }
+
+    @Override
+    public void toNextStep(int type) {
+
+    }
+
+    @Override
+    public void showTomast(String msg) {
+
+    }
 }

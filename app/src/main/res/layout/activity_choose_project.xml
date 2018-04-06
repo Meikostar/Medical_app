@@ -39,8 +39,8 @@
             android:padding="9dp"
            android:layout_marginLeft="8dp"
             android:id="@+id/cb_press"
-            app:drawablechoose="@drawable/gouxuan"
-            app:drawables="@drawable/gouxues"
+            app:drawablechoose="@drawable/check"
+            app:drawables="@drawable/uncheck"
             android:layout_width="35dp"
             android:layout_height="35dp"/>
         <TextView
@@ -66,8 +66,8 @@
         android:orientation="horizontal">
 
         <com.canplay.medical.view.MCheckBox
-            app:drawablechoose="@drawable/gouxuan"
-            app:drawables="@drawable/gouxues"
+            app:drawablechoose="@drawable/check"
+            app:drawables="@drawable/uncheck"
             android:focusable="false"
             android:clickable="false"
             app:canNoClick="true"

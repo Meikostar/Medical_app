@@ -15,6 +15,7 @@ public class SubscriptionBean {
     public static int MENU_REFASHS=102;
 
     public static int MENU_SCAN=103;//扫一扫
+    public static int MESURE=104;//测量
 
 
 

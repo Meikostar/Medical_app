@@ -10,6 +10,8 @@ import android.widget.TextView;
 
 import com.canplay.medical.R;
 import com.canplay.medical.bean.ORDER;
+import com.canplay.medical.bean.Record;
+import com.canplay.medical.util.TimeUtil;
 import com.canplay.medical.view.DashView;
 import com.canplay.medical.view.RegularListView;
 
@@ -23,7 +25,7 @@ import butterknife.ButterKnife;
 
 public class UsePlanAdapter extends BaseAdapter {
     private Context mContext;
-    private List<ORDER> list;
+    private List<Record> list;
 
     public UsePlanAdapter(Context mContext) {
 
@@ -34,14 +36,14 @@ public class UsePlanAdapter extends BaseAdapter {
         void getItem(String total);
     }
 
-    public List<ORDER> getDatas() {
+    public List<Record> getDatas() {
         return list;
     }
 
     private Map<Integer, Integer> map = new HashMap<>();
     private int type;
 
-    public void setData(List<ORDER> list, int type) {
+    public void setData(List<Record> list, int type) {
         this.list = list;
         this.type = type;
         notifyDataSetChanged();
@@ -58,7 +60,7 @@ public class UsePlanAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
-        return list != null ? list.size() : 6;
+        return list != null ? list.size() : 0;
     }
 
     @Override
@@ -87,6 +89,7 @@ public class UsePlanAdapter extends BaseAdapter {
         }else {
             holder.tvCout.setVisibility(View.VISIBLE);
         }
+        holder.tvTime.setText(TimeUtil.formatToMs(list.get(position).date));
         RemindItemAdapter adapter = new RemindItemAdapter(mContext);
         holder.rlMenu.setAdapter(adapter);
         if (position != 0) {
