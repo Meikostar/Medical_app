@@ -99,6 +99,7 @@ public class SugarChartRecordActivity extends BaseActivity {
         mFragments = new ArrayList<>();
         chartFragment = new ChartFragment();
         bloodRecordFragment = new BloodRecordFragment();
+        bloodRecordFragment.setType(1);
         mFragments.add(chartFragment);
         mFragments.add(bloodRecordFragment);
 

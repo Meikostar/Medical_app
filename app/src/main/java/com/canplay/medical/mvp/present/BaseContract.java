@@ -4,6 +4,8 @@ import com.canplay.medical.base.BasePresenter;
 import com.canplay.medical.base.BaseView;
 import com.canplay.medical.bean.Add;
 import com.canplay.medical.bean.Mesure;
+import com.canplay.medical.bean.Press;
+import com.canplay.medical.bean.Sug;
 
 public class BaseContract {
     public    interface View extends BaseView {
@@ -32,8 +34,29 @@ public class BaseContract {
          * 添加提醒
          */
         void addMesure(Mesure base);
+        /**
+         * 添加血糖记录
+         */
+        void addBloodSugar(Sug base);
 
+        /**
+         * 血糖测量记录
+         */
+        void getBloodList(final int  type, String from, String take);
 
+        /**
+         * 指定天数血糖测量记录
+         */
+        void getDayBloodRecord( String day);
 
+        /**
+         * 指定天数血糖测量记录
+         */
+        void addBloodPress(Press base);
+
+        /**
+         * 指定天数血压测量记录
+         */
+        void getDayBloodPressRecord( String day);
     }
 }

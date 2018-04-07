@@ -137,15 +137,23 @@ public class AddFriendActivity extends BaseActivity implements HomeContract.View
         search.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (TextUtil.isNotEmpty(etSearch.getText().toString())){
+                if(sta==0){
+                    if (TextUtil.isNotEmpty(etSearch.getText().toString())){
 
-                    if(type==0){
-                        presenter.searchDoctor(etSearch.getText().toString());
-                    }else {
-                        presenter.SearFriend(etSearch.getText().toString());
+                        if(type==0){
+                            presenter.searchDoctor(etSearch.getText().toString());
+                        }else {
+                            presenter.SearFriend(etSearch.getText().toString());
+                        }
                     }
                     search.setText("取消");
+                }else {
+                    search.setText("搜索");
+                    etSearch.setText("");
+                    sta=0;
+
                 }
+
             }
         });
         navigationBar.setNavigationBarListener(new NavigationBar.NavigationBarListener() {
@@ -215,14 +223,14 @@ public class AddFriendActivity extends BaseActivity implements HomeContract.View
     public void initData() {
 
     }
-
+   private int sta;
    private List<Friend> list;
     @Override
     public <T> void toEntity(T entity) {
         list= (List<Friend>) entity;
+        sta=1;
 
-        search.setText("搜索");
-        etSearch.setText("");
+        search.setText("取消");
         list= (List<Friend>) entity;
         adapter.setDatas(list);
         adapter.notifyDataSetChanged();
@@ -231,14 +239,14 @@ public class AddFriendActivity extends BaseActivity implements HomeContract.View
 
     @Override
     public void toNextStep(int type) {
-
+        adapter.setStatus(2);
+        adapter.notifyDataSetChanged();
+        showToasts("添加成功");
     }
 
     @Override
     public void showTomast(String msg) {
-        adapter.setStatus(2);
-        adapter.notifyDataSetChanged();
-        showToasts("添加成功");
+
     }
 
 

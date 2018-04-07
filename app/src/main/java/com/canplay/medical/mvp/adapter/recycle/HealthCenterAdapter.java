@@ -97,10 +97,10 @@ public class HealthCenterAdapter extends BaseRecycleViewAdapter {
             });
         }else {
 
-            if(TextUtil.isNotEmpty(data.name)){
-                holders.name.setText(data.name);
-            }  if(TextUtil.isNotEmpty(data.familyAndFriendsUserName)){
-                holders.phone.setText(data.familyAndFriendsUserName);
+            if(TextUtil.isNotEmpty(data.userName)){
+                holders.name.setText(data.userName);
+            }  if(TextUtil.isNotEmpty(data.phone)){
+                holders.phone.setText(data.phone);
             }
             Glide.with(context).load(data.avatar).asBitmap()
                     .placeholder(R.drawable.moren).transform(new CircleTransform(context)).into(holders.img);
@@ -143,7 +143,7 @@ public class HealthCenterAdapter extends BaseRecycleViewAdapter {
             holders.add.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    listener.clickListener(position,data);
+                    listener.clickListener(1,data);//1代表未添加2代表已添加
                 }
             });
         }

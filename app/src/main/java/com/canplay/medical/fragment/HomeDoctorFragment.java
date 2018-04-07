@@ -151,7 +151,10 @@ public class HomeDoctorFragment extends BaseFragment implements View.OnClickList
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        mSuperRecyclerView.hideMoreProgress();
+                        if(mSuperRecyclerView!=null){
+                            mSuperRecyclerView.hideMoreProgress();
+                        }
+
                         presenter.getDoctorList();
                     }
                 }, 2000);

@@ -54,12 +54,14 @@ public class BloodRecordFragment extends BaseFragment implements  BaseContract.V
     private final int TYPE_REMOVE = 3;
     Unbinder unbinder;
 
-
+    private int type;//0代表血压记录1代表血糖记录
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     }
-
+    public void setType(int type){
+        this.type=type;
+    }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_blood_record, null);
@@ -87,6 +89,7 @@ public class BloodRecordFragment extends BaseFragment implements  BaseContract.V
         mSuperRecyclerView.getMoreProgressView().getLayoutParams().width = ViewGroup.LayoutParams.MATCH_PARENT;
         adapter = new BloodRecordRecycleAdapter(getActivity());
         mSuperRecyclerView.setAdapter(adapter);
+        adapter.setType(type);
 //        reflash();
         // mSuperRecyclerView.setRefreshing(false);
         reflash();
@@ -96,7 +99,12 @@ public class BloodRecordFragment extends BaseFragment implements  BaseContract.V
             @Override
             public void onRefresh() {
                 // mSuperRecyclerView.showMoreProgress();
-                presenter.getBloodPressList(TYPE_PULL_REFRESH,total+"",cout+"");
+                if(type==0){
+                    presenter.getBloodPressList(TYPE_PULL_REFRESH,total+"",cout+"");
+                }else {
+                    presenter.getBloodList(TYPE_PULL_REFRESH,total+"",cout+"");
+                }
+
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
@@ -146,7 +154,14 @@ public class BloodRecordFragment extends BaseFragment implements  BaseContract.V
                         public void run() {
                             if (haveNext)
                                 mSuperRecyclerView.hideMoreProgress();
-                            presenter.getBloodPressList(TYPE_PULL_REFRESH,cout*currpage+"",cout+"");
+
+                            if(type==0){
+                                presenter.getBloodPressList(TYPE_PULL_REFRESH,cout*currpage+"",cout+"");
+
+                            }else {
+                                presenter.getBloodList(TYPE_PULL_REFRESH,cout*currpage+"",cout+"");
+
+                            }
 
                         }
                     }, 2000);

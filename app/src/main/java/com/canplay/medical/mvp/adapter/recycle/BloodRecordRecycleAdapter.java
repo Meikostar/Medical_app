@@ -10,6 +10,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.canplay.medical.R;
+import com.canplay.medical.bean.Sugar;
 import com.canplay.medical.view.DashView;
 
 import butterknife.BindView;
@@ -23,11 +24,15 @@ public class BloodRecordRecycleAdapter extends BaseRecycleViewAdapter {
 
 
     private Context context;
-
+    private  int type;
     public BloodRecordRecycleAdapter(Context context) {
         this.context = context;
     }
 
+
+    public void setType(int type){
+        this.type=type;
+    }
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_blooe_record, null);
@@ -38,7 +43,13 @@ public class BloodRecordRecycleAdapter extends BaseRecycleViewAdapter {
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
         DoctorItemViewHolder holders = (DoctorItemViewHolder) holder;
-//        final ORDER data= (ORDER) datas.get(position);
+        final Sugar data= (Sugar) datas.get(position);
+
+         if(type==0){
+             holders.tvData.setText("血压:"+data.value);
+         }else {
+             holders.tvData.setText("血糖:"+data.value);
+         }
 
         if (position != 0) {
             holders.line1.setVisibility(View.VISIBLE);
@@ -57,7 +68,7 @@ public class BloodRecordRecycleAdapter extends BaseRecycleViewAdapter {
 
     @Override
     public int getItemCount() {
-        int count = 7;
+        int count = 0;
 
         if (datas != null && datas.size() > 0) {
             count = datas.size();

@@ -9,8 +9,11 @@ import com.canplay.medical.bean.Friend;
 import com.canplay.medical.bean.Medicine;
 import com.canplay.medical.bean.Message;
 import com.canplay.medical.bean.Mesure;
+import com.canplay.medical.bean.Press;
 import com.canplay.medical.bean.Record;
 import com.canplay.medical.bean.Righter;
+import com.canplay.medical.bean.Sug;
+import com.canplay.medical.bean.Sugar;
 import com.canplay.medical.bean.USER;
 
 import java.util.List;
@@ -171,8 +174,10 @@ public interface BaseApi {
      */
 
     @Headers({"Content-Type: application/json","Accept: application/json"})
-    @POST("Flow/v2/Reminder")
+    @POST("Flow/v2/Circle")
     Observable<List<BASE>> addFriend(@Body Add body);
+
+
 
     /**
      * 同意友
@@ -184,5 +189,48 @@ public interface BaseApi {
      */
     @DELETE("Flow/v2/Circle/Approve/{familyAndFriendsId}")
     Observable<BASE> dissAgree(@Path("familyAndFriendsId") String familyAndFriendsId);
+
+
+    /**
+     *  添加血糖数据
+     */
+
+    @Headers({"Content-Type: application/json","Accept: application/json"})
+    @POST("Flow/v2/BloodGlucose")
+    Observable<Sugar> addBloodSugar(@Body Sug body);
+
+
+
+    /**
+     *  添加血压数据
+     */
+    @Headers({"Content-Type: application/json","Accept: application/json"})
+    @POST("Flow/v2/BloodPressure")
+    Observable<Sugar> addBloodPress(@Body Press body);
+
+
+    /**
+     * 血糖数据记录
+     */
+    @GET("Flow/v2/BloodGlucose/{userId}/{from}/{take}")
+    Observable<List<Sugar>> getBloodList(@Path("userId") String userId,
+                                   @Path("from") String from, @Path("take") String take);
+
+    /**
+     *指定天数血糖数据记录
+     */
+
+    @GET("Flow/v2/BloodGlucose/{userId}/{days}")
+    Observable<List<Sugar>> getDayBloodRecord(@Path("userId") String userId,
+                                         @Path("days") String days);
+
+    /**
+     *指定天数血糖数据记录
+     */
+
+    @GET("Flow/v2/BloodPressure/{userId}/{days}")
+    Observable<List<Sugar>> getDayBloodPressRecord(@Path("userId") String userId,
+                                              @Path("days") String days);
+
 
 }

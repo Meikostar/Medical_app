@@ -71,21 +71,21 @@
             android:textSize="15.5sp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
-        <com.canplay.medical.view.ClearEditText
+        <EditText
             android:textSize="14sp"
             android:paddingRight="8dp"
             android:layout_marginLeft="12dp"
             android:layout_marginRight="12dp"
 
             android:layout_width="wrap_content"
-            android:minWidth="150dp"
+            android:minWidth="190dp"
             android:layout_height="35dp"
             android:background="@null"
             android:gravity="center_vertical|right"
             android:text=""
-
+            android:inputType="number|numberDecimal"
             android:id="@+id/et_one"
-            android:maxLength="11"
+
             android:textColor="@color/slow_black"
             android:hint="请输入数值"
             android:textColorHint="#E0E0E0"/>
@@ -118,18 +118,18 @@
                 android:textSize="15.5sp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
-            <com.canplay.medical.view.ClearEditText
+            <EditText
                 android:textSize="15.5sp"
                 android:paddingRight="8dp"
                 android:layout_marginLeft="12dp"
                 android:layout_marginRight="12dp"
                 android:layout_width="wrap_content"
-                android:minWidth="150dp"
+                android:minWidth="190dp"
                 android:layout_height="35dp"
                 android:background="@null"
                 android:gravity="center_vertical|right"
                 android:text=""
-
+                android:inputType="number|numberDecimal"
                 android:id="@+id/et_two"
                 android:maxLength="11"
                 android:textColor="@color/slow_black"
@@ -156,7 +156,7 @@
                 android:textSize="15.5sp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
-            <com.canplay.medical.view.ClearEditText
+            <EditText
                 android:textSize="15.5sp"
                 android:paddingRight="8dp"
                 android:layout_marginLeft="12dp"
@@ -165,6 +165,7 @@
                 android:minWidth="150dp"
                 android:layout_height="35dp"
                 android:background="@null"
+                android:inputType="number|numberDecimal"
                 android:gravity="center_vertical|right"
                 android:text=""
                 android:id="@+id/et_three"
