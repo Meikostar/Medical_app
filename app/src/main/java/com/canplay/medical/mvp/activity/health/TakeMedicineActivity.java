@@ -49,8 +49,7 @@ public class TakeMedicineActivity extends BaseActivity implements BaseContract.V
     public void initViews() {
         setContentView(R.layout.activity_take_medicine);
         ButterKnife.bind(this);
-        DaggerBaseComponent.builder().appComponent(((BaseApplication)getApplication()).getAppComponent()).build().inject(this);
-        presenter.attachView(this);
+
         String userId = SpUtil.getInstance().getUserId();
         presenter.getMeasureRecord(userId,"Medicine","0","1000");
         navigationBar.setNavigationBarListener(this);

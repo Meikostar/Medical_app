@@ -17,6 +17,8 @@ import com.canplay.medical.BuildConfig;
 import com.canplay.medical.R;
 import com.canplay.medical.base.BaseActivity;
 import com.canplay.medical.base.BaseDailogManager;
+import com.canplay.medical.base.RxBus;
+import com.canplay.medical.base.SubscriptionBean;
 import com.canplay.medical.mvp.activity.account.LoginActivity;
 import com.canplay.medical.permission.PermissionConst;
 import com.canplay.medical.permission.PermissionGen;
@@ -103,6 +105,7 @@ public class SettingActivity extends BaseActivity  {
               SpUtil.getInstance().clearData();
               Intent intent = new Intent(SettingActivity.this, LoginActivity.class);
               startActivity(intent);
+              RxBus.getInstance().send(SubscriptionBean.createSendBean(SubscriptionBean.FINISH,""));
              finish();
           }
       });

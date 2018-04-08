@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.List;
 
 
-public class Medicine implements Serializable{
+public class Medicine extends BaseData implements Serializable{
 
 //    {
 //        "reminderId":"6b3d6425-b54f-e711-b9e4-2c44fd9333fc",
@@ -46,14 +46,32 @@ public class Medicine implements Serializable{
 //            "completedForToday":false
 
 
+//   "userMedicineId":"5f1f0c36-9bff-e611-b9e4-2c44fd9333fc",
+//           "userName":"zhangj",
+//           "medicine":"Medicine4",
+//           "medicineCode":"11504908-02",
+//           "isCertified": true,
+//           "image":"2000.jpg",
+//           "adverseReaction":"
 
 
     public boolean completedForToday;
+    public boolean isValid;
+    public boolean isCertified;
+    public boolean isCheck;
     public Long createdDateTime;
     public Long lastModified;
+    public String userMedicineId;
     public String reminderTimeId;
+    public String adverseReaction;
+    public String instruction;
+    public String image;
+    public String filter;
 
+    public String medicine;
+    public String medicineCode;
     public String when;
+    public String message;
     public String type;
     public String reminderId;
     public List<Medicine> schedule;

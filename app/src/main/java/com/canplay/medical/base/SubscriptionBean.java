@@ -16,6 +16,7 @@ public class SubscriptionBean {
 
     public static int MENU_SCAN=103;//扫一扫
     public static int MESURE=104;//测量
+    public static int FINISH=105;//
 
 
 

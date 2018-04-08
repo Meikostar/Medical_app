@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 
 import com.canplay.medical.R;
+import com.canplay.medical.bean.Medicine;
 import com.canplay.medical.bean.PREFIX;
 import com.canplay.medical.util.PinYinUtils;
 import com.canplay.medical.view.MCheckBox;
@@ -27,7 +28,7 @@ public class Medicaldapter extends BaseAdapter {
 
     private Context mContext;
     private LayoutInflater inflater;
-    private List<PREFIX> mCities;
+    private List<Medicine> mCities;
     private HashMap<String, Integer> letterIndexes;
     private String[] sections;
     private OnCityClickListener onCityClickListener;
@@ -37,7 +38,7 @@ public class Medicaldapter extends BaseAdapter {
     private String locatedCity;
 
 
-    public Medicaldapter(Context mContext, List<PREFIX> mCities, int type) {
+    public Medicaldapter(Context mContext, List<Medicine> mCities, int type) {
         status = type;
         this.mContext = mContext;
         this.mCities = mCities;
@@ -96,7 +97,7 @@ public class Medicaldapter extends BaseAdapter {
     }
 
     @Override
-    public PREFIX getItem(int position) {
+    public Medicine getItem(int position) {
         return mCities == null ? null : mCities.get(position);
     }
 
@@ -138,9 +139,9 @@ public class Medicaldapter extends BaseAdapter {
         });
         String city = null;
         if (status != 0) {
-            city = mCities.get(position).getCountry_e();
+            city = mCities.get(position).userName;
         } else {
-            city = mCities.get(position).getCountry();
+            city = mCities.get(position).userName;
         }
 
         if (position >= 1) {
@@ -167,7 +168,7 @@ public class Medicaldapter extends BaseAdapter {
                 @Override
                 public void onClick(View v) {
                     if (onCityClickListener != null) {
-                        onCityClickListener.onCityClick(mCities.get(position).getMobile_prefix());
+                        onCityClickListener.onCityClick(null);
                     }
                 }
             });
@@ -180,7 +181,7 @@ public class Medicaldapter extends BaseAdapter {
                 @Override
                 public void onClick(View v) {
                     if (onCityClickListener != null) {
-                        onCityClickListener.onCityClick(mCities.get(position).getMobile_prefix());
+                        onCityClickListener.onCityClick(null);
                     }
                 }
             });

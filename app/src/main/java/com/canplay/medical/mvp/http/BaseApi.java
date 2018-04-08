@@ -6,7 +6,9 @@ import com.canplay.medical.bean.Add;
 import com.canplay.medical.bean.BASE;
 import com.canplay.medical.bean.Euipt;
 import com.canplay.medical.bean.Friend;
+import com.canplay.medical.bean.Medic;
 import com.canplay.medical.bean.Medicine;
+import com.canplay.medical.bean.Medicines;
 import com.canplay.medical.bean.Message;
 import com.canplay.medical.bean.Mesure;
 import com.canplay.medical.bean.Press;
@@ -63,6 +65,12 @@ public interface BaseApi {
     @Headers({"Content-Type: application/json","Accept: application/json"})
     @POST("Flow/Register")
     Observable<BASE> righter(@Body Righter body);
+
+
+
+    @Headers({"Content-Type: application/json","Accept: application/json"})
+    @POST("Flow/v2/Medicine")
+    Observable<Medicines> addMedical(@Body Medic body);
     /**
      * 首页
      */
@@ -120,8 +128,14 @@ public interface BaseApi {
     /**
      * 添加好友
      */
-    @POST("Flow/api/Participant/Name/{search}")
+    @GET("Flow/api/Participant/Name/{search}")
     Observable<List<Friend> > searchDoctor(@Path("search") String search);
+
+    /**
+     * 手搜索药品
+     */
+    @GET("Flow/v2/MedicineCatalog/Search/{search}")
+    Observable<List<Medicines> > searchMedicine(@Path("search") String search);
 
     /**
      * 添加好友
@@ -232,5 +246,18 @@ public interface BaseApi {
     Observable<List<Sugar>> getDayBloodPressRecord(@Path("userId") String userId,
                                               @Path("days") String days);
 
+    /**
+     *药物列表
+     */
+
+    @GET("Flow/v2/Medicine/{userId}")
+    Observable<List<Medicine>> getMedicalList(@Path("userId") String userId);
+
+    /**
+     *扫描添加
+     */
+
+    @GET("Flow/v2/Medicine/Verify/{meidcineCode}")
+    Observable<Medicines> getMedicineInfo(@Path("meidcineCode") String meidcineCode);
 
 }

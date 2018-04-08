@@ -3,6 +3,7 @@ package com.canplay.medical.mvp.present;
 import com.canplay.medical.base.BasePresenter;
 import com.canplay.medical.base.BaseView;
 import com.canplay.medical.bean.Add;
+import com.canplay.medical.bean.Medic;
 import com.canplay.medical.bean.Mesure;
 import com.canplay.medical.bean.Press;
 import com.canplay.medical.bean.Sug;
@@ -58,5 +59,17 @@ public class BaseContract {
          * 指定天数血压测量记录
          */
         void getDayBloodPressRecord( String day);
+
+        /**
+         * 药物列表
+         */
+        void getMedicineList();
+
+        /**
+         * 扫描添加药物
+         */
+        void getMedicineInfo(String medicindCode);
+
+        void addMedical(Medic med);
     }
 }

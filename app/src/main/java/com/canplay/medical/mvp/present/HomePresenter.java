@@ -8,7 +8,9 @@ import com.canplay.medical.bean.Add;
 import com.canplay.medical.bean.BASE;
 import com.canplay.medical.bean.Euipt;
 import com.canplay.medical.bean.Friend;
+import com.canplay.medical.bean.Medic;
 import com.canplay.medical.bean.Medicine;
+import com.canplay.medical.bean.Medicines;
 import com.canplay.medical.bean.Message;
 import com.canplay.medical.bean.USER;
 import com.canplay.medical.mvp.http.BaseApi;
@@ -354,6 +356,43 @@ public class HomePresenter implements HomeContract.Presenter {
             }
         });
     }
+    @Override
+    public void searchMedicine(String content) {
+        subscription = ApiManager.setSubscribe(contactApi.searchMedicine(content), new MySubscriber<List<Medicines>>(){
+            @Override
+            public void onError(Throwable e){
+                super.onError(e);
+
+
+            }
+
+            @Override
+            public void onNext(List<Medicines> entity){
+
+                mView.toEntity(entity);
+
+            }
+        });
+    }
+    @Override
+    public void addMedical(Medic med) {
+        subscription = ApiManager.setSubscribe(contactApi.addMedical(med), new MySubscriber<Medicines>(){
+            @Override
+            public void onError(Throwable e){
+                super.onError(e);
+
+
+            }
+
+            @Override
+            public void onNext(Medicines entity){
+
+                mView.toEntity(entity);
+
+            }
+        });
+    }
+
     @Override
     public void SearFriend(String content) {
         subscription = ApiManager.setSubscribe(contactApi.searchFriend(content), new MySubscriber<List<Friend>>(){

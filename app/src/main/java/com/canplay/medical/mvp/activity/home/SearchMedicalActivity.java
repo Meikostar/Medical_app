@@ -9,8 +9,19 @@ import android.widget.TextView;
 
 import com.canplay.medical.R;
 import com.canplay.medical.base.BaseActivity;
+import com.canplay.medical.base.BaseApplication;
+import com.canplay.medical.bean.Medicine;
+import com.canplay.medical.bean.Medicines;
 import com.canplay.medical.mvp.adapter.SearchMedicalAdapter;
+import com.canplay.medical.mvp.component.DaggerBaseComponent;
+import com.canplay.medical.mvp.present.HomeContract;
+import com.canplay.medical.mvp.present.HomePresenter;
+import com.canplay.medical.util.TextUtil;
 import com.canplay.medical.view.ClearEditText;
+
+import java.util.List;
+
+import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -18,8 +29,10 @@ import butterknife.ButterKnife;
 /**
  * 选择药物search
  */
-public class SearchMedicalActivity extends BaseActivity {
+public class SearchMedicalActivity extends BaseActivity implements HomeContract.View{
 
+    @Inject
+    HomePresenter presenter;
 
     @BindView(R.id.line)
     View line;
@@ -41,6 +54,10 @@ public class SearchMedicalActivity extends BaseActivity {
     public void initViews() {
         setContentView(R.layout.activity_search_medical);
         ButterKnife.bind(this);
+
+        DaggerBaseComponent.builder().appComponent(((BaseApplication)getApplication()).getAppComponent()).build().inject(this);
+        presenter.attachView(this);
+
         adapter = new SearchMedicalAdapter(this);
         listview.setAdapter(adapter);
 
@@ -52,7 +69,9 @@ public class SearchMedicalActivity extends BaseActivity {
         etSearch.setOnClearEditTextListener(new ClearEditText.ClearEditTextListener() {
             @Override
             public void afterTextChanged4ClearEdit(Editable s) {
-
+                if(TextUtil.isNotEmpty(s.toString())){
+                    presenter.searchMedicine(s.toString());
+                }
             }
 
             @Override
@@ -67,6 +86,21 @@ public class SearchMedicalActivity extends BaseActivity {
             }
         });
 
+        tvSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(type==0){
+                    if(TextUtil.isNotEmpty(etSearch.getText().toString())){
+                        presenter.searchMedicine(etSearch.getText().toString());
+                    }
+                }else {
+                    type=0;
+                    etSearch.setText("");
+                    tvSearch.setText("搜索");
+                }
+
+            }
+        });
         tvSure.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -85,11 +119,22 @@ public class SearchMedicalActivity extends BaseActivity {
 
     }
 
+    private int type;
+    private List<Medicines> data;
+    @Override
+    public <T> void toEntity(T entity) {
+        type=1;
+        tvSearch.setText("取消");
+        data= (List<Medicines>) entity;
+    }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
-        ButterKnife.bind(this);
+    public void toNextStep(int type) {
+
+    }
+
+    @Override
+    public void showTomast(String msg) {
+
     }
 }

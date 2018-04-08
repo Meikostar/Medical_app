@@ -94,6 +94,8 @@ public class MainActivity extends BaseActivity implements HomeFragment.ScanListe
                 if (bean == null) return;
                 if(SubscriptionBean.MENU_SCAN==bean.type){
                   dialog.show();
+                }else if(SubscriptionBean.FINISH==bean.type){
+                    finish();
                 }
 
 

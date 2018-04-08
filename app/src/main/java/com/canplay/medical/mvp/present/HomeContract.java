@@ -3,6 +3,7 @@ package com.canplay.medical.mvp.present;
 import com.canplay.medical.base.BasePresenter;
 import com.canplay.medical.base.BaseView;
 import com.canplay.medical.bean.Add;
+import com.canplay.medical.bean.Medic;
 
 public class HomeContract {
     public    interface View extends BaseView {
@@ -100,6 +101,13 @@ public class HomeContract {
          * 同意
          */
         void disAgree(String id);
+
+        /**
+         * search
+         */
+        void searchMedicine(String content);
+
+        void addMedical(Medic med);
 
     }
 

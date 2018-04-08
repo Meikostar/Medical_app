@@ -11,8 +11,13 @@ import android.widget.TextView;
 
 import com.canplay.medical.R;
 import com.canplay.medical.base.BaseActivity;
+import com.canplay.medical.base.BaseApplication;
+import com.canplay.medical.bean.Medicine;
 import com.canplay.medical.mvp.activity.MainActivity;
 import com.canplay.medical.mvp.adapter.Medicaldapter;
+import com.canplay.medical.mvp.component.DaggerBaseComponent;
+import com.canplay.medical.mvp.present.BaseContract;
+import com.canplay.medical.mvp.present.BasesPresenter;
 import com.canplay.medical.permission.PermissionConst;
 import com.canplay.medical.permission.PermissionGen;
 import com.canplay.medical.permission.PermissionSuccess;
@@ -21,15 +26,20 @@ import com.malinskiy.superrecyclerview.SuperRecyclerView;
 import com.yzq.zxinglibrary.android.CaptureActivity;
 import com.yzq.zxinglibrary.common.Constant;
 
+import java.util.List;
+
+import javax.inject.Inject;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
  * 选择药物
  */
-public class ChooseMedicalActivity extends BaseActivity {
+public class ChooseMedicalActivity extends BaseActivity implements BaseContract.View{
 
-
+    @Inject
+    BasesPresenter presenter;
     @BindView(R.id.line)
     View line;
     @BindView(R.id.top_view_back)
@@ -55,8 +65,12 @@ public class ChooseMedicalActivity extends BaseActivity {
     public void initViews() {
         setContentView(R.layout.activity_choose_medical);
         ButterKnife.bind(this);
-        adapter=new Medicaldapter(this,null,0);
-        listview.setAdapter(adapter);
+
+        DaggerBaseComponent.builder().appComponent(((BaseApplication)getApplication()).getAppComponent()).build().inject(this);
+        presenter.attachView(this);
+
+        presenter.getMedicineList();
+
 
         llBg.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -141,10 +155,21 @@ public class ChooseMedicalActivity extends BaseActivity {
     }
 
 
+    private List<Medicine> data;
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
-        ButterKnife.bind(this);
+    public <T> void toEntity(T entity, int type) {
+        data= (List<Medicine>) entity;
+        adapter=new Medicaldapter(this,data,0);
+        listview.setAdapter(adapter);
+    }
+
+    @Override
+    public void toNextStep(int type) {
+
+    }
+
+    @Override
+    public void showTomast(String msg) {
+
     }
 }
