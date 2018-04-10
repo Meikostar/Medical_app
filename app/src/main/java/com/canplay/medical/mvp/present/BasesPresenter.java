@@ -6,6 +6,8 @@ import android.support.annotation.NonNull;
 import com.canplay.medical.base.manager.ApiManager;
 import com.canplay.medical.bean.Add;
 import com.canplay.medical.bean.BASE;
+import com.canplay.medical.bean.Bind;
+import com.canplay.medical.bean.Box;
 import com.canplay.medical.bean.Medic;
 import com.canplay.medical.bean.Medicine;
 import com.canplay.medical.bean.Medicines;
@@ -16,6 +18,8 @@ import com.canplay.medical.bean.Righter;
 import com.canplay.medical.bean.Sug;
 import com.canplay.medical.bean.Sugar;
 import com.canplay.medical.bean.USER;
+import com.canplay.medical.bean.avator;
+import com.canplay.medical.bean.unBind;
 import com.canplay.medical.mvp.http.BaseApi;
 import com.canplay.medical.net.MySubscriber;
 import com.canplay.medical.util.SpUtil;
@@ -81,6 +85,7 @@ public class BasesPresenter implements BaseContract.Presenter {
     }
     @Override
     public void addMedical(Medic med) {
+
         subscription = ApiManager.setSubscribe(contactApi.addMedical(med), new MySubscriber<Medicines>(){
             @Override
             public void onError(Throwable e){
@@ -97,6 +102,76 @@ public class BasesPresenter implements BaseContract.Presenter {
             }
         });
     }
+    @Override
+    public void Uncertified(Medic med) {
+
+        subscription = ApiManager.setSubscribe(contactApi.Uncertified(med), new MySubscriber<Medicines>(){
+            @Override
+            public void onError(Throwable e){
+                super.onError(e);
+
+
+            }
+
+            @Override
+            public void onNext(Medicines entity){
+
+                mView.toEntity(entity,0);
+
+            }
+        });
+    }
+
+    @Override
+    public void upPhotos(avator med) {
+
+        subscription = ApiManager.setSubscribe(contactApi.upPhotos(med), new MySubscriber<BASE>(){
+            @Override
+            public void onError(Throwable e){
+                super.onError(e);
+
+
+            }
+
+            @Override
+            public void onNext(BASE entity){
+                if (entity.isSucceeded){
+                    mView.toEntity(entity,1);
+                }else {
+                    mView.toEntity(entity,0);
+                }
+
+
+            }
+        });
+    }
+
+
+    @Override
+    public void bindDevice(Bind med) {
+
+        subscription = ApiManager.setSubscribe(contactApi.bindDevice(med), new MySubscriber<BASE>(){
+            @Override
+            public void onError(Throwable e){
+                super.onError(e);
+
+
+            }
+
+            @Override
+            public void onNext(BASE entity){
+                if (entity.isSucceeded){
+                    mView.toEntity(entity,1);
+                }else {
+                    mView.toEntity(entity,0);
+                }
+
+
+            }
+        });
+    }
+
+
     @Override
     public void getMedicineList() {
         String userId = SpUtil.getInstance().getUserId();
@@ -201,7 +276,7 @@ public class BasesPresenter implements BaseContract.Presenter {
             public void onError(Throwable e){
                 super.onError(e);
 
-
+               mView.showTomast("添加失败");
             }
 
             @Override
@@ -213,6 +288,44 @@ public class BasesPresenter implements BaseContract.Presenter {
     }
 
 
+    @Override
+    public void confirmEat() {
+
+        subscription = ApiManager.setSubscribe(contactApi.confirmEat(), new MySubscriber<BASE>(){
+            @Override
+            public void onError(Throwable e){
+                super.onError(e);
+
+
+            }
+
+            @Override
+            public void onNext(BASE entity){
+
+                mView.toEntity(entity,2);
+            }
+        });
+    }
+
+    @Override
+    public void myMedicineBox() {
+        String id=SpUtil.getInstance().getUserId();
+        subscription = ApiManager.setSubscribe(contactApi.myMedicineBox(id), new MySubscriber<Box>(){
+            @Override
+            public void onError(Throwable e){
+                super.onError(e);
+
+
+            }
+
+            @Override
+            public void onNext(Box entity){
+
+                mView.toEntity(entity,1);
+            }
+        });
+
+    }
 
     @Override
     public void addBloodPress(Press base) {

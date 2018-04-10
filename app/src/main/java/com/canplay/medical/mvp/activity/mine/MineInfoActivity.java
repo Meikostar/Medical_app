@@ -2,17 +2,27 @@ package com.canplay.medical.mvp.activity.mine;
 
 import android.Manifest;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.util.Base64;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.baidu.mapapi.map.BitmapDescriptor;
+import com.baidu.mapapi.map.BitmapDescriptorFactory;
 import com.bumptech.glide.Glide;
 import com.canplay.medical.R;
 import com.canplay.medical.base.BaseActivity;
+import com.canplay.medical.base.BaseApplication;
 import com.canplay.medical.bean.Province;
+import com.canplay.medical.bean.avator;
 import com.canplay.medical.mvp.activity.account.LoginActivity;
+import com.canplay.medical.mvp.component.DaggerBaseComponent;
+import com.canplay.medical.mvp.present.BaseContract;
+import com.canplay.medical.mvp.present.BasesPresenter;
 import com.canplay.medical.permission.PermissionConst;
 import com.canplay.medical.permission.PermissionGen;
 import com.canplay.medical.permission.PermissionSuccess;
@@ -28,26 +38,32 @@ import com.yzq.zxinglibrary.android.CaptureActivity;
 
 import org.json.JSONObject;
 
+import java.io.BufferedInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.net.URLConnection;
 import java.util.Date;
 import java.util.List;
+
+import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.valuesfeng.picker.ImageSelectActivity;
 import io.valuesfeng.picker.Picker;
 import io.valuesfeng.picker.widget.ImageLoaderEngine;
-import rx.Observable;
-import rx.Subscriber;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.functions.Action1;
-import rx.schedulers.Schedulers;
+
 
 /**
  * 个人信息
  */
-public class MineInfoActivity extends BaseActivity implements View.OnClickListener{
+public class MineInfoActivity extends BaseActivity implements View.OnClickListener,BaseContract.View{
 
-
+    @Inject
+    BasesPresenter presenter;
     @BindView(R.id.line)
     View line;
     @BindView(R.id.iv_phone)
@@ -83,6 +99,8 @@ public class MineInfoActivity extends BaseActivity implements View.OnClickListen
     public void initViews() {
         setContentView(R.layout.activity_mine_info);
         ButterKnife.bind(this);
+        DaggerBaseComponent.builder().appComponent(((BaseApplication) getApplication()).getAppComponent()).build().inject(this);
+        presenter.attachView(this);
         navigationBar.setNavigationBarListener(this);
         dialog=new EditorNameDialog(this,line);
 
@@ -167,6 +185,25 @@ public class MineInfoActivity extends BaseActivity implements View.OnClickListen
                 case 4:
                     List<String> imgs = data.getStringArrayListExtra(ImageSelectActivity.EXTRA_RESULT_SELECTION);
                     path = imgs.get(0);
+                    ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                    Bitmap bitmap=BitmapFactory.decodeFile(path);
+
+
+                    try {
+                        //将bitmap一字节流输出 Bitmap.CompressFormat.PNG 压缩格式，100：压缩率，baos：字节流
+                        bitmap.compress(Bitmap.CompressFormat.PNG, 100, baos);
+                        baos.close();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    byte[] buffer = baos.toByteArray();
+                    System.out.println("图片的大小："+buffer.length);
+
+                    //将图片的字节流数据加密成base64字符输出
+                    String photo = Base64.encodeToString(buffer, 0, buffer.length,Base64.DEFAULT);
+                    ava.image=photo;
+                    ava.ext="png";
+                    presenter.upPhotos(ava);
                     Glide.with(this).load(path).asBitmap().into(ivPhone);
 //                    presenter.getToken(path);
                     break;
@@ -174,6 +211,8 @@ public class MineInfoActivity extends BaseActivity implements View.OnClickListen
             }
         }
     }
+   private avator ava=new avator();
+
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -188,8 +227,13 @@ public class MineInfoActivity extends BaseActivity implements View.OnClickListen
             case R.id.ll_name://
                 dialog.show();
                 break;
-            case R.id.ll_sex://
-
+            case R.id.iv_phone://
+                PermissionGen.with(MineInfoActivity.this)
+                        .addRequestCode(PermissionConst.REQUECT_CODE_CAMERA)
+                        .permissions(Manifest.permission.CAMERA,
+                                Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                                Manifest.permission.READ_EXTERNAL_STORAGE)
+                        .request();
                 break;
             case R.id.ll_birth://
                 break;
@@ -217,5 +261,24 @@ public class MineInfoActivity extends BaseActivity implements View.OnClickListen
             });
         }
         mSelectBindDialog.show();
+    }
+
+    @Override
+    public <T> void toEntity(T entity, int type) {
+     if(type==0){
+         showToasts("上传失败");
+     } else if(type==1){
+            showToasts("上传成功");
+        }
+    }
+
+    @Override
+    public void toNextStep(int type) {
+
+    }
+
+    @Override
+    public void showTomast(String msg) {
+
     }
 }

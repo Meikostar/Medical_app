@@ -45,7 +45,7 @@ public class TimeUtil {
         return format.format(new Date(time));
     }
     public static String formatTimes(long time){
-        SimpleDateFormat format = new SimpleDateFormat("MM.dd  HH:mm");
+        SimpleDateFormat format = new SimpleDateFormat("MM.dd-HH:mm");
         return format.format(new Date(time));
     }
     public static String formatToMs(long time){

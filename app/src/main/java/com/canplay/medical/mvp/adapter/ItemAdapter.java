@@ -10,14 +10,16 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.canplay.medical.R;
+import com.canplay.medical.bean.Box;
 import com.canplay.medical.bean.Euip;
+import com.canplay.medical.util.TextUtil;
 
 import java.util.List;
 
 
 public class ItemAdapter extends BaseAdapter {
     private Context mContext;
-    private List<Euip> list;
+    private List<Box> list;
     private int type=0;//1是用药记录item
     public ItemAdapter(Context mContext) {
 
@@ -25,13 +27,13 @@ public class ItemAdapter extends BaseAdapter {
     }
 
     public interface ItemCliks{
-        void getItem(Euip menu, int type);//type 1表示点击事件2 表示长按事件
+        void getItem(Box menu, int type);//type 1表示点击事件2 表示长按事件
     }
     private ItemCliks listener;
     public void setClickListener(ItemCliks listener){
         this.listener=listener;
     }
-    public void setData(List<Euip> list){
+    public void setData(List<Box> list){
         this.list=list;
         notifyDataSetChanged();
     }
@@ -43,7 +45,7 @@ public class ItemAdapter extends BaseAdapter {
     }
     @Override
     public int getCount() {
-        return list!=null?list.size():3;
+        return list!=null?list.size():0;
     }
 
     @Override
@@ -72,7 +74,12 @@ public class ItemAdapter extends BaseAdapter {
         }else{
             holder = (ResultViewHolder) view.getTag();
         }
-
+        if(TextUtil.isNotEmpty(list.get(position).medicine)){
+            holder.name.setText(list.get(position).medicine);
+        }
+        if(TextUtil.isNotEmpty(list.get(position).dose)){
+            holder.tvCount.setText(list.get(position).dose);
+        }
         return view;
 
 

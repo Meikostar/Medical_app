@@ -25,6 +25,7 @@ import com.canplay.medical.base.BaseDailogManager;
 import com.canplay.medical.base.RxBus;
 import com.canplay.medical.base.SubscriptionBean;
 import com.canplay.medical.bean.DATA;
+import com.canplay.medical.bean.Medicine;
 import com.canplay.medical.bean.Mesure;
 import com.canplay.medical.mvp.adapter.TimeAddAdapter;
 import com.canplay.medical.mvp.component.DaggerBaseComponent;
@@ -82,7 +83,7 @@ public class MeasureActivity extends BaseActivity implements BaseContract.View{
     TextView tvAdd;
     @BindView(R.id.listview_all_city)
     ListView listview;
-
+    private Medicine medicine;
     private TimeAddAdapter adapter;
     @Override
     public void initViews() {
@@ -90,6 +91,7 @@ public class MeasureActivity extends BaseActivity implements BaseContract.View{
         ButterKnife.bind(this);
         DaggerBaseComponent.builder().appComponent(((BaseApplication)getApplication()).getAppComponent()).build().inject(this);
         presenter.attachView(this);
+        medicine= (Medicine) getIntent().getSerializableExtra("data");
         navigationBar.setNavigationBarListener(this);
         adapter=new TimeAddAdapter(this);
         listview.setAdapter(adapter);
@@ -112,10 +114,13 @@ public class MeasureActivity extends BaseActivity implements BaseContract.View{
             @Override
             public void navigationRight() {
                 mesure.name=tvType.getText().toString().trim();
-                if(map.size()==0){
-                    showToasts("请添加提醒时间");
-                    return;
+                if(medicine==null){
+                    if(map.size()==0){
+                        showToasts("请添加提醒时间");
+                        return;
+                    }
                 }
+
                 datas.clear();
                 for(String time:map.values()){
                     datas.add(time);
@@ -126,6 +131,7 @@ public class MeasureActivity extends BaseActivity implements BaseContract.View{
                 mesure.type="time";
                 mesure.remindingFor="Measurement";
                 presenter.addMesure(mesure);
+                showProgress("添加中...");
             }
 
             @Override
@@ -201,6 +207,18 @@ public class MeasureActivity extends BaseActivity implements BaseContract.View{
                 popupWindow.dismiss();
             }
         });
+
+        if(medicine!=null){
+            if(TextUtil.isNotEmpty(medicine.items.get(0).name)){
+                tvType.setText(medicine.items.get(0).name);
+            }
+            String time= map.get(medicine.when);
+            if(TextUtil.isEmpty(time)){
+                map.put(medicine.when,medicine.when);
+                data.add(medicine.when);
+                adapter.setData(data);
+            }
+        }
         initRingPop();
     }
 
@@ -263,6 +281,8 @@ public class MeasureActivity extends BaseActivity implements BaseContract.View{
             public void onClick(View v) {
                 String selector = MeasureActivity.this.selector.getSelector();
                 String time= map.get(selector);
+
+                data.clear();
                 if(TextUtil.isEmpty(time)){
                     map.put(selector,selector);
                     data.add(selector);
@@ -283,6 +303,7 @@ public class MeasureActivity extends BaseActivity implements BaseContract.View{
 
     @Override
     public <T> void toEntity(T entity, int type) {
+        dimessProgress();
         RxBus.getInstance().send(SubscriptionBean.createSendBean(SubscriptionBean.MESURE,""));
         finish();
     }
@@ -294,6 +315,7 @@ public class MeasureActivity extends BaseActivity implements BaseContract.View{
 
     @Override
     public void showTomast(String msg) {
-
+            showToasts(msg);
+        dimessProgress();
     }
 }

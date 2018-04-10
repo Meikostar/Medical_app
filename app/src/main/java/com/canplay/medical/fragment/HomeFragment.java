@@ -225,15 +225,15 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener, 
         String time = entitys.nextTaskDueIn;
         String[] split = time.split(":");
 
-        if (entitys.type == 1) {
+        if (entitys.type.equals("1")) {
             tvHour.setText(split[0]);
             tvMinter.setText(split[1]);
             tvState.setText(entitys.isCompleted ? "已完成" : "未完成");
-        } else if(entitys.type==2) {
+        } else if(entitys.type.equals("2")) {
             tvHour1.setText(split[0]);
             tvMinter1.setText(split[1]);
             tvState1.setText(entitys.isCompleted ? "已完成" : "未完成");
-        }else if(entitys.type==3) {
+        }else if(entitys.type.equals("3")) {
            if(entitys.numberOfUnreadMessages==0){
                tvCount.setVisibility(View.GONE);
            }else {

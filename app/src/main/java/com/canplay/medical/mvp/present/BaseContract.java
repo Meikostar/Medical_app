@@ -3,10 +3,13 @@ package com.canplay.medical.mvp.present;
 import com.canplay.medical.base.BasePresenter;
 import com.canplay.medical.base.BaseView;
 import com.canplay.medical.bean.Add;
+import com.canplay.medical.bean.Bind;
 import com.canplay.medical.bean.Medic;
 import com.canplay.medical.bean.Mesure;
 import com.canplay.medical.bean.Press;
 import com.canplay.medical.bean.Sug;
+import com.canplay.medical.bean.avator;
+import com.canplay.medical.bean.unBind;
 
 public class BaseContract {
     public    interface View extends BaseView {
@@ -71,5 +74,29 @@ public class BaseContract {
         void getMedicineInfo(String medicindCode);
 
         void addMedical(Medic med);
+
+
+        /**
+         * 头像
+         */
+        void upPhotos(avator med);
+
+        /**
+         * 添加设备
+         */
+        void bindDevice(Bind med);
+
+        void Uncertified(Medic med);
+
+        /**
+         * 确认服药
+         */
+        void confirmEat();
+        /**
+         * 智能药盒
+         *
+         */
+        void  myMedicineBox();
+
     }
 }

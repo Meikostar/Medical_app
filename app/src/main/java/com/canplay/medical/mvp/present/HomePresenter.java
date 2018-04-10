@@ -6,6 +6,7 @@ import android.support.annotation.NonNull;
 import com.canplay.medical.base.manager.ApiManager;
 import com.canplay.medical.bean.Add;
 import com.canplay.medical.bean.BASE;
+import com.canplay.medical.bean.Bind;
 import com.canplay.medical.bean.Euipt;
 import com.canplay.medical.bean.Friend;
 import com.canplay.medical.bean.Medic;
@@ -13,6 +14,7 @@ import com.canplay.medical.bean.Medicine;
 import com.canplay.medical.bean.Medicines;
 import com.canplay.medical.bean.Message;
 import com.canplay.medical.bean.USER;
+import com.canplay.medical.bean.unBind;
 import com.canplay.medical.mvp.http.BaseApi;
 import com.canplay.medical.net.MySubscriber;
 import com.canplay.medical.util.SpUtil;
@@ -58,7 +60,7 @@ public class HomePresenter implements HomeContract.Presenter {
 
             @Override
             public void onNext(BASE entity){
-                entity.type=type;
+
                 mView.toEntity(entity);
 
             }
@@ -83,6 +85,75 @@ public class HomePresenter implements HomeContract.Presenter {
             }
         });
     }
+
+    @Override
+    public void removeRemind(String base) {
+
+        subscription = ApiManager.setSubscribe(contactApi.removeRemind(base), new MySubscriber<BASE>(){
+            @Override
+            public void onError(Throwable e){
+                super.onError(e);
+
+                mView.showTomast("添加失败");
+            }
+
+            @Override
+            public void onNext(BASE entity){
+                if(entity.isSucceeded){
+                    mView.toNextStep(1);
+                }else {
+                    mView.showTomast(entity.message);
+                }
+
+            }
+        });
+    }
+    @Override
+    public void UnbindDevice(unBind med) {
+
+        subscription = ApiManager.setSubscribe(contactApi.UnbindDevice(med), new MySubscriber<BASE>(){
+            @Override
+            public void onError(Throwable e){
+                super.onError(e);
+               mView.showTomast("移除设备失败");
+
+            }
+
+            @Override
+            public void onNext(BASE entity){
+                if (entity.isSucceeded){
+                    mView.toNextStep(2);
+                }else {
+                    mView.showTomast(entity.message);
+                }
+
+
+            }
+        });
+    }
+    @Override
+    public void bindDevice(Bind med) {
+
+        subscription = ApiManager.setSubscribe(contactApi.bindDevice(med), new MySubscriber<BASE>(){
+            @Override
+            public void onError(Throwable e){
+                super.onError(e);
+                mView.showTomast("绑定设备失败");
+            }
+
+            @Override
+            public void onNext(BASE entity){
+                if (entity.isSucceeded){
+                    entity.type=3+"";
+                    mView.toNextStep(1);
+                }else {
+                    mView.showTomast(entity.message);
+                }
+
+
+            }
+        });
+    }
     @Override
     public void MedicineRemindList() {
         String userId = SpUtil.getInstance().getUserId();
@@ -98,7 +169,7 @@ public class HomePresenter implements HomeContract.Presenter {
 
             @Override
             public void onNext(List<Medicine> entity){
-                mView.toEntity(entity);
+                mView.toEntity(entity.get(0).schedule);
 
             }
         });
@@ -118,7 +189,7 @@ public class HomePresenter implements HomeContract.Presenter {
 
             @Override
             public void onNext(List<Medicine> entity){
-                mView.toEntity(entity);
+                mView.toEntity(entity.get(0).schedule);
 
             }
         });
@@ -138,7 +209,7 @@ public class HomePresenter implements HomeContract.Presenter {
 
             @Override
             public void onNext(BASE entity){
-                entity.type=3;
+                entity.type=3+"";
                 mView.toEntity(entity);
 
             }
@@ -233,6 +304,7 @@ public class HomePresenter implements HomeContract.Presenter {
 
             @Override
             public void onNext(List<Euipt> entity){
+
                 mView.toEntity(entity);
 
             }

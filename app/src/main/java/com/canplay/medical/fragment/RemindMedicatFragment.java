@@ -74,8 +74,13 @@ public class RemindMedicatFragment extends BaseFragment implements HomeContract.
         rlMenu.setAdapter(adapter);
         adapter.setListener(new RemindMedicatAdapter.selectItemListener() {
             @Override
-            public void delete(int id, int type, int poistion) {
-                startActivity(new Intent(getActivity(), RemindSettingActivity.class));
+            public void delete(Medicine medicine, int type, int poistion) {
+                if(type==1){
+                    startActivity(new Intent(getActivity(), RemindSettingActivity.class));
+                }else if(type==2){
+                   presenter.removeRemind(medicine.reminderId);
+                }
+
             }
         });
 
@@ -105,7 +110,8 @@ public class RemindMedicatFragment extends BaseFragment implements HomeContract.
 
     @Override
     public void toNextStep(int type) {
-
+//        showToast("删除成功");
+     presenter.MedicineRemindList();
     }
 
     @Override

@@ -8,8 +8,10 @@ import android.view.View;
 import com.canplay.medical.R;
 import com.canplay.medical.base.BaseActivity;
 import com.canplay.medical.base.BaseApplication;
+import com.canplay.medical.bean.Bind;
 import com.canplay.medical.bean.Euip;
 import com.canplay.medical.bean.Euipt;
+import com.canplay.medical.bean.unBind;
 import com.canplay.medical.mvp.activity.account.LoginActivity;
 import com.canplay.medical.mvp.activity.home.SmartEquitActivity;
 import com.canplay.medical.mvp.adapter.EuipmentAdapter;
@@ -19,6 +21,7 @@ import com.canplay.medical.mvp.present.HomePresenter;
 import com.canplay.medical.permission.PermissionConst;
 import com.canplay.medical.permission.PermissionGen;
 import com.canplay.medical.permission.PermissionSuccess;
+import com.canplay.medical.util.SpUtil;
 import com.canplay.medical.util.TextUtil;
 import com.canplay.medical.view.NavigationBar;
 import com.canplay.medical.view.PhotoPopupWindow;
@@ -32,6 +35,7 @@ import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.Unbinder;
 
 /**
  * 我的设备
@@ -48,23 +52,25 @@ public class MineEuipmentActivity extends BaseActivity implements HomeContract.V
     private EuipmentAdapter adapter;
     private PhotoPopupWindow mWindowAddPhoto;
     private String title;
+
     @Override
     public void initViews() {
         setContentView(R.layout.activity_mine_equipment);
         ButterKnife.bind(this);
-        DaggerBaseComponent.builder().appComponent(((BaseApplication)getApplication()).getAppComponent()).build().inject(this);
+        DaggerBaseComponent.builder().appComponent(((BaseApplication) getApplication()).getAppComponent()).build().inject(this);
         presenter.attachView(this);
         presenter.getSmartList();
-        title=getIntent().getStringExtra("name");
-        if(TextUtil.isNotEmpty(title)){
+        title = getIntent().getStringExtra("name");
+        if (TextUtil.isNotEmpty(title)) {
             navigationBar.setNaviTitle(title);
         }
+        user_id = SpUtil.getInstance().getUserId();
         navigationBar.setNavigationBarListener(this);
-        adapter=new EuipmentAdapter(this);
+        adapter = new EuipmentAdapter(this);
         rlMenu.setAdapter(adapter);
         mWindowAddPhoto = new PhotoPopupWindow(this);
-        mWindowAddPhoto.setCont("解除绑定","取消");
-        mWindowAddPhoto.setColor(R.color.red_pop,0);
+        mWindowAddPhoto.setCont("解除绑定", "取消");
+        mWindowAddPhoto.setColor(R.color.red_pop, 0);
     }
 
     @Override
@@ -92,29 +98,38 @@ public class MineEuipmentActivity extends BaseActivity implements HomeContract.V
         });
         adapter.setClickListener(new EuipmentAdapter.ItemCliks() {
             @Override
-            public void getItem(Euip menu,int type) {
-              if(type==1){//点击事件
-                startActivity(new Intent(MineEuipmentActivity.this,SmartEquitActivity.class));
-              }else {//长按事件
-                  mWindowAddPhoto.showAsDropDown(line);
-              }
+            public void getItem(Euipt menu, int type) {
+                euipt = menu;
+                if (type == 1) {//点击事件
+                    startActivity(new Intent(MineEuipmentActivity.this, SmartEquitActivity.class));
+                } else {//长按事件
+
+                    mWindowAddPhoto.showAsDropDown(line);
+                }
             }
         });
 
         mWindowAddPhoto.setSureListener(new PhotoPopupWindow.ClickListener() {
             @Override
             public void clickListener(int type) {
-                if(type==1){//解除绑定
-
-                }else {//取消
+                if (type == 1) {//解除绑定
+                    unbind.patientDeviceId = euipt.patientDeviceId;
+                    unbind.userId = user_id;
+                    presenter.UnbindDevice(unbind);
+                    showProgress("正在绑定");
+                } else {//取消
 
                 }
             }
         });
     }
 
+    private String user_id;
+    private unBind unbind = new unBind();
+    private Bind bind = new Bind();
+    private Euipt euipt;
+    private int REQUEST_CODE_SCAN = 6;
 
-   private int REQUEST_CODE_SCAN=6;
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -124,7 +139,9 @@ public class MineEuipmentActivity extends BaseActivity implements HomeContract.V
             if (data != null) {
 
                 String content = data.getStringExtra(Constant.CODED_CONTENT);
-                showToasts("扫描结果为：" +content);
+                bind.serialNo = content;
+                bind.userId = user_id;
+                presenter.bindDevice(bind);
 //                result.setText("扫描结果为：" + content);
             }
         }
@@ -155,19 +172,28 @@ public class MineEuipmentActivity extends BaseActivity implements HomeContract.V
 
     public String path;
     private List<Euipt> list;
+
     @Override
     public <T> void toEntity(T entity) {
-        list= (List<Euipt>) entity;
+        list = (List<Euipt>) entity;
+
         adapter.setData(list);
     }
 
     @Override
     public void toNextStep(int type) {
-
+       if(type==1){
+           showToasts("绑定成功");
+           presenter.getSmartList();
+       }else  if(type==2){
+           showToasts("移除成功");
+           presenter.getSmartList();
+       }
     }
 
     @Override
     public void showTomast(String msg) {
-
+       showToasts(msg);
+        dimessProgress();
     }
 }

@@ -4,6 +4,8 @@ package com.canplay.medical.mvp.http;
 
 import com.canplay.medical.bean.Add;
 import com.canplay.medical.bean.BASE;
+import com.canplay.medical.bean.Bind;
+import com.canplay.medical.bean.Box;
 import com.canplay.medical.bean.Euipt;
 import com.canplay.medical.bean.Friend;
 import com.canplay.medical.bean.Medic;
@@ -17,6 +19,8 @@ import com.canplay.medical.bean.Righter;
 import com.canplay.medical.bean.Sug;
 import com.canplay.medical.bean.Sugar;
 import com.canplay.medical.bean.USER;
+import com.canplay.medical.bean.avator;
+import com.canplay.medical.bean.unBind;
 
 import java.util.List;
 import java.util.Map;
@@ -63,14 +67,35 @@ public interface BaseApi {
      */
 
     @Headers({"Content-Type: application/json","Accept: application/json"})
-    @POST("Flow/Register")
+    @POST("Flow/v2/Device/Link")
     Observable<BASE> righter(@Body Righter body);
+
+    /**
+     * 添加智能设备
+     */
+
+    @Headers({"Content-Type: application/json","Accept: application/json"})
+    @POST("Flow/v2/Device/Link")
+    Observable<BASE> bindDevice(@Body Bind body);
+
+    /**
+     * 移除智能设备
+     */
+
+    @Headers({"Content-Type: application/json","Accept: application/json"})
+    @POST("Flow/v2/Device/Unlink")
+    Observable<BASE> UnbindDevice(@Body unBind body);
 
 
 
     @Headers({"Content-Type: application/json","Accept: application/json"})
     @POST("Flow/v2/Medicine")
     Observable<Medicines> addMedical(@Body Medic body);
+
+    @Headers({"Content-Type: application/json","Accept: application/json"})
+    @POST("Flow/v2/Medicine/Uncertified")
+    Observable<Medicines> Uncertified(@Body Medic body);
+
     /**
      * 首页
      */
@@ -184,6 +209,12 @@ public interface BaseApi {
     Observable<BASE> addMesure(@Body Mesure body);
 
     /**
+     * bu不同意友/移除好友关系
+     */
+    @DELETE("Flow/v2/Reminder/{ReminderId}")
+    Observable<BASE> removeRemind(@Path("ReminderId") String ReminderId);
+
+    /**
      *  添加好友
      */
 
@@ -192,6 +223,12 @@ public interface BaseApi {
     Observable<List<BASE>> addFriend(@Body Add body);
 
 
+
+    /**
+     * 同意友
+     */
+    @POST("Flow/v2/ReminderResponse/Confirm/Medicine")
+    Observable<BASE > confirmEat();
 
     /**
      * 同意友
@@ -224,6 +261,14 @@ public interface BaseApi {
 
 
     /**
+     *  添加血压数据
+     */
+    @Headers({"Content-Type: application/json","Accept: application/json"})
+    @POST("Flow/v2/Avatar")
+    Observable<BASE> upPhotos(@Body avator body);
+
+
+    /**
      * 血糖数据记录
      */
     @GET("Flow/v2/BloodGlucose/{userId}/{from}/{take}")
@@ -252,6 +297,13 @@ public interface BaseApi {
 
     @GET("Flow/v2/Medicine/{userId}")
     Observable<List<Medicine>> getMedicalList(@Path("userId") String userId);
+
+    /**
+     *药物列表
+     */
+
+    @GET("Flow/v2/MedicineBox/Status/{userId}")
+    Observable<Box> myMedicineBox(@Path("userId") String userId);
 
     /**
      *扫描添加

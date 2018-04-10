@@ -126,6 +126,7 @@ public class SearchMedicalActivity extends BaseActivity implements HomeContract.
         type=1;
         tvSearch.setText("取消");
         data= (List<Medicines>) entity;
+        adapter.setData(data,0);
     }
 
     @Override

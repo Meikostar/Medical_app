@@ -39,6 +39,7 @@
             android:id="@+id/iv_phone"
             android:layout_width="59dp"
             android:layout_height="59dp"
+            android:scaleType="fitCenter"
             android:layout_marginRight="14dp"/>
         <ImageView
 

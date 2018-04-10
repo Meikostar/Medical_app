@@ -13,6 +13,8 @@ import android.widget.TextView;
 
 import com.canplay.medical.R;
 import com.canplay.medical.bean.Collect;
+import com.canplay.medical.bean.Medicine;
+import com.canplay.medical.util.TextUtil;
 import com.canplay.medical.view.MCheckBox;
 import com.canplay.medical.view.RegularListView;
 import com.canplay.medical.view.SwipeListLayout;
@@ -29,25 +31,25 @@ import java.util.Set;
 public class RemindMeasureAdapter extends BaseAdapter {
     private Context context;
     private LayoutInflater inflater;
-    private List<Collect> list;
+    private List<Medicine> list;
     private int type;
     private ListView lv_content;
     private Set<SwipeListLayout> sets = new HashSet();
     private selectItemListener listener;
     public interface selectItemListener{
-        void delete(int id, int type, int poistion);
+        void delete(Medicine medicine, int type, int poistion);
     }
     public void setListener(selectItemListener listener){
         this.listener=listener;
     }
-    public void setData( List<Collect> list){
+    public void setData( List<Medicine> list){
         this.list=list;
         notifyDataSetChanged();
     }
-    public List<Collect> getDatas(){
+    public List<Medicine> getDatas(){
         return list;
     }
-    public RemindMeasureAdapter(Context context, ArrayList<Collect> list, ListView lv_content) {
+    public RemindMeasureAdapter(Context context, List<Medicine> list, ListView lv_content) {
         this.lv_content=lv_content;
         this.context = context;
         this.list = list;
@@ -85,7 +87,7 @@ public class RemindMeasureAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
-        return list!=null?(list.size()==0?0:list.size()):6;
+        return list!=null?(list.size()==0?0:list.size()):0;
     }
 
     @Override
@@ -137,10 +139,19 @@ public class RemindMeasureAdapter extends BaseAdapter {
           holder.llbg.setOnClickListener(new View.OnClickListener() {
               @Override
               public void onClick(View v) {
-                  listener.delete(0,1,position);
+                  listener.delete(list.get(position),1,position);
               }
           });
-
+          if(TextUtil.isNotEmpty(list.get(position).items.get(0).name)){
+              holder.tvContent.setText(list.get(position).items.get(0).name);
+          } if(TextUtil.isNotEmpty(list.get(position).when)){
+            holder.tvTime.setText(list.get(position).when);
+        }
+        if(list.get(position).completedForToday){
+            holder.ivchoose.setChecked(true);
+        }else {
+            holder.ivchoose.setChecked(false);
+        }
 
         return convertView;
     }

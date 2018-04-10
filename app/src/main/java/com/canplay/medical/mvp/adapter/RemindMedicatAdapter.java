@@ -37,7 +37,7 @@ public class RemindMedicatAdapter extends BaseAdapter {
     private Set<SwipeListLayout> sets = new HashSet();
     private selectItemListener listener;
     public interface selectItemListener{
-        void delete(int id, int type, int poistion);
+        void delete(Medicine id, int type, int poistion);
     }
     public void setListener(selectItemListener listener){
         this.listener=listener;
@@ -148,7 +148,7 @@ public class RemindMedicatAdapter extends BaseAdapter {
                public void onClick(View view) {
                    swipeListLayout.setStatus(SwipeListLayout.Status.Close, true);
                    if(listener!=null){
-//                       listener.delete(list.get(position).product_id,list.size()==1?1:0,position);
+                       listener.delete(list.get(position),2,position);
                    }
 
 
@@ -158,7 +158,7 @@ public class RemindMedicatAdapter extends BaseAdapter {
           holder.rl_bg.setOnClickListener(new View.OnClickListener() {
               @Override
               public void onClick(View v) {
-                  listener.delete(0,0,position);
+                  listener.delete(list.get(position),1,position);
               }
           });
 

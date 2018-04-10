@@ -28,7 +28,7 @@ public class EuipmentAdapter extends BaseAdapter {
     }
 
     public interface ItemCliks{
-        void getItem(Euip menu,int type);//type 1表示点击事件2 表示长按事件
+        void getItem(Euipt menu,int type);//type 1表示点击事件2 表示长按事件
     }
     public void setType(int type){
         this.type=type;
@@ -90,13 +90,13 @@ public class EuipmentAdapter extends BaseAdapter {
          holder.ll_item.setOnClickListener(new View.OnClickListener() {
              @Override
              public void onClick(View view) {
-                 listener.getItem(null, 1);
+                 listener.getItem(list.get(position), 1);
              }
          });
          holder.ll_item.setOnLongClickListener(new View.OnLongClickListener() {
              @Override
              public boolean onLongClick(View v) {
-                 listener.getItem(null, 2);
+                 listener.getItem(list.get(position), 2);
                  return true;
              }
          });

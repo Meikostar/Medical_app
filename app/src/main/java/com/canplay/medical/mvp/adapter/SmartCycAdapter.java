@@ -10,7 +10,9 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.canplay.medical.R;
+import com.canplay.medical.bean.Box;
 import com.canplay.medical.bean.Euip;
+import com.canplay.medical.util.TimeUtil;
 
 import java.util.List;
 
@@ -19,7 +21,7 @@ import retrofit2.http.Headers;
 
 public class SmartCycAdapter extends BaseAdapter {
     private Context mContext;
-    private List<Euip> list;
+    private List<Box> list;
     private int type=0;//1是用药记录item
     public SmartCycAdapter(Context mContext) {
 
@@ -27,13 +29,13 @@ public class SmartCycAdapter extends BaseAdapter {
     }
 
     public interface ItemCliks{
-        void getItem(Euip menu, int type);//type 1表示点击事件2 表示长按事件
+        void getItem(Box menu, int type);//type 1表示点击事件2 表示长按事件
     }
     private ItemCliks listener;
     public void setClickListener(ItemCliks listener){
         this.listener=listener;
     }
-    public void setData(List<Euip> list){
+    public void setData(List<Box> list){
         this.list=list;
         notifyDataSetChanged();
     }
@@ -45,7 +47,7 @@ public class SmartCycAdapter extends BaseAdapter {
     }
     @Override
     public int getCount() {
-        return list!=null?list.size():6;
+        return list!=null?list.size():0;
     }
 
     @Override
@@ -73,16 +75,32 @@ public class SmartCycAdapter extends BaseAdapter {
         }else{
             holder = (ResultViewHolder) view.getTag();
         }
-        if(position==0){
+        final Box box=list.get(position);
+        if(box!=null&&box.dateTime!=0){
+            String time = TimeUtil.formatTimes(box.dateTime);
+            String[] split = time.split("-");
+            holder.tvTime.setText(split[0]);
+            holder.tvTimes.setText(split[1]);
+        }else {
+            holder.ll_item.setBackground(mContext.getResources().getDrawable(R.drawable.line_cyc_red));
+            holder.tvTimes.setTextColor(mContext.getResources().getColor(R.color.red_cyc));
+            holder.tvTime.setVisibility(View.GONE);
+            holder.tvTimes.setVisibility(View.VISIBLE);
+            holder.tvTimes.setText("空");
+        }
+
+
+        if(box.status==3){
             holder.ll_item.setBackground(mContext.getResources().getDrawable(R.drawable.blue_cycle));
             holder.tvTime.setTextColor(mContext.getResources().getColor(R.color.white));
             holder.tvTimes.setTextColor(mContext.getResources().getColor(R.color.white));
             holder.tvTime.setVisibility(View.VISIBLE);
             holder.tvTimes.setVisibility(View.VISIBLE);
-        }else if(position==2){
+        }else if(box.status==0){
             holder.ll_item.setBackground(mContext.getResources().getDrawable(R.drawable.line_cyc_red));
             holder.tvTimes.setTextColor(mContext.getResources().getColor(R.color.red_cyc));
             holder.tvTime.setVisibility(View.GONE);
+            holder.tvTimes.setText("空");
             holder.tvTimes.setVisibility(View.VISIBLE);
         }else {
             holder.ll_item.setBackground(mContext.getResources().getDrawable(R.drawable.line_cyc_blue));
@@ -91,6 +109,26 @@ public class SmartCycAdapter extends BaseAdapter {
             holder.tvTime.setVisibility(View.VISIBLE);
             holder.tvTimes.setVisibility(View.VISIBLE);
         }
+        holder.ll_item.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(list.get(position).status==0){
+                    return;
+                }
+                for(int i=0;i<list.size();i++){
+                    if(i==position){
+                        list.get(i).status=3;
+                    }else {
+                        if(  list.get(i).status==3){
+                            list.get(i).status=1;
+                        }
+                    }
+                }
+
+                listener.getItem(box,position);
+                notifyDataSetChanged();
+            }
+        });
         return view;
 
 

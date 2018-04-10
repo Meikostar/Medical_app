@@ -6,6 +6,7 @@ import com.canplay.medical.fragment.BloodRecordFragment;
 import com.canplay.medical.fragment.HealthDataFragment;
 import com.canplay.medical.fragment.HomeDoctorFragment;
 import com.canplay.medical.fragment.HomeFragment;
+import com.canplay.medical.fragment.MeasureRemindFragment;
 import com.canplay.medical.fragment.RemindMedicatFragment;
 import com.canplay.medical.fragment.SetFragment;
 import com.canplay.medical.mvp.ActivityScope;
@@ -19,9 +20,11 @@ import com.canplay.medical.mvp.activity.home.ChooseMedicalActivity;
 import com.canplay.medical.mvp.activity.home.MeasureActivity;
 import com.canplay.medical.mvp.activity.home.MessageActivity;
 import com.canplay.medical.mvp.activity.home.SearchMedicalActivity;
+import com.canplay.medical.mvp.activity.home.SmartKitActivity;
 import com.canplay.medical.mvp.activity.mine.AddFriendActivity;
 import com.canplay.medical.mvp.activity.mine.MineEuipmentActivity;
 import com.canplay.medical.mvp.activity.mine.MineHealthCenterActivity;
+import com.canplay.medical.mvp.activity.mine.MineInfoActivity;
 
 import dagger.Component;
 
@@ -33,6 +36,9 @@ import dagger.Component;
 public interface BaseComponent{
 
     void inject(LoginActivity binderActivity);
+    void inject(SmartKitActivity binderActivity);
+    void inject(MeasureRemindFragment binderActivity);
+    void inject(MineInfoActivity binderActivity);
     void inject(SearchMedicalActivity binderActivity);
     void inject(ChooseMedicalActivity binderActivity);
     void inject(AddBloodDataActivity binderActivity);

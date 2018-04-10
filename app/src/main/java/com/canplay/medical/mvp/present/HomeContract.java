@@ -3,7 +3,9 @@ package com.canplay.medical.mvp.present;
 import com.canplay.medical.base.BasePresenter;
 import com.canplay.medical.base.BaseView;
 import com.canplay.medical.bean.Add;
+import com.canplay.medical.bean.Bind;
 import com.canplay.medical.bean.Medic;
+import com.canplay.medical.bean.unBind;
 
 public class HomeContract {
     public    interface View extends BaseView {
@@ -108,7 +110,20 @@ public class HomeContract {
         void searchMedicine(String content);
 
         void addMedical(Medic med);
+        /**
+         * 添加设备
+         */
+        void bindDevice(Bind med);
 
+        /**
+         * 移除设备
+         */
+        void UnbindDevice(unBind med);
+
+        /**
+         * 移除用药提醒
+         */
+        void removeRemind(String base);
     }
 
 

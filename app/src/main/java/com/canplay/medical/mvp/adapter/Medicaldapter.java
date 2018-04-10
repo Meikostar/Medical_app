@@ -11,10 +11,12 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 
+import com.bumptech.glide.Glide;
 import com.canplay.medical.R;
 import com.canplay.medical.bean.Medicine;
 import com.canplay.medical.bean.PREFIX;
 import com.canplay.medical.util.PinYinUtils;
+import com.canplay.medical.util.TextUtil;
 import com.canplay.medical.view.MCheckBox;
 
 import java.util.ArrayList;
@@ -124,7 +126,9 @@ public class Medicaldapter extends BaseAdapter {
             holder = (CityViewHolder) view.getTag();
         }
 
-
+       if(TextUtil.isNotEmpty(mCities.get(position).medicine)){
+           holder.name.setText(mCities.get(position).medicine);
+       }
         holder.ll_bg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -137,16 +141,17 @@ public class Medicaldapter extends BaseAdapter {
                 }
             }
         });
-        String city = null;
-        if (status != 0) {
-            city = mCities.get(position).userName;
-        } else {
-            city = mCities.get(position).userName;
-        }
+        Glide.with(mContext).load(mCities.get(position).image).asBitmap().placeholder(R.drawable.moren).into(holder.img);
+//        String city = null;
+//        if (status != 0) {
+//            city = mCities.get(position).userName;
+//        } else {
+//            city = mCities.get(position).userName;
+//        }
 
         if (position >= 1) {
 
-            holder.name.setText(city);
+//            holder.name.setText(city);
             String filter ;
             String lastfilter = "";
 
@@ -156,14 +161,14 @@ public class Medicaldapter extends BaseAdapter {
                 }
 
 
-            String currentLetter = PinYinUtils.getFirstLetter(filter);
-            String previousLetter = position >= 1 ? PinYinUtils.getFirstLetter(lastfilter) : "";
-            if (!TextUtils.equals(currentLetter, previousLetter)) {
-                holder.letter.setVisibility(View.VISIBLE);
-                holder.letter.setText(currentLetter);
-            } else {
-                holder.letter.setVisibility(View.GONE);
-            }
+//            String currentLetter = PinYinUtils.getFirstLetter(filter);
+//            String previousLetter = position >= 1 ? PinYinUtils.getFirstLetter(lastfilter) : "";
+//            if (!TextUtils.equals(currentLetter, previousLetter)) {
+//                holder.letter.setVisibility(View.VISIBLE);
+//                holder.letter.setText(currentLetter);
+//            } else {
+//                holder.letter.setVisibility(View.GONE);
+//            }
             holder.ll_bg.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -173,7 +178,7 @@ public class Medicaldapter extends BaseAdapter {
                 }
             });
         } else {
-            holder.name.setText(city);
+//            holder.name.setText(city);
 
             holder.letter.setVisibility(View.VISIBLE);
             holder.letter.setText("A");

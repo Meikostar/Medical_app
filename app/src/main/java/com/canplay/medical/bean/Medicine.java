@@ -64,7 +64,6 @@ public class Medicine extends BaseData implements Serializable{
     public String userMedicineId;
     public String reminderTimeId;
     public String adverseReaction;
-    public String instruction;
     public String image;
     public String filter;
 
@@ -83,6 +82,9 @@ public class Medicine extends BaseData implements Serializable{
     public String tystatuspe;
     public String version;
     public String from;
+    public String caution;
+    public String instruction;
+
 
 
 }

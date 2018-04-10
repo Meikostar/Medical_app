@@ -9,8 +9,11 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.canplay.medical.R;
+import com.canplay.medical.bean.Medicines;
 import com.canplay.medical.bean.ORDER;
+import com.canplay.medical.util.TextUtil;
 import com.canplay.medical.view.MCheckBox;
 
 import org.simpleframework.xml.Order;
@@ -23,7 +26,7 @@ import butterknife.ButterKnife;
 
 public class SearchMedicalAdapter extends BaseAdapter {
     private Context mContext;
-    private List<ORDER> list;
+    private List<Medicines> list;
 
     public SearchMedicalAdapter(Context mContext) {
 
@@ -34,7 +37,7 @@ public class SearchMedicalAdapter extends BaseAdapter {
     private int type;
     private int state = -1;
 
-    public void setData(List<ORDER> list, int type) {
+    public void setData(List<Medicines> list, int type) {
         this.list = list;
         this.type = type;
         notifyDataSetChanged();
@@ -50,13 +53,13 @@ public class SearchMedicalAdapter extends BaseAdapter {
         notifyDataSetChanged();
     }
 
-   public List<ORDER> getData(){
+   public List<Medicines> getData(){
        return list;
    }
 
     @Override
     public int getCount() {
-        return list != null ? list.size() :4;
+        return list != null ? list.size() :0;
     }
 
     @Override
@@ -106,7 +109,11 @@ public class SearchMedicalAdapter extends BaseAdapter {
                 }
             }
         });
+        if(TextUtil.isNotEmpty(list.get(position).name)){
+            holder.name.setText(list.get(position).name);
+        }
 
+        Glide.with(mContext).load(list.get(position).image).asBitmap().placeholder(R.drawable.moren).into(holder.img);
         return view;
 
 

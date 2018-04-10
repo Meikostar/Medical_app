@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginTop="10dp"
-    android:background="@color/white"
+    android:background="@color/content_bg"
     android:id="@+id/sll_main">
     <LinearLayout
         android:layout_width="wrap_content"
@@ -58,8 +58,6 @@
             android:layout_height="0.5dp"
             android:background="@color/linecolor"/>
         <com.canplay.medical.view.RegularListView
-
-            android:layout_marginTop="3dp"
             android:divider="#00000000"
             android:dividerHeight="0dip"
             android:listSelector="@android:color/transparent"
