@@ -2,12 +2,16 @@ package com.canplay.medical.mvp.activity;
 
 
 import android.Manifest;
+import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.view.View;
 
 
+import com.baidu.platform.comapi.map.A;
 import com.canplay.medical.R;
 import com.canplay.medical.base.BaseActivity;
 import com.canplay.medical.base.BaseApplication;
@@ -27,6 +31,8 @@ import com.canplay.medical.mvp.present.HomePresenter;
 import com.canplay.medical.permission.PermissionConst;
 import com.canplay.medical.permission.PermissionGen;
 import com.canplay.medical.permission.PermissionSuccess;
+import com.canplay.medical.receiver.AlarmReceiver;
+import com.canplay.medical.receiver.Service1;
 import com.canplay.medical.util.TextUtil;
 import com.canplay.medical.view.BottonNevgBar;
 import com.canplay.medical.view.ChangeNoticeDialog;
@@ -81,12 +87,16 @@ public class MainActivity extends BaseActivity implements HomeFragment.ScanListe
         dialog=new ChangeNoticeDialog(this,line);
 
     }
+    private void alarm() {
+        startService(new Intent(MainActivity.this, Service1.class));
 
+    }
     @Override
     public void bindEvents() {
 
         setViewPagerListener();
         setNevgBarChangeListener();
+
 
         mSubscription = RxBus.getInstance().toObserverable(SubscriptionBean.RxBusSendBean.class).subscribe(new Action1<SubscriptionBean.RxBusSendBean>() {
             @Override
@@ -168,7 +178,7 @@ public class MainActivity extends BaseActivity implements HomeFragment.ScanListe
             @Override
             public void onChagne(int currentIndex) {
                 current = currentIndex;
-                bnbHome.setSelect(currentIndex);
+                bnbHome.setSelect(currentIndex);alarm();
                 viewpagerMain.setCurrentItem(currentIndex);
             }
         });

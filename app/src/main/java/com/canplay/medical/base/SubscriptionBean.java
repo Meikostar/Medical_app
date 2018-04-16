@@ -8,6 +8,7 @@ package com.canplay.medical.base;
  ***/
 
 public class SubscriptionBean {
+    public static int TEST=98;
     public static int ERROR_401=100;
     public static int RE_LOGIN=99;
     public static int NOFIFY=101;

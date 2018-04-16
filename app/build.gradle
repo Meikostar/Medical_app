@@ -61,6 +61,7 @@ android {
             exclude group: 'xpp3', module: 'xpp3'
         }
         compile project(':gallery')
+        compile project(':LibMarsdaemon')
         compile project(':zxinglibrary')
         //Logcat
         //圆形

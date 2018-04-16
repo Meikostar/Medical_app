@@ -10,8 +10,14 @@ import android.support.multidex.MultiDex;
 import com.canplay.medical.base.manager.AppManager;
 import com.canplay.medical.bean.Province;
 import com.canplay.medical.location.LocationUtil;
+import com.canplay.medical.receiver.Receiver1;
+import com.canplay.medical.receiver.Receiver2;
+import com.canplay.medical.receiver.Service1;
+import com.canplay.medical.receiver.Service2;
 import com.canplay.medical.util.ExceptionHandler;
 import com.canplay.medical.util.JPushUtils;
+import com.marswin89.marsdaemon.DaemonApplication;
+import com.marswin89.marsdaemon.DaemonConfigurations;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -31,7 +37,7 @@ import io.valuesfeng.picker.universalimageloader.core.assist.QueueProcessingType
  * Created by peter on 2016/9/11.
  */
 
-public class BaseApplication extends Application{
+public class BaseApplication extends DaemonApplication {
     //全局单例
     AppComponent mAppComponent;
     public static  BaseApplication cplayApplication;
@@ -74,7 +80,51 @@ public class BaseApplication extends Application{
 
 
 
+    /**
+     * you can override this method instead of {@link android.app.Application attachBaseContext}
+     * @param base
+     */
+    @Override
+    public void attachBaseContextByDaemon(Context base) {
+        super.attachBaseContextByDaemon(base);
+    }
 
+
+    /**
+     * give the configuration to lib in this callback
+     * @return
+     */
+    @Override
+    protected DaemonConfigurations getDaemonConfigurations() {
+        DaemonConfigurations.DaemonConfiguration configuration1 = new DaemonConfigurations.DaemonConfiguration(
+                "com.marswin89.marsdaemon.demo:process1",
+                Service1.class.getCanonicalName(),
+                Receiver1.class.getCanonicalName());
+
+        DaemonConfigurations.DaemonConfiguration configuration2 = new DaemonConfigurations.DaemonConfiguration(
+                "com.marswin89.marsdaemon.demo:process2",
+                Service2.class.getCanonicalName(),
+                Receiver2.class.getCanonicalName());
+
+        DaemonConfigurations.DaemonListener listener = new MyDaemonListener();
+        //return new DaemonConfigurations(configuration1, configuration2);//listener can be null
+        return new DaemonConfigurations(configuration1, configuration2, listener);
+    }
+
+
+    class MyDaemonListener implements DaemonConfigurations.DaemonListener{
+        @Override
+        public void onPersistentStart(Context context) {
+        }
+
+        @Override
+        public void onDaemonAssistantStart(Context context) {
+        }
+
+        @Override
+        public void onWatchDaemonDaed() {
+        }
+    }
 
     /**
      * 退出应用
@@ -84,7 +134,7 @@ public class BaseApplication extends Application{
     }
 
     @Override
-    protected void attachBaseContext(Context base){
+    public void attachBaseContext(Context base){
         super.attachBaseContext(base);
         MultiDex.install(this);
     }

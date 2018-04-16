@@ -1,6 +1,8 @@
 package com.canplay.medical.mvp.activity.home;
 
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.view.View;
 import android.widget.TextView;
 
@@ -68,7 +70,17 @@ public class SmartKitActivity extends BaseActivity implements BaseContract.View 
         gridView.setAdapter(adapters);
 
     }
+    Handler mHandler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            switch (msg.what) {
 
+                default:
+                    super.handleMessage(msg);
+            }
+        }
+
+    };
     @Override
     public void bindEvents() {
         adapters.setClickListener(new SmartCycAdapter.ItemCliks() {

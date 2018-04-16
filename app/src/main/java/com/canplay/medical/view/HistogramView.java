@@ -138,9 +138,7 @@ public class HistogramView extends View {
         pointLinePaint.setColor(getResources().getColor(R.color.red));//(1)黄色
         pointLinePaint.setAntiAlias(true);
 
-        // 加载画图
-        bitmap = BitmapFactory
-                .decodeResource(context.getResources(), R.drawable.menu_bg);
+
     }
 
     public void start(int flag) {
