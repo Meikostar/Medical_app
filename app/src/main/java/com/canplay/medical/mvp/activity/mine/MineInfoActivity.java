@@ -33,18 +33,8 @@ import com.canplay.medical.view.EditorNameDialog;
 import com.canplay.medical.view.NavigationBar;
 import com.canplay.medical.view.PhotoPopupWindow;
 import com.canplay.medical.view.TimeSelectorDialog;
-import com.google.gson.Gson;
-import com.yzq.zxinglibrary.android.CaptureActivity;
-
-import org.json.JSONObject;
-
-import java.io.BufferedInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.net.URLConnection;
 import java.util.Date;
 import java.util.List;
 

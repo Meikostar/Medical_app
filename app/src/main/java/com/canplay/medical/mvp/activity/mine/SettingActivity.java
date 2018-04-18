@@ -1,18 +1,15 @@
 package com.canplay.medical.mvp.activity.mine;
 
-import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
-import android.os.Bundle;
 import android.os.Environment;
 import android.support.v4.content.FileProvider;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.canplay.medical.BuildConfig;
 import com.canplay.medical.R;
 import com.canplay.medical.base.BaseActivity;
@@ -20,31 +17,19 @@ import com.canplay.medical.base.BaseDailogManager;
 import com.canplay.medical.base.RxBus;
 import com.canplay.medical.base.SubscriptionBean;
 import com.canplay.medical.mvp.activity.account.LoginActivity;
-import com.canplay.medical.permission.PermissionConst;
-import com.canplay.medical.permission.PermissionGen;
-import com.canplay.medical.permission.PermissionSuccess;
 import com.canplay.medical.util.SpUtil;
 import com.canplay.medical.util.StringUtil;
-import com.canplay.medical.util.TextUtil;
-import com.canplay.medical.view.EditorNameDialog;
 import com.canplay.medical.view.MarkaBaseDialog;
 import com.canplay.medical.view.NavigationBar;
-import com.canplay.medical.view.PhotoPopupWindow;
 import com.canplay.medical.view.ProgressDialog;
-import com.canplay.medical.view.TimeSelectorDialog;
 
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.Date;
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import io.valuesfeng.picker.ImageSelectActivity;
-import io.valuesfeng.picker.Picker;
-import io.valuesfeng.picker.widget.ImageLoaderEngine;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;

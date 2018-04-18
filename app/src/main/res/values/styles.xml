@@ -11,6 +11,31 @@
     <declare-styleable name="TwoNevgBar">
         <attr name="types" format="boolean"/>
     </declare-styleable>
+    <style name="capture_padding_iv_vertical">
+        <item name="android:layout_weight">1</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">0dp</item>
+        <item name="android:background">@color/black_trans50</item>
+    </style>
+
+    <style name="action_llyt">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">54dp</item>
+    </style>
+
+
+
+    <style name="divider_line_full">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">0.5dp</item>
+        <item name="android:background">@color/gray_divider_line</item>
+    </style>
+    <style name="capture_padding_iv_horizontal">
+        <item name="android:layout_weight">1</item>
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:background">@color/black_trans50</item>
+    </style>
 
     <style name="LetterIndexTextViewStyles">
         <item name="android:layout_width">match_parent</item>

@@ -38,8 +38,8 @@ import com.canplay.medical.view.BottonNevgBar;
 import com.canplay.medical.view.ChangeNoticeDialog;
 import com.canplay.medical.view.NoScrollViewPager;
 import com.google.gson.Gson;
-import com.yzq.zxinglibrary.android.CaptureActivity;
-import com.yzq.zxinglibrary.common.Constant;
+import com.google.zxing.client.android.activity.CaptureActivity;
+
 
 import org.json.JSONObject;
 
@@ -233,7 +233,7 @@ public class MainActivity extends BaseActivity implements HomeFragment.ScanListe
         if (requestCode == REQUEST_CODE_SCAN && resultCode == RESULT_OK) {
             if (data != null) {
 
-                String content = data.getStringExtra(Constant.CODED_CONTENT);
+                String content = data.getStringExtra("scan_result");
                 showToasts("扫描结果为：" +content);
 //                result.setText("扫描结果为：" + content);
             }

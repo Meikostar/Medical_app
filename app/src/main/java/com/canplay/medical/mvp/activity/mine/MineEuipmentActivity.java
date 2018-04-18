@@ -26,8 +26,8 @@ import com.canplay.medical.util.TextUtil;
 import com.canplay.medical.view.NavigationBar;
 import com.canplay.medical.view.PhotoPopupWindow;
 import com.canplay.medical.view.RegularListView;
-import com.yzq.zxinglibrary.android.CaptureActivity;
-import com.yzq.zxinglibrary.common.Constant;
+import com.google.zxing.client.android.activity.CaptureActivity;
+
 
 import java.util.List;
 
@@ -137,8 +137,7 @@ public class MineEuipmentActivity extends BaseActivity implements HomeContract.V
         // 扫描二维码/条码回传
         if (requestCode == REQUEST_CODE_SCAN && resultCode == RESULT_OK) {
             if (data != null) {
-
-                String content = data.getStringExtra(Constant.CODED_CONTENT);
+                String content = data.getStringExtra("scan_result");
                 bind.serialNo = content;
                 bind.userId = user_id;
                 presenter.bindDevice(bind);

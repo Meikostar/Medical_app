@@ -185,6 +185,10 @@
             android:name=".mvp.activity.LocationBdActivity"
             android:theme="@style/AppTheme"
             android:screenOrientation="portrait" />
+        <activity
+            android:name="com.google.zxing.client.android.activity.CaptureActivity"
+            android:theme="@style/AppTheme"
+            android:screenOrientation="portrait" />
 
         <activity
             android:name=".mvp.activity.WebViewWitesActivity"

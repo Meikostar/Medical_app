@@ -22,9 +22,11 @@ import com.canplay.medical.permission.PermissionConst;
 import com.canplay.medical.permission.PermissionGen;
 import com.canplay.medical.permission.PermissionSuccess;
 import com.canplay.medical.view.SideLetterBars;
+import com.google.zxing.client.android.activity.CaptureActivity;
 import com.malinskiy.superrecyclerview.SuperRecyclerView;
-import com.yzq.zxinglibrary.android.CaptureActivity;
-import com.yzq.zxinglibrary.common.Constant;
+
+
+import org.eclipse.jdt.internal.compiler.impl.Constant;
 
 import java.util.List;
 
@@ -141,7 +143,7 @@ public class ChooseMedicalActivity extends BaseActivity implements BaseContract.
         if (requestCode == REQUEST_CODE_SCAN && resultCode == RESULT_OK) {
             if (data != null) {
 
-                String content = data.getStringExtra(Constant.CODED_CONTENT);
+                String content = data.getStringExtra("scan_result");
                 showToasts("扫描结果为：" +content);
 //                result.setText("扫描结果为：" + content);
             }

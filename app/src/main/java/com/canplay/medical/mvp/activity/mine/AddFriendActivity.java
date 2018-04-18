@@ -28,9 +28,9 @@ import com.canplay.medical.view.ClearEditText;
 import com.canplay.medical.view.DivItemDecoration;
 import com.canplay.medical.view.NavigationBar;
 import com.canplay.medical.view.PhotoPopupWindow;
+import com.google.zxing.client.android.activity.CaptureActivity;
 import com.malinskiy.superrecyclerview.SuperRecyclerView;
-import com.yzq.zxinglibrary.android.CaptureActivity;
-import com.yzq.zxinglibrary.common.Constant;
+
 
 import java.util.List;
 
@@ -206,7 +206,7 @@ public class AddFriendActivity extends BaseActivity implements HomeContract.View
         if (requestCode == REQUEST_CODE_SCAN && resultCode == RESULT_OK) {
             if (data != null) {
 
-                String content = data.getStringExtra(Constant.CODED_CONTENT);
+                String content = data.getStringExtra("scan_result");
                if(type==0){
                    presenter.getDoctorInfo(content);
                }else {

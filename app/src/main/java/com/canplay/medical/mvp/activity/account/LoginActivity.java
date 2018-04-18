@@ -22,7 +22,7 @@ import com.canplay.medical.util.SpUtil;
 import com.canplay.medical.util.StringUtil;
 import com.canplay.medical.util.TextUtil;
 import com.canplay.medical.view.ClearEditText;
-import com.yzq.zxinglibrary.common.Constant;
+
 
 import javax.inject.Inject;
 

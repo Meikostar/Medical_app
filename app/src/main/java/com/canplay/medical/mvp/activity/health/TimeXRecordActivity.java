@@ -22,8 +22,7 @@ import com.canplay.medical.view.NavigationBar;
 import com.canplay.medical.view.PhotoPopupWindow;
 import com.canplay.medical.view.PopView_NavigationBar;
 import com.canplay.medical.view.PopView_TimeRecord;
-import com.yzq.zxinglibrary.android.CaptureActivity;
-import com.yzq.zxinglibrary.common.Constant;
+
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

@@ -12,7 +12,8 @@ import com.canplay.medical.util.SpUtil;
 import com.canplay.medical.util.TextUtil;
 import com.canplay.medical.view.NavigationBar;
 import com.google.zxing.WriterException;
-import com.yzq.zxinglibrary.encode.CodeCreator;
+import com.google.zxing.client.android.decode.CodeCreator;
+
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

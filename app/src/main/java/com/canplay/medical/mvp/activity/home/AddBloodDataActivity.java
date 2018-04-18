@@ -1,49 +1,25 @@
 package com.canplay.medical.mvp.activity.home;
 
-import android.content.Context;
-import android.content.Intent;
-import android.net.Uri;
-import android.os.Build;
-import android.os.Bundle;
-import android.os.Environment;
-import android.support.v4.content.FileProvider;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.canplay.medical.BuildConfig;
 import com.canplay.medical.R;
 import com.canplay.medical.base.BaseActivity;
 import com.canplay.medical.base.BaseApplication;
-import com.canplay.medical.base.BaseDailogManager;
 import com.canplay.medical.bean.Press;
 import com.canplay.medical.bean.Sug;
-import com.canplay.medical.mvp.activity.account.LoginActivity;
-import com.canplay.medical.mvp.activity.mine.BindPhoneActivity;
-import com.canplay.medical.mvp.activity.mine.EditorPwsActivity;
 import com.canplay.medical.mvp.component.DaggerBaseComponent;
 import com.canplay.medical.mvp.present.BaseContract;
 import com.canplay.medical.mvp.present.BasesPresenter;
 import com.canplay.medical.util.SpUtil;
-import com.canplay.medical.util.StringUtil;
-import com.canplay.medical.view.ClearEditText;
-import com.canplay.medical.view.MarkaBaseDialog;
 import com.canplay.medical.view.NavigationBar;
-import com.canplay.medical.view.ProgressDialog;
-
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
 
 import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Response;
 
 /**
  * 添加血压测试值/添加血糖测试值
