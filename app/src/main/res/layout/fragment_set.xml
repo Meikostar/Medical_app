@@ -1,273 +1,226 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
-    android:background="@color/content_bg"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+
+    <RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:background="@color/content_bg"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
     <View
         android:layout_width="match_parent"
-        android:layout_height="0.01dp"
-        android:id="@+id/line"/>
-    <TextView
-        android:background="@color/white"
-        android:gravity="center"
-        android:textSize="17sp"
-        android:textColor="@color/black"
-        android:text="个人中心"
-        android:layout_width="match_parent"
-        android:layout_height="45dp" />
-
-
-    <LinearLayout
-        android:layout_marginTop="10dp"
-        android:background="@color/white"
-        android:id="@+id/ll_center"
-        android:gravity="center_vertical"
-        android:layout_width="match_parent"
-        android:layout_height="88dp"
-        android:orientation="horizontal">
-        <FrameLayout
-            android:background="@drawable/photo_bg"
-            android:layout_marginLeft="15dp"
-            android:padding="1dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
-            <ImageView
-                android:src="@drawable/moren"
-                android:layout_width="56.5dp"
-                android:layout_height="56.5dp"
-              />
-        </FrameLayout>
+        android:layout_height="0.001dp"
+        android:id="@id/line"/>
 
         <LinearLayout
-            android:layout_marginLeft="12dp"
-            android:gravity="center_vertical"
+            android:background="@color/blue"
             android:orientation="vertical"
-            android:layout_weight="1"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent">
-            <LinearLayout
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
-                <TextView
-                    android:text="张三"
-                    android:textColor="@color/slow_black"
-                    android:textSize="17.5sp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-                <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="149dp"
+            >
 
-                    android:layout_width="10dp"
-                    android:layout_height="10dp"
-                    android:layout_marginLeft="10dp"/>
-            </LinearLayout>
-            <TextView
-                android:layout_marginTop="14dp"
-                android:text="广东，深圳"
-                android:layout_marginRight="13dp"
-                android:textColor="@color/slow_black"
-                android:textSize="13sp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
         </LinearLayout>
-        <ImageView
-            android:src="@drawable/mine2"
-            android:id="@+id/iv_code"
-            android:layout_width="26dp"
-            android:layout_height="26dp"
-            android:layout_marginRight="14.5dp"/>
-        <ImageView
-            android:src="@drawable/arrow_left"
-            android:layout_width="8dp"
-            android:layout_height="13dp"
-            android:layout_marginRight="13dp"/>
-    </LinearLayout>
-    <LinearLayout
-        android:layout_marginTop="10dp"
-        android:background="@color/white"
-        android:id="@+id/ll_reminder"
-        android:gravity="center_vertical"
-        android:layout_width="match_parent"
-        android:layout_height="59dp"
-        android:orientation="horizontal">
-        <ImageView
-            android:src="@drawable/mine3"
-            android:layout_width="21dp"
-            android:layout_height="21dp"
-            android:layout_marginLeft="15dp"/>
-        <TextView
-            android:text="我的用药提醒"
+
+        <android.support.v7.widget.CardView
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="40dp"
+            android:id="@+id/card"
+            tools:targetApi="lollipop"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:stateListAnimator="@drawable/lift_on_touch"
+            android:clickable="true"
+            android:foreground="?android:attr/selectableItemBackground"
+            app:cardCornerRadius="6dp"
+            app:cardUseCompatPadding="true"
+            app:cardPreventCornerOverlap="true">
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <ImageView
+                    android:id="@+id/iv_box"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    />
+                <ImageView
+                    android:layout_alignParentRight="true"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginRight="10dp"
+                    android:padding="5dp"
+                    android:id="@+id/iv_setting"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    />
+                <LinearLayout
+
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <ImageView
+                        android:layout_marginTop="16dp"
+                        android:id="@+id/iv_img"
+                        android:layout_width="65dp"
+                        android:layout_height="65dp"
+                        />
+                    <TextView
+                        android:layout_marginTop="12dp"
+                        android:id="@+id/tv_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:paddingLeft="10dp"
+                        android:text="陈晨"
+                        android:textColor="@color/slow_black"
+                        android:textSize="16sp" />
+                    <TextView
+                        android:layout_marginTop="10dp"
+                        android:id="@+id/tv_phone"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:paddingLeft="10dp"
+                        android:text="18956354215"
+                        android:textColor="@color/color9"
+                        android:textSize="13.5sp" />
+                    <LinearLayout
+                        android:layout_marginBottom="16dp"
+                        android:layout_marginTop="30dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@color/white"
+                        android:gravity="center"
+                        android:orientation="horizontal">
+
+                        <LinearLayout
+                            android:layout_marginLeft="15dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:background="@color/white"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal">
+
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="15dp"
+                                android:src="@drawable/bule_samll" />
+
+                            <TextView
+                                android:id="@+id/tv_address"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:gravity="center_vertical"
+                                android:paddingLeft="10dp"
+                                android:text="广东深圳"
+                                android:textColor="@color/color9"
+                                android:textSize="13.5sp" />
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:background="@color/white"
+                            android:gravity="center"
+                            android:orientation="horizontal">
+
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="15dp"
+                                android:src="@drawable/bule_samll" />
+
+                            <TextView
+                                android:id="@+id/tv_birth"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:gravity="center_vertical"
+                                android:paddingLeft="10dp"
+                                android:text="1991.2.2"
+                                android:textColor="@color/color9"
+                                android:textSize="13.5sp" />
+                        </LinearLayout>
+                        <LinearLayout
+
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:background="@color/white"
+                            android:gravity="center"
+                            android:orientation="horizontal">
+
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="15dp"
+                                android:src="@drawable/bule_samll" />
+
+                            <TextView
+                                android:id="@+id/tv_sex"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:gravity="center_vertical"
+                                android:paddingLeft="10dp"
+                                android:text="女"
+                                android:textColor="@color/color9"
+                                android:textSize="13.5sp" />
+                        </LinearLayout>
+                    </LinearLayout>
+
+
+
+                </LinearLayout>
+
+
+            </RelativeLayout>
+
+        </android.support.v7.widget.CardView>
+        <LinearLayout
+            android:id="@id/ll_bg"
+            android:layout_marginTop="35dp"
+            android:layout_below="@id/card"
+            android:layout_marginLeft="15dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:layout_marginLeft="13dp"
-            android:textColor="@color/slow_black"
-            android:textSize="15.5sp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-        <TextView
-            android:layout_marginRight="13dp"
-            android:textColor="@color/slow_black"
-            android:textSize="15sp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-        <ImageView
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
 
-            android:src="@drawable/arrow_left"
-            android:layout_width="8dp"
-            android:layout_height="13dp"
-            android:layout_marginRight="13dp"/>
-    </LinearLayout>
-    <View
-        android:layout_marginLeft="16dp"
-        android:layout_width="match_parent"
-        android:layout_height="0.5dp"
-        android:background="@color/linecolor"/>
-    <LinearLayout
-        android:background="@color/white"
-        android:id="@+id/ll_health"
-        android:gravity="center_vertical"
-        android:layout_width="match_parent"
-        android:layout_height="59dp"
-        android:orientation="horizontal">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:src="@drawable/bule_samll" />
 
-        <ImageView
-            android:src="@drawable/mine4"
-            android:layout_width="21dp"
-            android:layout_height="21dp"
-            android:layout_marginLeft="15dp"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:paddingLeft="10dp"
+                android:text="我的设备"
+                android:textColor="@color/slow_black"
+                android:textSize="15sp" />
+        </LinearLayout>
+        <View
+            android:layout_marginTop="12dp"
+            android:layout_below="@id/ll_bg"
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="@color/linecolor"/>
+        <ListView
+            android:layout_below="@id/ll_bg"
+            android:layout_marginTop="0.5dp"
+            android:divider="#00000000"
+            android:dividerHeight="0dip"
+            android:listSelector="@android:color/transparent"
+            android:id="@+id/rl_menu"
+            android:background="@color/white"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="visible"
+            style="@style/lv_content"/>
+    </RelativeLayout>
 
-        <TextView
-            android:text="健康关爱中心"
-            android:layout_weight="1"
-            android:layout_marginLeft="13dp"
-            android:textColor="@color/slow_black"
-            android:textSize="15.5sp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-        <TextView
-            android:layout_marginRight="13dp"
-            android:textColor="@color/slow_black"
-            android:textSize="15sp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-        <ImageView
-
-            android:src="@drawable/arrow_left"
-            android:layout_width="8dp"
-            android:layout_height="13dp"
-            android:layout_marginRight="13dp"/>
-    </LinearLayout>
-    <View
-        android:layout_marginLeft="16dp"
-        android:layout_width="match_parent"
-        android:layout_height="0.5dp"
-        android:background="@color/linecolor"/>
-    <LinearLayout
-        android:background="@color/white"
-        android:id="@+id/ll_equipment"
-        android:gravity="center_vertical"
-        android:layout_width="match_parent"
-        android:layout_height="59dp"
-        android:orientation="horizontal">
-        <ImageView
-            android:src="@drawable/mine5"
-            android:layout_width="21dp"
-            android:layout_height="21dp"
-            android:layout_marginLeft="15dp"/>
-        <TextView
-            android:text="我的设备"
-            android:layout_weight="1"
-            android:layout_marginLeft="13dp"
-            android:textColor="@color/slow_black"
-            android:textSize="15.5sp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-        <TextView
-            android:layout_marginRight="13dp"
-            android:textColor="@color/slow_black"
-            android:textSize="15sp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-        <ImageView
-
-            android:src="@drawable/arrow_left"
-            android:layout_width="8dp"
-            android:layout_height="13dp"
-            android:layout_marginRight="13dp"/>
-    </LinearLayout>
-    <View
-        android:layout_marginLeft="16dp"
-        android:layout_width="match_parent"
-        android:layout_height="0.5dp"
-        android:background="@color/linecolor"/>
-    <LinearLayout
-        android:background="@color/white"
-        android:id="@+id/ll_collection"
-        android:gravity="center_vertical"
-        android:layout_width="match_parent"
-        android:layout_height="59dp"
-        android:orientation="horizontal">
-        <ImageView
-            android:src="@drawable/mine6"
-            android:layout_width="21dp"
-            android:layout_height="21dp"
-            android:layout_marginLeft="15dp"/>
-        <TextView
-            android:text="我的收藏"
-            android:layout_weight="1"
-            android:layout_marginLeft="13dp"
-            android:textColor="@color/slow_black"
-            android:textSize="15.5sp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-
-        <ImageView
-
-            android:src="@drawable/arrow_left"
-            android:layout_width="8dp"
-            android:layout_height="13dp"
-            android:layout_marginRight="13dp"/>
-    </LinearLayout>
-    <View
-        android:layout_marginLeft="16dp"
-        android:layout_width="match_parent"
-        android:layout_height="0.5dp"
-        android:background="@color/linecolor"/>
-
-    <LinearLayout
-        android:background="@color/white"
-        android:id="@+id/ll_setting"
-        android:gravity="center_vertical"
-        android:layout_width="match_parent"
-        android:layout_height="59dp"
-        android:orientation="horizontal">
-        <ImageView
-            android:src="@drawable/mine7"
-            android:layout_width="21dp"
-            android:layout_height="21dp"
-            android:layout_marginLeft="15dp"/>
-        <TextView
-            android:text="设置"
-            android:layout_weight="1"
-            android:layout_marginLeft="13dp"
-            android:textColor="@color/slow_black"
-            android:textSize="15.5sp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-        <TextView
-            android:layout_marginRight="13dp"
-            android:textColor="@color/slow_black"
-            android:textSize="15sp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-        <ImageView
-
-            android:src="@drawable/arrow_left"
-            android:layout_width="8dp"
-            android:layout_height="13dp"
-            android:layout_marginRight="13dp"/>
-    </LinearLayout>
-
-</LinearLayout>

@@ -3,25 +3,25 @@ package com.canplay.medical.fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.CardView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ListView;
+import android.widget.TextView;
 
 import com.canplay.medical.R;
 import com.canplay.medical.base.BaseFragment;
-import com.canplay.medical.mvp.activity.account.LoginActivity;
-import com.canplay.medical.mvp.activity.mine.CollectionActivity;
-import com.canplay.medical.mvp.activity.mine.MineCodeActivity;
-import com.canplay.medical.mvp.activity.mine.MineEuipmentActivity;
-import com.canplay.medical.mvp.activity.mine.MineHealthCenterActivity;
-import com.canplay.medical.mvp.activity.mine.MineInfoActivity;
-import com.canplay.medical.mvp.activity.mine.RemindHealthActivity;
+import com.canplay.medical.bean.Euipt;
 import com.canplay.medical.mvp.activity.mine.SettingActivity;
-import com.canplay.medical.util.SpUtil;
+import com.canplay.medical.mvp.adapter.EuipmentAdapter;
 import com.canplay.medical.view.EditorNameDialog;
 import com.canplay.medical.view.PhotoPopupWindow;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -35,25 +35,32 @@ public class SetFragment extends BaseFragment implements View.OnClickListener {
 
 
     Unbinder unbinder;
+    @BindView(R.id.iv_box)
+    ImageView ivBox;
+    @BindView(R.id.iv_setting)
+    ImageView ivSetting;
+    @BindView(R.id.iv_img)
+    ImageView ivImg;
+    @BindView(R.id.tv_name)
+    TextView tvName;
+    @BindView(R.id.tv_phone)
+    TextView tvPhone;
+    @BindView(R.id.tv_address)
+    TextView tvAddress;
+    @BindView(R.id.tv_birth)
+    TextView tvBirth;
+    @BindView(R.id.tv_sex)
+    TextView tvSex;
+    @BindView(R.id.card)
+    CardView card;
+    @BindView(R.id.ll_bg)
+    LinearLayout llBg;
+    @BindView(R.id.rl_menu)
+    ListView rlMenu;
     @BindView(R.id.line)
     View line;
-    @BindView(R.id.ll_center)
-    LinearLayout llCenter;
-    @BindView(R.id.ll_reminder)
-    LinearLayout llReminder;
-    @BindView(R.id.ll_health)
-    LinearLayout llHealth;
-    @BindView(R.id.ll_equipment)
-    LinearLayout llEquipment;
-    @BindView(R.id.ll_collection)
-    LinearLayout llCollection;
-    @BindView(R.id.ll_setting)
-    LinearLayout llSetting;
-    @BindView(R.id.iv_code)
-    ImageView ivCode;
 
 
-    private PhotoPopupWindow mWindowAddPhoto;
     private EditorNameDialog dialog;
 
     @Override
@@ -61,15 +68,33 @@ public class SetFragment extends BaseFragment implements View.OnClickListener {
         super.onCreate(savedInstanceState);
     }
 
+    public List<Euipt> data = new ArrayList<>();
+    private EuipmentAdapter adapter;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_set, null);
         unbinder = ButterKnife.bind(this, view);
-
-
+        adapter = new EuipmentAdapter(getActivity());
+        rlMenu.setAdapter(adapter);
+        Euipt euipt = new Euipt();
+        euipt.type = 1;
+        Euipt euipt2 = new Euipt();
+        euipt2.type = 2;
+        Euipt euipt3 = new Euipt();
+        euipt3.type = 3;
+        data.add(euipt);
+        data.add(euipt2);
+        data.add(euipt3);
+        adapter.setData(data);
+        mWindowAddPhoto = new PhotoPopupWindow(getActivity());
+        mWindowAddPhoto.setCont("解除绑定", "取消");
+        mWindowAddPhoto.setColor(R.color.red_pop, 0);
         initListener();
         return view;
     }
+
+    public PhotoPopupWindow mWindowAddPhoto;
 
     @Override
     public void onResume() {
@@ -79,17 +104,16 @@ public class SetFragment extends BaseFragment implements View.OnClickListener {
 
 
     private void initListener() {
-        llCenter.setOnClickListener(this);
-        llReminder.setOnClickListener(this);
-        llHealth.setOnClickListener(this);
-        ivCode.setOnClickListener(this);
-        llEquipment.setOnClickListener(this);
-        llCollection.setOnClickListener(this);
-        llSetting.setOnClickListener(this);
 
+        ivSetting.setOnClickListener(this);
+        ivBox.setOnClickListener(this);
 
+       mWindowAddPhoto.setSureListener(new PhotoPopupWindow.ClickListener() {
+           @Override
+           public void clickListener(int type) {
 
-
+           }
+       });
     }
 
     private void initView() {
@@ -105,30 +129,35 @@ public class SetFragment extends BaseFragment implements View.OnClickListener {
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
-            case R.id.ll_center://编辑中心
-                startActivity(new Intent(getActivity(), MineInfoActivity.class));
-
-                break;
-            case R.id.ll_reminder://用药提醒
-                startActivity(new Intent(getActivity(), RemindHealthActivity.class));
-                break;
-            case R.id.ll_health://健康中心
-
-                startActivity(new Intent(getActivity(), MineHealthCenterActivity.class));
-                break;
-            case R.id.ll_equipment://我的设备
-                startActivity(new Intent(getActivity(), MineEuipmentActivity.class));
-                break;
-            case R.id.ll_collection://我的收藏
-
-                startActivity(new Intent(getActivity(), CollectionActivity.class));
-                break;
-            case R.id.ll_setting://
+//            case R.id.ll_center://编辑中心
+//                startActivity(new Intent(getActivity(), MineInfoActivity.class));
+//
+//                break;
+//            case R.id.ll_reminder://用药提醒
+//                startActivity(new Intent(getActivity(), RemindHealthActivity.class));
+//                break;
+//            case R.id.ll_health://健康中心
+//
+//                startActivity(new Intent(getActivity(), MineHealthCenterActivity.class));
+//                break;
+//            case R.id.ll_equipment://我的设备
+//                startActivity(new Intent(getActivity(), MineEuipmentActivity.class));
+//                break;
+//            case R.id.ll_collection://我的收藏
+//
+//                startActivity(new Intent(getActivity(), CollectionActivity.class));
+//                break;
+            case R.id.iv_setting://
                 startActivity(new Intent(getActivity(), SettingActivity.class));
+                mWindowAddPhoto.showAsDropDown(line);
                 break;
-            case R.id.iv_code://我的二维码
-                startActivity(new Intent(getActivity(), MineCodeActivity.class));
+            case R.id.iv_box://
+                startActivity(new Intent(getActivity(), SettingActivity.class));
+                mWindowAddPhoto.showAsDropDown(line);
                 break;
+//            case R.id.iv_code://我的二维码
+//                startActivity(new Intent(getActivity(), MineCodeActivity.class));
+//                break;
         }
     }
 

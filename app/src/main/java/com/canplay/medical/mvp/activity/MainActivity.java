@@ -14,6 +14,7 @@ import android.view.View;
 import com.baidu.platform.comapi.map.A;
 import com.canplay.medical.R;
 import com.canplay.medical.base.BaseActivity;
+import com.canplay.medical.base.BaseAllActivity;
 import com.canplay.medical.base.BaseApplication;
 import com.canplay.medical.base.RxBus;
 import com.canplay.medical.base.SubscriptionBean;
@@ -57,7 +58,7 @@ import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
 import rx.schedulers.Schedulers;
 
-public class MainActivity extends BaseActivity implements HomeFragment.ScanListener , HomeContract.View {
+public class MainActivity extends BaseAllActivity implements HomeFragment.ScanListener , HomeContract.View {
     @Inject
     HomePresenter presenter;
     NoScrollViewPager viewpagerMain;

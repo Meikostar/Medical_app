@@ -31,6 +31,7 @@ public class Euipt {
 
     public long createdDateTime;
     public long lastModified;
+    public int type;
     public String status;
     public String deviceUserId;
     public String deviceTypeDisplayName;

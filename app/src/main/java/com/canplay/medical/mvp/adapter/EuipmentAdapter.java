@@ -80,13 +80,20 @@ public class EuipmentAdapter extends BaseAdapter {
             holder.iv_arrow.setVisibility(View.GONE);
             holder.tv_time.setVisibility(View.VISIBLE);
         }
+
         if(TextUtil.isNotEmpty(list.get(position).deviceTypeDisplayName)){
             holder.name.setText(list.get(position).deviceTypeDisplayName);
         }
         if(TextUtil.isNotEmpty(list.get(position).serialNo)){
             holder.tv_count.setText("设备编号:"+list.get(position).serialNo);
         }
-
+        if(list.get(position).type==1){
+            holder.img.setImageResource(R.drawable.smart1);
+        }else if(list.get(position).type==2){
+            holder.img.setImageResource(R.drawable.smart2);
+        }else if(list.get(position).type==3){
+            holder.img.setImageResource(R.drawable.smart3);
+        }
          holder.ll_item.setOnClickListener(new View.OnClickListener() {
              @Override
              public void onClick(View view) {
