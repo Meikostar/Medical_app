@@ -3,7 +3,10 @@ package com.canplay.medical.mvp.http;
 
 
 import com.canplay.medical.bean.Add;
+import com.canplay.medical.bean.AddMedical;
 import com.canplay.medical.bean.BASE;
+import com.canplay.medical.bean.BaseData;
+import com.canplay.medical.bean.BaseResult;
 import com.canplay.medical.bean.Bind;
 import com.canplay.medical.bean.Box;
 import com.canplay.medical.bean.Euipt;
@@ -15,6 +18,8 @@ import com.canplay.medical.bean.Message;
 import com.canplay.medical.bean.Mesure;
 import com.canplay.medical.bean.Press;
 import com.canplay.medical.bean.Record;
+import com.canplay.medical.bean.Recovery;
+import com.canplay.medical.bean.RecoveryPsw;
 import com.canplay.medical.bean.Righter;
 import com.canplay.medical.bean.Sug;
 import com.canplay.medical.bean.Sugar;
@@ -58,10 +63,22 @@ public interface BaseApi {
     @POST("Flow/v2/VerifyMobileNumber/{name}")
     Observable<BASE> getCode(@Path("name") String name);
     /**
+     * 获取验证码(忘记密码)
+     */
+    @GET("Flow/v2/PasswordRecovery/{name}")
+    Observable<BaseResult> getRecoveryCode(@Path("name") String name);
+    /**
      * 校验验证码
      */
     @POST("Flow/v2/VerifyMobileNumber/Verify/{code}/{phone}")
     Observable<BASE> checkCode(@Path("phone") String phone,@Path("code") String code);
+    /**
+     * 校验验证码(忘记密码)
+     */
+    @Headers({"Content-Type: application/json","Accept: application/json"})
+    @POST("Flow/v2/PasswordRecovery/Validate")
+    Observable<BaseResult> checkCodeRecovery(@Body Recovery body);
+
     /**
      * 注册
      */
@@ -69,7 +86,13 @@ public interface BaseApi {
     @Headers({"Content-Type: application/json","Accept: application/json"})
     @POST("Flow/v2/Device/Link")
     Observable<BASE> righter(@Body Righter body);
+    /**
+     * 忘记密码
+     */
 
+    @Headers({"Content-Type: application/json","Accept: application/json"})
+    @POST("Flow/v2/PasswordRecovery/Reset")
+    Observable<BASE> recoveryPsw(@Body RecoveryPsw body);
     /**
      * 添加智能设备
      */
@@ -207,6 +230,13 @@ public interface BaseApi {
     @Headers({"Content-Type: application/json","Accept: application/json"})
     @POST("Flow/v2/Reminder")
     Observable<BASE> addMesure(@Body Mesure body);
+    /**
+     * 添加用药提醒
+     */
+
+    @Headers({"Content-Type: application/json","Accept: application/json"})
+    @POST("Flow/v2/Reminder")
+    Observable<BaseData> addMedical(@Body AddMedical body);
 
     /**
      * bu不同意友/移除好友关系

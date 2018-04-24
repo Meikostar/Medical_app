@@ -41,6 +41,11 @@ public class TimeAddAdapter extends BaseAdapter {
         this.type=type;
 
     }
+
+    public List<String> getData(){
+        return list;
+
+    }
     @Override
     public int getCount() {
         return list!=null?list.size():0;

@@ -255,7 +255,7 @@ public class RegisteredSecondActivity extends BaseActivity implements LoginContr
     }
 
     @Override
-    public <T> void toEntity(T entity) {
+    public <T> void toEntity(T entity,int type) {
     }
 
     @Override

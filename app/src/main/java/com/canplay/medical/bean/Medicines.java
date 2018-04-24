@@ -44,6 +44,7 @@ public class Medicines extends BaseData implements Serializable{
     public String disease;
     public String look;
     public String composition;
+    public String userMedicineId;
     public String approvalNumber;
     public String pinyinName;
     public String englishName;

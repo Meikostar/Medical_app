@@ -3,6 +3,7 @@ package com.canplay.medical.mvp.present;
 import com.canplay.medical.base.BasePresenter;
 import com.canplay.medical.base.BaseView;
 import com.canplay.medical.bean.Add;
+import com.canplay.medical.bean.AddMedical;
 import com.canplay.medical.bean.Bind;
 import com.canplay.medical.bean.Medic;
 import com.canplay.medical.bean.Mesure;
@@ -97,6 +98,7 @@ public class BaseContract {
          *
          */
         void  myMedicineBox();
-
+        void searchMedicine(String content);
+        void addMediacl(AddMedical base);
     }
 }

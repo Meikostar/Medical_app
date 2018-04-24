@@ -48,11 +48,11 @@ public class RegisteredActivity extends BaseActivity implements LoginContract.Vi
     private Subscription mSubscription;
 
     private LinearLayoutManager mLinearLayoutManager;
-    private int type;
     private boolean is_time;
     private boolean is_right;
     private TimeCount timeCount;
     private String jobId;
+    private int type=0;
 
     @Override
     public void initViews() {
@@ -146,7 +146,7 @@ public class RegisteredActivity extends BaseActivity implements LoginContract.Vi
     }
 
     @Override
-    public <T> void toEntity(T entity) {
+    public <T> void toEntity(T entity,int type) {
         timeCount.start();
         tvGetcode.setBackground(getResources().getDrawable(R.drawable.send_hui_rectangle));
         BASE base = (BASE) entity;

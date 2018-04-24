@@ -1,6 +1,7 @@
 package com.canplay.medical.mvp.activity.account;
 
 
+import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.v7.widget.LinearLayoutManager;
 import android.text.Editable;
@@ -10,8 +11,16 @@ import android.widget.TextView;
 
 import com.canplay.medical.R;
 import com.canplay.medical.base.BaseActivity;
+import com.canplay.medical.base.BaseApplication;
+import com.canplay.medical.bean.RecoveryPsw;
+import com.canplay.medical.mvp.component.DaggerBaseComponent;
+import com.canplay.medical.mvp.present.LoginContract;
+import com.canplay.medical.mvp.present.LoginPresenter;
+import com.canplay.medical.util.PwdCheckUtil;
 import com.canplay.medical.util.TextUtil;
 import com.canplay.medical.view.ClearEditText;
+
+import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -20,90 +29,68 @@ import rx.Subscription;
 /**
  * 忘记密码
  */
-public class ForgetPswActivity extends BaseActivity {
 
-
+public class ForgetPswActivity extends BaseActivity implements LoginContract.View {
+    @Inject
+    LoginPresenter presenter;
     @BindView(R.id.iv_back)
-    ImageView navigationbar;
-    @BindView(R.id.et_phone)
-    ClearEditText etPhone;
-    @BindView(R.id.tv_getcode)
-    TextView tvGetcode;
-    @BindView(R.id.et_code)
-    ClearEditText etCode;
+    ImageView ivBack;
     @BindView(R.id.tv_psw)
     TextView tvPsw;
     @BindView(R.id.et_pws)
     ClearEditText etPws;
-    @BindView(R.id.tv_login)
-    TextView tvLogin;
     @BindView(R.id.et_npws)
     ClearEditText etNpws;
-
+    @BindView(R.id.tv_login)
+    TextView tvLogin;
     private Subscription mSubscription;
-
     private LinearLayoutManager mLinearLayoutManager;
     private int type;
+    private String username;
+    private String passwordResetToken;
+
     private boolean is_time;
-    private TimeCount timeCount;
+    private RecoveryPsw recoveryPsw;
 
     @Override
     public void initViews() {
         setContentView(R.layout.activity_forget_psw);
         ButterKnife.bind(this);
-
+        DaggerBaseComponent.builder().appComponent(((BaseApplication) getApplication()).getAppComponent()).build().inject(this);
+        presenter.attachView(this);
         type = getIntent().getIntExtra("type", 0);
+        passwordResetToken = getIntent().getStringExtra("passwordResetToken");
+        username = getIntent().getStringExtra("username");
+        recoveryPsw=new RecoveryPsw();
+        recoveryPsw.passwordResetToken=passwordResetToken;
+        recoveryPsw.username=username;
 
-
-        //计时器
-        timeCount = new TimeCount(60000, 1000);
     }
+
     private int count;
     private int a;
     private int b;
     private int c;
     private int d;
+
     @Override
     public void bindEvents() {
-        etCode.setOnClearEditTextListener(new ClearEditText.ClearEditTextListener() {
-            @Override
-            public void afterTextChanged4ClearEdit(Editable s) {
-                if(TextUtil.isNotEmpty(s.toString())){
-                    if(a==0){
-                        ++count;
-                        a=1;
-                    }
-                }else {
-                    --count;
-                    a=0;
-                }
-                if(count==4){
-                    isSelect(true);
-                }else {
-                    isSelect(false);
-                }
-            }
 
-            @Override
-            public void changeText(CharSequence s) {
-
-            }
-        });
         etNpws.setOnClearEditTextListener(new ClearEditText.ClearEditTextListener() {
             @Override
             public void afterTextChanged4ClearEdit(Editable s) {
-                if(TextUtil.isNotEmpty(s.toString())){
-                    if(b==0){
+                if (TextUtil.isNotEmpty(s.toString())) {
+                    if (b == 0) {
                         ++count;
-                        b=1;
+                        b = 1;
                     }
-                }else {
+                } else {
                     --count;
-                    b=0;
+                    b = 0;
                 }
-                if(count==4){
+                if (count == 2) {
                     isSelect(true);
-                }else {
+                } else {
                     isSelect(false);
                 }
             }
@@ -113,45 +100,22 @@ public class ForgetPswActivity extends BaseActivity {
 
             }
         });
-        etPhone.setOnClearEditTextListener(new ClearEditText.ClearEditTextListener() {
-            @Override
-            public void afterTextChanged4ClearEdit(Editable s) {
-                if(TextUtil.isNotEmpty(s.toString())){
-                    if(c==0){
-                        ++count;
-                        c=1;
-                    }
-                }else {
-                    --count;
-                    c=0;
-                }
-                if(count==4){
-                    isSelect(true);
-                }else {
-                    isSelect(false);
-                }
-            }
 
-            @Override
-            public void changeText(CharSequence s) {
-
-            }
-        });
         etPws.setOnClearEditTextListener(new ClearEditText.ClearEditTextListener() {
             @Override
             public void afterTextChanged4ClearEdit(Editable s) {
-                if(TextUtil.isNotEmpty(s.toString())){
-                    if(d==0){
+                if (TextUtil.isNotEmpty(s.toString())) {
+                    if (d == 0) {
                         ++count;
-                        d=1;
+                        d = 1;
                     }
-                }else {
+                } else {
                     --count;
-                    d=0;
+                    d = 0;
                 }
-                if(count==4){
+                if (count == 4) {
                     isSelect(true);
-                }else {
+                } else {
                     isSelect(false);
                 }
             }
@@ -161,10 +125,25 @@ public class ForgetPswActivity extends BaseActivity {
 
             }
         });
-        navigationbar.setOnClickListener(new View.OnClickListener() {
+        ivBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
+            }
+        });
+        tvLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(!PwdCheckUtil.isContainAll(etPws.getText().toString())||etPws.getText().toString().length()<6){
+                    showToasts("密码至少6位数且包含数字，大小写字母");
+                    return;
+                }
+                if(!etPws.getText().toString().equals(etNpws.getText().toString())){
+                    showToasts("两次密码输入不一致");
+                    return;
+                }
+                recoveryPsw.newPassword=etPws.getText().toString();
+                presenter.recoveryPsw(recoveryPsw);
             }
         });
 
@@ -181,34 +160,30 @@ public class ForgetPswActivity extends BaseActivity {
 
     }
 
-   public void isSelect(boolean choose){
-       if (choose){
-           tvLogin.setBackground(getResources().getDrawable(R.drawable.login_selector));
-       }else {
-           tvLogin.setBackground(getResources().getDrawable(R.drawable.hui_blue_rectangle));
-       }
+    public void isSelect(boolean choose) {
+        if (choose) {
 
-   }
-
-
-    //计时器
-    class TimeCount extends CountDownTimer {
-
-        public TimeCount(long millisInFuture, long countDownInterval) {
-            super(millisInFuture, countDownInterval);
+            tvLogin.setBackground(getResources().getDrawable(R.drawable.login_selector));
+        } else {
+            tvLogin.setBackground(getResources().getDrawable(R.drawable.hui_blue_rectangle));
         }
 
-        @Override
-        public void onTick(long millisUntilFinished) {
-            tvGetcode.setEnabled(false);
-            tvGetcode.setText(millisUntilFinished / 1000 + getString(R.string.schongxinhuoqu));
-        }
+    }
 
-        @Override
-        public void onFinish() {
-            is_time = false;
-            tvGetcode.setText(R.string.chongxinhuoqu);
-            tvGetcode.setEnabled(true);
-        }
+
+    @Override
+    public <T> void toEntity(T entity, int type) {
+
+    }
+
+    @Override
+    public void toNextStep(int type) {
+        showToasts("密码修改成功");
+        finish();
+    }
+
+    @Override
+    public void showTomast(String msg) {
+
     }
 }

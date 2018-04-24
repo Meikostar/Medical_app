@@ -264,6 +264,11 @@
             android:theme="@style/AppTheme"
             android:screenOrientation="portrait" />
         <activity
+            android:name=".mvp.activity.account.ForgetFirstActivity"
+            android:theme="@style/AppTheme"
+            android:screenOrientation="portrait" />
+
+        <activity
             android:name=".mvp.activity.account.ChangePhoneActivity"
             android:theme="@style/AppTheme"
             android:screenOrientation="portrait" />

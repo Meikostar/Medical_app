@@ -75,7 +75,9 @@ public class Medicaldapter extends BaseAdapter {
         this.locatedCity = city;
         notifyDataSetChanged();
     }
-
+   public List<Medicine> getData(){
+       return mCities;
+   }
     /**
      * 获取字母索引的位置
      *
@@ -148,50 +150,50 @@ public class Medicaldapter extends BaseAdapter {
 //        } else {
 //            city = mCities.get(position).userName;
 //        }
-
-        if (position >= 1) {
-
-//            holder.name.setText(city);
-            String filter ;
-            String lastfilter = "";
-
-                filter = mCities.get(position).filter;
-                if(position>0){
-                    lastfilter = mCities.get(position-1).filter;
-                }
-
-
-//            String currentLetter = PinYinUtils.getFirstLetter(filter);
-//            String previousLetter = position >= 1 ? PinYinUtils.getFirstLetter(lastfilter) : "";
-//            if (!TextUtils.equals(currentLetter, previousLetter)) {
-//                holder.letter.setVisibility(View.VISIBLE);
-//                holder.letter.setText(currentLetter);
-//            } else {
-//                holder.letter.setVisibility(View.GONE);
-//            }
-            holder.ll_bg.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (onCityClickListener != null) {
-                        onCityClickListener.onCityClick(null);
-                    }
-                }
-            });
-        } else {
-//            holder.name.setText(city);
-
-            holder.letter.setVisibility(View.VISIBLE);
-            holder.letter.setText("A");
-            holder.ll_bg.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (onCityClickListener != null) {
-                        onCityClickListener.onCityClick(null);
-                    }
-                }
-            });
-
-        }
+//
+//        if (position >= 1) {
+//
+////            holder.name.setText(city);
+//            String filter ;
+//            String lastfilter = "";
+//
+//                filter = mCities.get(position).filter;
+//                if(position>0){
+//                    lastfilter = mCities.get(position-1).filter;
+//                }
+//
+//
+////            String currentLetter = PinYinUtils.getFirstLetter(filter);
+////            String previousLetter = position >= 1 ? PinYinUtils.getFirstLetter(lastfilter) : "";
+////            if (!TextUtils.equals(currentLetter, previousLetter)) {
+////                holder.letter.setVisibility(View.VISIBLE);
+////                holder.letter.setText(currentLetter);
+////            } else {
+////                holder.letter.setVisibility(View.GONE);
+////            }
+//            holder.ll_bg.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    if (onCityClickListener != null) {
+//                        onCityClickListener.onCityClick(null);
+//                    }
+//                }
+//            });
+//        } else {
+////            holder.name.setText(city);
+//
+//            holder.letter.setVisibility(View.GONE);
+//            holder.letter.setText("A");
+//            holder.ll_bg.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    if (onCityClickListener != null) {
+//                        onCityClickListener.onCityClick(null);
+//                    }
+//                }
+//            });
+//
+//        }
         return view;
     }
 

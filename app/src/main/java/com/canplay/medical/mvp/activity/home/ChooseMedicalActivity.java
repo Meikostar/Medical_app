@@ -3,6 +3,7 @@ package com.canplay.medical.mvp.activity.home;
 import android.Manifest;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -12,22 +13,25 @@ import android.widget.TextView;
 import com.canplay.medical.R;
 import com.canplay.medical.base.BaseActivity;
 import com.canplay.medical.base.BaseApplication;
+import com.canplay.medical.base.RxBus;
+import com.canplay.medical.base.SubscriptionBean;
 import com.canplay.medical.bean.Medicine;
-import com.canplay.medical.mvp.activity.MainActivity;
+import com.canplay.medical.bean.Medicines;
 import com.canplay.medical.mvp.adapter.Medicaldapter;
+import com.canplay.medical.mvp.adapter.SearchMedicalAdapter;
 import com.canplay.medical.mvp.component.DaggerBaseComponent;
 import com.canplay.medical.mvp.present.BaseContract;
 import com.canplay.medical.mvp.present.BasesPresenter;
 import com.canplay.medical.permission.PermissionConst;
 import com.canplay.medical.permission.PermissionGen;
 import com.canplay.medical.permission.PermissionSuccess;
+import com.canplay.medical.util.TextUtil;
+import com.canplay.medical.view.ClearEditText;
 import com.canplay.medical.view.SideLetterBars;
 import com.google.zxing.client.android.activity.CaptureActivity;
 import com.malinskiy.superrecyclerview.SuperRecyclerView;
 
-
-import org.eclipse.jdt.internal.compiler.impl.Constant;
-
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -38,7 +42,7 @@ import butterknife.ButterKnife;
 /**
  * 选择药物
  */
-public class ChooseMedicalActivity extends BaseActivity implements BaseContract.View{
+public class ChooseMedicalActivity extends BaseActivity implements BaseContract.View {
 
     @Inject
     BasesPresenter presenter;
@@ -52,8 +56,6 @@ public class ChooseMedicalActivity extends BaseActivity implements BaseContract.
     ImageView tvScan;
     @BindView(R.id.tv_sure)
     TextView tvSure;
-    @BindView(R.id.ll_bg)
-    LinearLayout llBg;
     @BindView(R.id.super_recycle_view)
     SuperRecyclerView superRecycleView;
     @BindView(R.id.listview_all_city)
@@ -62,39 +64,82 @@ public class ChooseMedicalActivity extends BaseActivity implements BaseContract.
     SideLetterBars mLetterBar;
     @BindView(R.id.tv_letter_overlay)
     TextView overlay;
-   private Medicaldapter adapter;
+    @BindView(R.id.et_search)
+    ClearEditText etSearch;
+    @BindView(R.id.tv_search)
+    TextView tvSearch;
+    private SearchMedicalAdapter adapter;
+
     @Override
     public void initViews() {
         setContentView(R.layout.activity_choose_medical);
         ButterKnife.bind(this);
 
-        DaggerBaseComponent.builder().appComponent(((BaseApplication)getApplication()).getAppComponent()).build().inject(this);
+        DaggerBaseComponent.builder().appComponent(((BaseApplication) getApplication()).getAppComponent()).build().inject(this);
         presenter.attachView(this);
+        adapter = new SearchMedicalAdapter(this);
+        listview.setAdapter(adapter);
+//        presenter.getMedicineList();
 
-        presenter.getMedicineList();
-
-
-        llBg.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(ChooseMedicalActivity.this, SearchMedicalActivity.class);
-                startActivity(intent);
-            }
-        });
 
     }
-
+    private List<Medicines> datas=new ArrayList<>();
     @Override
     public void bindEvents() {
-
-        mLetterBar.setOverlay(overlay);
-        mLetterBar.setOnLetterChangedListener(new SideLetterBars.OnLetterChangedListener() {
+        etSearch.setOnClearEditTextListener(new ClearEditText.ClearEditTextListener() {
             @Override
-            public void onLetterChanged(String letter) {
-                int position = adapter.getLetterPosition(letter);
-                listview.setSelection(position);
+            public void afterTextChanged4ClearEdit(Editable s) {
+                if (TextUtil.isNotEmpty(s.toString())) {
+                    presenter.searchMedicine(s.toString());
+                }
+            }
+
+            @Override
+            public void changeText(CharSequence s) {
+
             }
         });
+        tvSure.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                List<Medicines> data = adapter.getData();
+                for(Medicines medicine:data){
+                    if(medicine.isCheck){
+
+                        datas.add(medicine);
+                    }
+                }
+                if(datas.size()>0){
+                    RxBus.getInstance().send(SubscriptionBean.createSendBean(SubscriptionBean.CHOOSMEDICAL,datas));
+                    finish();
+                }else {
+               showToasts("你还未选择药物");
+                }
+            }
+        });
+        tvSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (type == 0) {
+                    if (TextUtil.isNotEmpty(etSearch.getText().toString())) {
+                        presenter.searchMedicine(etSearch.getText().toString());
+                    }
+                } else {
+                    type = 0;
+                    etSearch.setText("");
+                    tvSearch.setText("搜索");
+                }
+
+            }
+        });
+//        mLetterBar.setOverlay(overlay);
+//        mLetterBar.setOnLetterChangedListener(new SideLetterBars.OnLetterChangedListener() {
+//            @Override
+//            public void onLetterChanged(String letter) {
+//                int position = adapter.getLetterPosition(letter);
+//                listview.setSelection(position);
+//            }
+//        });
         tvScan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -134,7 +179,8 @@ public class ChooseMedicalActivity extends BaseActivity implements BaseContract.
         startActivityForResult(intent, REQUEST_CODE_SCAN);
     }
 
-    private int REQUEST_CODE_SCAN=6;
+    private int REQUEST_CODE_SCAN = 6;
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -144,7 +190,7 @@ public class ChooseMedicalActivity extends BaseActivity implements BaseContract.
             if (data != null) {
 
                 String content = data.getStringExtra("scan_result");
-                showToasts("扫描结果为：" +content);
+                showToasts("扫描结果为：" + content);
 //                result.setText("扫描结果为：" + content);
             }
         }
@@ -157,12 +203,16 @@ public class ChooseMedicalActivity extends BaseActivity implements BaseContract.
     }
 
 
-    private List<Medicine> data;
+    private List<Medicines> data;
+
     @Override
-    public <T> void toEntity(T entity, int type) {
-        data= (List<Medicine>) entity;
-        adapter=new Medicaldapter(this,data,0);
-        listview.setAdapter(adapter);
+    public <T> void toEntity(T entity, int types) {
+        type=1;
+        tvSearch.setText("取消");
+        data = (List<Medicines>) entity;
+
+        adapter.setData(data,0);
+
     }
 
     @Override
@@ -174,4 +224,6 @@ public class ChooseMedicalActivity extends BaseActivity implements BaseContract.
     public void showTomast(String msg) {
 
     }
+
+
 }

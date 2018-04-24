@@ -10,6 +10,8 @@ import com.canplay.medical.fragment.MeasureRemindFragment;
 import com.canplay.medical.fragment.RemindMedicatFragment;
 import com.canplay.medical.fragment.SetFragment;
 import com.canplay.medical.mvp.ActivityScope;
+import com.canplay.medical.mvp.activity.account.ForgetFirstActivity;
+import com.canplay.medical.mvp.activity.account.ForgetPswActivity;
 import com.canplay.medical.mvp.activity.account.LoginActivity;
 import com.canplay.medical.mvp.activity.MainActivity;
 import com.canplay.medical.mvp.activity.account.RegisteredActivity;
@@ -25,6 +27,7 @@ import com.canplay.medical.mvp.activity.mine.AddFriendActivity;
 import com.canplay.medical.mvp.activity.mine.MineEuipmentActivity;
 import com.canplay.medical.mvp.activity.mine.MineHealthCenterActivity;
 import com.canplay.medical.mvp.activity.mine.MineInfoActivity;
+import com.canplay.medical.mvp.activity.mine.RemindSettingActivity;
 
 import dagger.Component;
 
@@ -36,6 +39,9 @@ import dagger.Component;
 public interface BaseComponent{
 
     void inject(LoginActivity binderActivity);
+    void inject(RemindSettingActivity binderActivity);
+    void inject(ForgetPswActivity binderActivity);
+    void inject(ForgetFirstActivity binderActivity);
     void inject(SmartKitActivity binderActivity);
     void inject(MeasureRemindFragment binderActivity);
     void inject(MineInfoActivity binderActivity);

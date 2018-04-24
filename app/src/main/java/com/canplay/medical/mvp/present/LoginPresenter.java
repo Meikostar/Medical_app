@@ -6,6 +6,9 @@ import android.support.annotation.NonNull;
 
 import com.canplay.medical.base.manager.ApiManager;
 import com.canplay.medical.bean.BASE;
+import com.canplay.medical.bean.BaseResult;
+import com.canplay.medical.bean.Recovery;
+import com.canplay.medical.bean.RecoveryPsw;
 import com.canplay.medical.bean.Righter;
 import com.canplay.medical.bean.USER;
 import com.canplay.medical.mvp.http.BaseApi;
@@ -52,7 +55,7 @@ public class LoginPresenter implements LoginContract.Presenter {
             @Override
             public void onNext(USER entity){
                 SpUtil.getInstance().putUser(entity);
-                mView.toEntity(entity);
+                mView.toEntity(entity,0);
             }
         });
     }
@@ -61,6 +64,56 @@ public class LoginPresenter implements LoginContract.Presenter {
 
     }
 
+    @Override
+    public void getRecoveryCode(String phone) {
+        subscription = ApiManager.setSubscribe(contactApi.getRecoveryCode(phone), new MySubscriber<BaseResult>(){
+            @Override
+            public void onError(Throwable e){
+                super.onError(e);
+
+                    mView.showTomast(e.getMessage());
+
+
+            }
+
+            @Override
+            public void onNext(BaseResult entity){
+                if(entity.isSucceeded){
+                    mView.toEntity(entity,0);
+                }else {
+                    mView.showTomast(entity.message);
+                }
+
+
+            }
+        });
+    }
+
+
+    @Override
+    public void checkCodeRecovery(Recovery body) {
+
+        subscription = ApiManager.setSubscribe(contactApi.checkCodeRecovery(body), new MySubscriber<BaseResult>(){
+            @Override
+            public void onError(Throwable e){
+                super.onError(e);
+                mView.toNextStep(0);
+                mView.showTomast("验证码错误");
+
+            }
+
+            @Override
+            public void onNext(BaseResult entity){
+
+                if(entity.isSucceeded){
+                    mView.toEntity(entity,1);
+                }else {
+                    mView.showTomast(entity.message);
+                }
+
+            }
+        });
+    }
     @Override
     public void getCode(String phone) {
         subscription = ApiManager.setSubscribe(contactApi.getCode(phone), new MySubscriber<BASE>(){
@@ -75,7 +128,7 @@ public class LoginPresenter implements LoginContract.Presenter {
 
             @Override
             public void onNext(BASE entity){
-                mView.toEntity(entity);
+                mView.toEntity(entity,0);
 
             }
         });
@@ -126,6 +179,33 @@ public class LoginPresenter implements LoginContract.Presenter {
             @Override
             public void onNext(BASE entity){
                 mView.toNextStep(2);
+
+            }
+        });
+    }
+
+    @Override
+    public void recoveryPsw(RecoveryPsw recoveryPsw) {
+
+
+
+        subscription = ApiManager.setSubscribe(contactApi.recoveryPsw(recoveryPsw), new MySubscriber<BASE>(){
+            @Override
+            public void onError(Throwable e){
+                super.onError(e);
+                mView.toNextStep(0);
+                mView.showTomast("稍后再试");
+
+            }
+
+            @Override
+            public void onNext(BASE entity){
+                if(entity.isSucceeded){
+                    mView.toNextStep(2);
+                }else {
+                    mView.showTomast(entity.message);
+                }
+
 
             }
         });

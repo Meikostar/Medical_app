@@ -19,11 +19,22 @@ import android.widget.TextView;
 
 import com.canplay.medical.R;
 import com.canplay.medical.base.BaseActivity;
+import com.canplay.medical.base.BaseApplication;
+import com.canplay.medical.base.RxBus;
+import com.canplay.medical.base.SubscriptionBean;
+import com.canplay.medical.bean.AddMedical;
 import com.canplay.medical.bean.DATA;
+import com.canplay.medical.bean.Medicines;
 import com.canplay.medical.bean.RingSelectItem;
 import com.canplay.medical.mvp.activity.home.ChooseMedicalActivity;
 import com.canplay.medical.mvp.activity.home.SmartKitActivity;
 import com.canplay.medical.mvp.adapter.RingSelectAdapter;
+import com.canplay.medical.mvp.adapter.TimeAddAdapter;
+import com.canplay.medical.mvp.component.DaggerBaseComponent;
+import com.canplay.medical.mvp.present.BaseContract;
+import com.canplay.medical.mvp.present.BasesPresenter;
+import com.canplay.medical.util.SpUtil;
+import com.canplay.medical.view.HourSelector;
 import com.canplay.medical.view.ListPopupWindow;
 import com.canplay.medical.view.NavigationBar;
 import com.canplay.medical.view.RegularListView;
@@ -40,16 +51,22 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 
+import javax.inject.Inject;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import rx.Subscription;
+import rx.functions.Action1;
 
 
 /**
  * 设置提醒
  */
 public class RemindSettingActivity extends BaseActivity implements
-        LoaderManager.LoaderCallbacks<Cursor> {
+        LoaderManager.LoaderCallbacks<Cursor> ,BaseContract.View{
 
+    @Inject
+    BasesPresenter presenter;
 
     @BindView(R.id.line)
     View line;
@@ -71,12 +88,20 @@ public class RemindSettingActivity extends BaseActivity implements
     TextView tvRing;
     @BindView(R.id.ll_ring)
     LinearLayout llRing;
+    @BindView(R.id.selector)
+    HourSelector selector;
     private ListPopupWindow popupWindow;
     private RingPopupWindow popupWindow1;
+    private TimeAddAdapter adapter;
+
     /**
      * loader Id
      */
     private static final int LOADER_ID = 1;
+    private Subscription mSubscription;
+    private List<String> datas=new ArrayList<>();
+    private List<Medicines> dat=new ArrayList<>();
+    private AddMedical medical=new AddMedical();
     @Override
     public void initViews() {
         setContentView(R.layout.activity_remind_setting);
@@ -84,11 +109,44 @@ public class RemindSettingActivity extends BaseActivity implements
         navigationBar.setNavigationBarListener(this);
         LoaderManager loaderManager = getSupportLoaderManager();
         // 注册Loader
-        loaderManager.initLoader(LOADER_ID, null, this);
 
+        DaggerBaseComponent.builder().appComponent(((BaseApplication) getApplication()).getAppComponent()).build().inject(this);
+        presenter.attachView(this);
+        loaderManager.initLoader(LOADER_ID, null, this);
+        mSubscription = RxBus.getInstance().toObserverable(SubscriptionBean.RxBusSendBean.class).subscribe(new Action1<SubscriptionBean.RxBusSendBean>() {
+            @Override
+            public void call(SubscriptionBean.RxBusSendBean bean) {
+                if (bean == null) return;
+
+                if(SubscriptionBean.CHOOSMEDICAL==bean.type){
+                    dat= (List<Medicines>) bean.content;
+                    for(Medicines medicines:dat){
+                        datas.add(medicines.name);
+                    }
+                    adapter.setData(datas);
+                }
+
+
+            }
+        }, new Action1<Throwable>() {
+            @Override
+            public void call(Throwable throwable) {
+                throwable.printStackTrace();
+            }
+        });
+        RxBus.getInstance().addSubscription(mSubscription);
+        adapter=new TimeAddAdapter(this);
+        lvInfo.setAdapter(adapter);
     }
 
-
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if(mSubscription!=null){
+            mSubscription.unsubscribe();
+        }
+    }
+   private List<String> times=new ArrayList<>();
     @Override
     public void bindEvents() {
 
@@ -101,7 +159,22 @@ public class RemindSettingActivity extends BaseActivity implements
 
             @Override
             public void navigationRight() {
-
+                namess = adapter.getData();
+                times.add(selector.getSelector());
+                cout=0;
+                if(namess==null||namess.size()==0){
+                    showToasts("请选择药物");
+                    return;
+                }
+                showProgress("添加中...");
+                for(String name:namess){
+                    medical.name=name;
+                    medical.when=times;
+                    medical.userId= SpUtil.getInstance().getUserId();
+                    medical.type="time";
+                    medical.remindingFor="Medicine";
+                    presenter.addMediacl(medical);
+                }
             }
 
             @Override
@@ -138,7 +211,7 @@ public class RemindSettingActivity extends BaseActivity implements
             }
         });
     }
-
+  private int cout;
   private List<DATA> data=new ArrayList<>();
     @Override
     public void initData() {
@@ -289,6 +362,28 @@ public class RemindSettingActivity extends BaseActivity implements
     });
     @Override
     public void onLoaderReset(Loader<Cursor> loader) {
+
+    }
+    private List<String> namess;
+    @Override
+    public <T> void toEntity(T entity, int type) {
+
+        if(cout==namess.size()-1){
+            showToasts("用药提醒添加成功");
+            dimessProgress();
+            finish();
+            RxBus.getInstance().send(SubscriptionBean.createSendBean(SubscriptionBean.MEDICALREFASH,""));
+        }
+        cout++;
+    }
+
+    @Override
+    public void toNextStep(int type) {
+
+    }
+
+    @Override
+    public void showTomast(String msg) {
 
     }
 }

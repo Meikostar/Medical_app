@@ -43,7 +43,7 @@ public class RemindMedicatFragment extends BaseFragment implements HomeContract.
     ListView rlMenu;
     Unbinder unbinder;
     private RemindMedicatAdapter adapter;
-
+    private Subscription mSubscription;
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,7 +58,23 @@ public class RemindMedicatFragment extends BaseFragment implements HomeContract.
         presenter.MedicineRemindList();
         initView();
 
+        mSubscription = RxBus.getInstance().toObserverable(SubscriptionBean.RxBusSendBean.class).subscribe(new Action1<SubscriptionBean.RxBusSendBean>() {
+            @Override
+            public void call(SubscriptionBean.RxBusSendBean bean) {
+                if (bean == null) return;
+                if(SubscriptionBean.MEDICALREFASH==bean.type){
+                    presenter.MedicineRemindList();
+                }
 
+
+            }
+        }, new Action1<Throwable>() {
+            @Override
+            public void call(Throwable throwable) {
+                throwable.printStackTrace();
+            }
+        });
+        RxBus.getInstance().addSubscription(mSubscription);
         return view;
     }
 
@@ -97,6 +113,9 @@ public class RemindMedicatFragment extends BaseFragment implements HomeContract.
     @Override
     public void onDestroy() {
         super.onDestroy();
+        if(mSubscription!=null){
+            mSubscription.unsubscribe();
+        }
 
     }
 

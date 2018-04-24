@@ -5,7 +5,9 @@ import android.support.annotation.NonNull;
 
 import com.canplay.medical.base.manager.ApiManager;
 import com.canplay.medical.bean.Add;
+import com.canplay.medical.bean.AddMedical;
 import com.canplay.medical.bean.BASE;
+import com.canplay.medical.bean.BaseData;
 import com.canplay.medical.bean.Bind;
 import com.canplay.medical.bean.Box;
 import com.canplay.medical.bean.Medic;
@@ -62,6 +64,25 @@ public class BasesPresenter implements BaseContract.Presenter {
             public void onNext(List<Record> entity){
 
                 mView.toEntity(entity,0);
+            }
+        });
+    }
+
+    @Override
+    public void searchMedicine(String content) {
+        subscription = ApiManager.setSubscribe(contactApi.searchMedicine(content), new MySubscriber<List<Medicines>>(){
+            @Override
+            public void onError(Throwable e){
+                super.onError(e);
+
+
+            }
+
+            @Override
+            public void onNext(List<Medicines> entity){
+
+                mView.toEntity(entity,0);
+
             }
         });
     }
@@ -281,6 +302,25 @@ public class BasesPresenter implements BaseContract.Presenter {
 
             @Override
             public void onNext(BASE entity){
+
+                mView.toEntity(entity,0);
+            }
+        });
+    }
+
+    @Override
+    public void addMediacl(AddMedical base) {
+
+        subscription = ApiManager.setSubscribe(contactApi.addMedical(base), new MySubscriber<BaseData>(){
+            @Override
+            public void onError(Throwable e){
+                super.onError(e);
+
+                mView.showTomast(e.getMessage());
+            }
+
+            @Override
+            public void onNext(BaseData entity){
 
                 mView.toEntity(entity,0);
             }
